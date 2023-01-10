@@ -1,0 +1,24 @@
+// template
+@import "value-tem.scss";
+@import "~bootstrap/scss/bootstrap";
+// @import "bootstrap/dist/css/bootstrap.min.css";
+@import "template.scss";
+// create
+@import "font.scss";
+@import "style.scss";
+@import "the-slide.scss";
+@import "page-change.scss";
+.home-page {
+    width: 100%;
+    .warn {
+        .card-text {
+            line-height: 1.5em;
+            height: 1.5em;
+            overflow: hidden;
+        }
+        .card-body{
+            max-height: 732px;
+            overflow-y: scroll;
+        }
+    }
+}

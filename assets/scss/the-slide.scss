@@ -1,0 +1,15 @@
+.sidebar {
+    .navbar {
+        .navbar-nav {
+            .dropdown-item,
+            .nav-link {
+                &:hover,
+                &.active {
+                    border-color: var(--primary);
+                    color: #d5ad6d;
+                    background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+                }
+            }
+        }
+    }
+}
