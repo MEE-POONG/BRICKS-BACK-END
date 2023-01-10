@@ -6,111 +6,87 @@ import AutoComplete from '@/components/AutoComplete'
 import CardError from '@/components/CardChange/CardError'
 import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
-export default function PositionEditModal(props) {
-    const [{ data: position, loading, error }, getPosition] = useAxios({ url: '/api/position/team' })
-    const [{ loading: updatePositionLoading, error: updatePositionError }, executePositionPut] = useAxios({}, { manual: true })
+import FormData from 'form-data';
+import { CKEditor } from 'ckeditor4-react'
 
-    const [teamSelect, setTeamSelect] = useState('');
-    const [positionSelect, setPositionSelect] = useState('');
+export default function ProductsEditModal(props) {
+    const [{ data: productsData, loading, error }, getProducts] = useAxios({ url: '/api/products' })
+    const [{ loading: updateProductsLoading, error: updateProductsError }, executeProductsPut] = useAxios({}, { manual: true })
+
     const [checkValue, setCheckValue] = useState(true);
 
 
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [firstname, setFirstname] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [facebook, setFacebook] = useState('');
-    const [line, setLine] = useState('');
-    const [intragarm, setIntragarm] = useState('');
-    const [addressOne, setAddressOne] = useState('');
-    const [addressTwo, setAddressTwo] = useState('');
-    const [addressThree, setAddressThree] = useState('');
-    const [city, setCity] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [status, setStatus] = useState('');
-    // const [province, setProvince] = useState('');
-    // const [district, setDistrict] = useState('');
-    // const [subDistrict, setSubDistrict] = useState('');
+    const[{loading: imgLoading, error: imgError}, uploadImage]= useAxios({url: '/api/upload', method: 'POST'},{manual: true});
+
+    const [image, setImage] = useState([])
+    const [imageURL, setImageURL] = useState([])
+    
+    const [name, setName] = useState('');
+    const [detail, setDetail] = useState('');
+    const [price, setPrice] = useState('');
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
+
+
+
+       
     useEffect(() => {
-        if (props) {
-            setUsername(props?.value?.username);
-            setPassword(props?.value?.password);
-            setFirstname(props?.value?.firstname);
-            setLastname(props?.value?.lastname);
+            if (props){
+            setName(props?.value?.name);
+            setDetail(props?.value?.detail);
+            setPrice(props?.value?.price);
+            setImage(props?.value?.image);
+            }
             
-            setFacebook(props?.value?.facebook);
-            setLine(props?.value?.line);
-            setIntragarm(props?.value?.intragarm);
-            setAddressOne(props?.value?.addressTwo);
-            setAddressTwo(props?.value?.addressThree);
-            setCity(props?.value?.city);
-            setPostalCode(props?.value?.postalCode);
-            setStatus(props?.value?.status);
+        
+
+        //    if (image.length < 1)  return
+        //     const newImageUrl = []
+        //     image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
+        //     setImageURL(newImageUrl)  
+           
             
+           
+                  
+        
+        },[props,image] )
+    
+    const onImageProductChange = (e) => {
+            setImage([...e.target.files])
         }
-    }, [props]);
+    
+  
 
-    const teams = position?.reduce((acc, item) => {
-        if (!acc.some(i => i.team === item.team)) {
-            acc.push(item);
-        }
-        return acc;
-    }, []);
-
-    const clickTeam = value => {
-        setTeamSelect(value);
-    };
-    const handlePutData = () => {
+    const handlePutData = async () => {
         setCheckValue(false);
-        if (username !== '' && password !== '') {
-            executePositionPut({
-                url: '/api/customer/' + props?.value?.id,
+        if (name !== '' && price !== '') {
+
+            let data =new FormData()
+            data.append('file', image[0])
+            const imageData = await uploadImage({data: data})
+            const id =imageData.data.result.id
+
+            await executeProductsPut({
+                url: '/api/products/' + props?.value?.id,
                 method: 'PUT',
                 data: {
-                    // positionId: position,
-                    username: username,
-                    password: password,
-                    firstname: firstname,
-                    lastname: lastname,
-                    facebook: facebook,
-                    line: line,
-                    intragarm: intragarm,
-                    addressOne: addressOne,
-                    addressTwo: addressTwo,
-                    addressThree: addressThree,
-                    city: city,
-                    postalCode: postalCode,
-                    status: status,
-                    // province: province,
-                    // district: district,
-                    // subDistrict: subDistrict,
+                    name: name,
+                    detail: detail,
+                    price: price,
+                    image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                 }
             }).then(() => {
                 Promise.all([
-                    setUsername(''),
-                    setPassword(''),
-                    setFirstname(''),
-                    setLastname(''),
-                    setFacebook(''),
-                    setLine(''),
-                    setIntragarm(''),
-                    setAddressOne(''),
-                    setAddressTwo(''),
-                    setAddressThree(''),
-                    setCity(''),
-                    setPostalCode(''),
-                    setStatus(''),
-                    // setProvince(''),
-                    // setDistrict(''),
-                    // setSubDistrict(''),
+                    setName(''),
+                    setDetail(''),
+                    setPrice(''),
+                    setImage(''),
 
                     props.getData(),
                 ]).then(() => {
-                    if (updatePositionLoading?.success) {
+                    if (updateProductsLoading?.success) {
                         handleClose()
                     }
                 })
@@ -118,8 +94,8 @@ export default function PositionEditModal(props) {
         }
     }
 
-    if (loading || updatePositionLoading) return <ModelLoading showCheck={showCheck}/>
-    if (error || updatePositionError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    // if (loading || updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
+    // if (error || updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
@@ -132,40 +108,39 @@ export default function PositionEditModal(props) {
                     <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className='form-customer'>
-                    <Row>
+                <Row>
                         <Col md='6'>
                             <Form.Group className="mb-3" controlId="formFile">
-                                <Form.Label className='text-center'>เลือกรูปโปรไฟล์</Form.Label>
-                                <Image
-                                    width={"100%"}
-                                    height="200px"
-                                    src={"./images/default.png"}
-                                    className="p-4 object-fit-contain"
-                                    alt="" />
-                                <Form.Control type="file" />
+                                <Form.Label className='text-center'>เลือกรูปสินค้า</Form.Label>
+
+                                    <Form.Label className='d-block'>รูปภาพ</Form.Label>
+                                    {imageURL?.length === 0 && <Image className="mb-2" style={{ height: 200 }} src={image} alt="product_img" fluid rounded />}
+                                    {imageURL?.map((imageSrcProduct, index) => <Image key={index} className="mb-2" style={{ height: 200 }} src={imageSrcProduct} alt="product_img" fluid rounded />)}
+                                    <Form.Control type="file" accept="image/*" onChange={onImageProductChange} />
+                    
                             </Form.Group>
                         </Col>
                         <Col md='6'>
                             <Row>
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="Username">
-                                        <Form.Label>Username</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                         onChange={(e) => { setUsername(e.target.value) }}
-                                         value={username} autoComplete="off"
-                                         isValid={checkValue === false && username !== '' ? true : false}
-                                         isInvalid={checkValue === false && username === '' ? true : false}
+                                    <Form.Group className="mb-3" controlId="name">
+                                        <Form.Label>ชื่อสินค้า</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค่า"
+                                         onChange={(e) => { setName(e.target.value) }}
+                                         value={name} autoComplete="off"
+                                         isValid={checkValue === false && name !== '' ? true : false}
+                                         isInvalid={checkValue === false && name === '' ? true : false}
                                         />
                                     </Form.Group>
                                 </Col>
                                 <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="Password">
-                                        <Form.Label>Password</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                         onChange={(e) => { setPassword(e.target.value) }}
-                                         value={password} autoComplete="off"
-                                         isValid={checkValue === false && password !== '' ? true : false}
-                                         isInvalid={checkValue === false && password === '' ? true : false}
+                                    <Form.Group className="mb-3" controlId="price">
+                                        <Form.Label>ราคาสินค้า</Form.Label>
+                                        <Form.Control type="text" placeholder="เพิ่ม ราคาของสินค้า"
+                                         onChange={(e) => { setPrice(e.target.value) }}
+                                         value={price} autoComplete="off"
+                                         isValid={checkValue === false && price !== '' ? true : false}
+                                         isInvalid={checkValue === false && price === '' ? true : false}
                                         />
                                     </Form.Group>
                                 </Col>
@@ -174,158 +149,26 @@ export default function PositionEditModal(props) {
 
                         </Col>
                     </Row>
-                    <h4>ข้อมูลส่วนตัว</h4>
-                    <Row className="mb-3">
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="firstname">
-                                <Form.Label>ชื่อ</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                  onChange={(e) => { setFirstname(e.target.value) }}
-                                  value={firstname} autoComplete="off"
-                                  isValid={checkValue === false && firstname !== '' ? true : false}
-                                  isInvalid={checkValue === false && firstname === '' ? true : false}
-                                />
+                    <h4>เพิ่มข้อมูลสินค้า</h4>
+                            <Form.Group className="mb-3" controlId="detail">
+                                <Form.Label>รายละเอียดสินค้า</Form.Label>
+                                <CKEditor
+                                    initData={detail}
+                                    onChange={event=> setDetail( event.editor.getData())}
+                                    config={{
+                                    uiColor: "#ddc173 ",
+                                    language: "th",
+                                    // extraPlugins: "uploadimage",
+                                    // filebrowserUploadMethod: "form",
+                                    // filebrowserUploadUrl: ("/uploader/upload"),
+                                    // filebrowserBrowseUrl: '/addgallery',
+                                    // toolbar: [
+                                    // ],
+                                    extraPlugins: "easyimage,autogrow,emoji",
+                                    // removePlugins: 'image',
+                                    }}
+                                    />           
                             </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="lastname">
-                                <Form.Label>นามสกุล</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                  onChange={(e) => { setLastname(e.target.value) }}
-                                  value={lastname} autoComplete="off"
-                                  isValid={checkValue === false && lastname !== '' ? true : false}
-                                  isInvalid={checkValue === false && lastname === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <AutoComplete
-                                id="customer-team"
-                                label="แผนกงาน"
-                                placeholder="ระบุทีม / แผนกงาน"
-                                // options={teams}
-                                // value={''}
-                                valueReturn={clickTeam}
-                            // checkValue={checkValue} 
-                            />
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="formBasicEmail">
-                                <Form.Label>หน้าที่งาน / ตำแหน่งงาน</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
-                                // value={customerSelect} autoComplete="off"
-                                // isValid={checkValue === false && customerSelect !== '' ? true : false}
-                                // isInvalid={checkValue === false && customerSelect === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <h4>ที่อยู่</h4>
-                    <Row>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="postalCode">
-                                <Form.Label>รหัสไปษณีย์</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setPostalCode(e.target.value) }}
-                                value={postalCode} autoComplete="off"
-                                isValid={checkValue === false && postalCode !== '' ? true : false}
-                                isInvalid={checkValue === false && postalCode === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="province">
-                                <Form.Label>จังหวัด</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
-                                // value={province} autoComplete="off"
-                                // isValid={checkValue === false && province !== '' ? true : false}
-                                // isInvalid={checkValue === false && province === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="district">
-                                <Form.Label>อำเภอ</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
-                                // value={district} autoComplete="off"
-                                // isValid={checkValue === false && district !== '' ? true : false}
-                                // isInvalid={checkValue === false && district === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="subDistrict">
-                                <Form.Label>ตำบล</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                // onChange={(e) => { setCustomerSelect(e.target.value) }}
-                                // value={subDistrict} autoComplete="off"
-                                // isValid={checkValue === false && subDistrict !== '' ? true : false}
-                                // isInvalid={checkValue === false && subDistrict === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="addressOne">
-                                <Form.Label>ที่อยู่</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setAddressOne(e.target.value) }}
-                                value={addressOne} autoComplete="off"
-                                isValid={checkValue === false && addressOne !== '' ? true : false}
-                                isInvalid={checkValue === false && addressOne === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="addressTwo">
-                                <Form.Label>ที่อยู่ เพิ่มเติม</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setAddressTwo(e.target.value) }}
-                                value={addressTwo} autoComplete="off"
-                                isValid={checkValue === false && addressTwo !== '' ? true : false}
-                                isInvalid={checkValue === false && addressTwo === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
-                    <h4>โซเชียล</h4>
-                    <Row>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="facebook">
-                                <Form.Label>Facebook</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setFacebook(e.target.value) }}
-                                value={facebook} autoComplete="off"
-                                isValid={checkValue === false && facebook !== '' ? true : false}
-                                isInvalid={checkValue === false && facebook === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="line">
-                                <Form.Label>Line</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setLine(e.target.value) }}
-                                value={line} autoComplete="off"
-                                isValid={checkValue === false && line !== '' ? true : false}
-                                isInvalid={checkValue === false && line === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col md='6'>
-                            <Form.Group className="mb-3" controlId="intragarm">
-                                <Form.Label>Intragarm</Form.Label>
-                                <Form.Control type="text" placeholder="เพิ่ม หน้าที่ / ตำแหน่งงาน"
-                                onChange={(e) => { setIntragarm(e.target.value) }}
-                                value={intragarm} autoComplete="off"
-                                isValid={checkValue === false && intragarm !== '' ? true : false}
-                                isInvalid={checkValue === false && intragarm === '' ? true : false}
-                                />
-                            </Form.Group>
-                        </Col>
-                    </Row>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

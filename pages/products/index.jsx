@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import productAddModal from '@/container/products/productsAddModal'
-import productEditModal from '@/container/products/productsEditModal'
-import productDeleteModal from '@/container/products/productsDeleteModal'
+import ProductsAddModal from '@/container/products/productsAddModal'
+import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
+import ProductsEditModal from '@/container/Products/ProductsEditModal'
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -26,6 +26,7 @@ function MyTable(props) {
                     <th>ประเภทสินค้า</th>
                     <th>ราคา</th>
                     <th>รายละเอียด</th>
+                    <th>จัดการ</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,11 +49,11 @@ function MyTable(props) {
                                 {item.price}
                             </td>
                             <td>
-                                {item.detail}
+                                <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
-                                <productEditModal value={item} getData={props?.getData} />
-                                <productDeleteModal value={item} getData={props?.getData} />
+                                <ProductsEditModal value={item} getData={props?.getData} />
+                                <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -99,7 +100,7 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <productAddModal getData={getProduct}/>
+                    <ProductsAddModal getData={getProduct}/>
                 </div>
                 <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />

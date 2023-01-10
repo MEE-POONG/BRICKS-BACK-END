@@ -4,28 +4,28 @@ import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function PositionDeleteModal(props) {
+export default function ProductsDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deletePositionLoading, error: deletePositionError }, executePositionDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteProductsLoading, error: deleteProductsError }, executeProductsDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executePositionDelete({
-            url: '/api/customer/' + props?.value?.id,
+        executeProductsDelete({
+            url: '/api/product/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deletePositionLoading?.success) {
+                if (deleteProductsLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deletePositionLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deletePositionError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (deleteProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (deleteProductsError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         // case 'GET':
         //     try {
-        //         const data = await prisma.products.findMany({});
+        //         const data = await prisma.productType.findMany({});
         //         res.status(200).json(data)
         //     } catch (error) {
         //         res.status(400).json({ success: false })
@@ -17,8 +17,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.products.count(),
-                    prisma.products.findMany({
+                    prisma.productType.count(),
+                    prisma.productType.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -31,12 +31,9 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.products.create({
+                await prisma.productType.create({
                     data: {
-                        image: req.body.image,
                         name: req.body.name,
-                        detail: req.body.detail,
-                        price: req.body.price,
                     }
                 })
                 res.status(201).json({ success: true })
