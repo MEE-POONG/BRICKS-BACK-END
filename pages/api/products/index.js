@@ -4,10 +4,30 @@ const prisma = new PrismaClient()
 export default async function handler(req, res) {
     const { method } = req
     switch (method) {
+        // case 'GET':
+        //     try {
+        //         const data = await prisma.product.findMany({
+        //             include: { Position: true }
+        //         });
+        //         res.status(200).json(data)
+        //     } catch (error) {
+        //         res.status(400).json({ success: false })
+        //     }
+        //     break
         case 'GET':
             try {
-                const data = await prisma.product.findMany({ include: { category: true, unit: true } });
-                res.status(200).json(data)
+                let page = +req.query.page || 1;
+                let pageSize = +req.query.pageSize || 10;
+                const data = await prisma.$transaction([
+                    prisma.product.count(),
+                    prisma.product.findMany({
+                        include: { Position: true },
+                        skip: (page - 1) * pageSize,
+                        take: pageSize,
+                    })
+                ])
+                const totalPage = Math.ceil(data[0] / pageSize);
+                res.status(200).json({ data: data[1], page, pageSize, totalPage })
             } catch (error) {
                 res.status(400).json({ success: false })
             }
@@ -16,13 +36,23 @@ export default async function handler(req, res) {
             try {
                 await prisma.product.create({
                     data: {
-                        name: req.body.name,
-                        price: parseInt(req.body.price),
-                        description: req.body.description,
-                        image: req.body.image,
-                        categoryId: req.body.categoryId,
-                        amount: parseInt(req.body.amount),
-                        unitId: req.body.unitId,
+                        positionId: req.body.positionId,
+                        username: req.body.username,
+                        password: req.body.password,
+                        firstname: req.body.firstname,
+                        lastname: req.body.lastname,
+                        img: req.body.img,
+                        facebook: req.body.facebook,
+                        line: req.body.line,
+                        intragarm: req.body.intragarm,
+                        addressOne: req.body.addressOne,
+                        addressTwo: req.body.addressTwo,
+                        addressThree: req.body.addressThree,
+                        city: req.body.city,
+                        postalCode: req.body.postalCode,
+                        status: req.body.status,
+                        // district: req.body.district,
+                        // subDistrict: req.body.subDistrict,
                     }
                 })
                 res.status(201).json({ success: true })

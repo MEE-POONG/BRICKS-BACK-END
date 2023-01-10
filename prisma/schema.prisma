@@ -7,4 +7,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model ProductType {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String?
+  product    Product[]
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
 
+model Product {
+  id          String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  image       String?
+  name        String?
+  detail      String?
+  price       String?
+  type        String?      @db.Uuid
+  productType ProductType? @relation(fields: [type], references: [id])
+  createdAt   DateTime?    @default(now())
+  updatedAt   DateTime?    @updatedAt
+  deleted_at  DateTime?    @map("deleted_at")
+}
