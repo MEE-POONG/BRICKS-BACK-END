@@ -11,6 +11,9 @@ import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsEditModal(props) {
     const [{ data: productsData, loading, error }, getProducts] = useAxios({ url: '/api/products' })
+
+    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '/api/productType' })
+    
     const [{ loading: updateProductsLoading, error: updateProductsError }, executeProductsPut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
@@ -24,6 +27,7 @@ export default function ProductsEditModal(props) {
     const [name, setName] = useState('');
     const [detail, setDetail] = useState('');
     const [price, setPrice] = useState('');
+    const [type, setType] = useState('');
 
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
@@ -75,6 +79,7 @@ export default function ProductsEditModal(props) {
                     name: name,
                     detail: detail,
                     price: price,
+                    type: type,
                     image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
                 }
             }).then(() => {
@@ -82,6 +87,7 @@ export default function ProductsEditModal(props) {
                     setName(''),
                     setDetail(''),
                     setPrice(''),
+                    setType(''),
                     setImage(''),
 
                     props.getData(),
@@ -144,6 +150,23 @@ export default function ProductsEditModal(props) {
                                         />
                                     </Form.Group>
                                 </Col>
+                                <Col md='12'>
+                                    <Form.Group className="mb-3" controlId="type">
+                                        <Form.Label>ประเภทสินค้า</Form.Label>
+                                        <Form.Select  
+                                         onChange={(e) => { setType(e.target.value) }}
+                                         value={type} autoComplete="off"
+                                         isValid={checkValue === false && type !== '' ? true : false}
+                                         isInvalid={checkValue === false && type === '' ? true : false}>
+
+                                            <option >ประเภทสินค้า</option>                                   
+                                            {productTypeData?.map((productType, index) => (
+                                                <option key={index} value={productType.id}>{productType.name}</option>
+                                            ))}
+
+                                        </Form.Select>
+                                    </Form.Group>
+                                </Col>
 
                             </Row>
 
@@ -182,4 +205,6 @@ export default function ProductsEditModal(props) {
             
         </>
     )
+    
 }
+

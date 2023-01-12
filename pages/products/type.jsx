@@ -5,9 +5,10 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductTypeAddModal from '@/container/ProductType/ProductTypeAddModal'
-import ProductTypeDeleteModal from '@/container/ProductType/ProductTypeDeleteModal'
-import ProductTypeEditModal from '@/container/ProductType/ProductTypeEditModal'
+import ProductsTypeEditModal from '@/container/ProductsType/ProductsTypeEditModal'
+import ProductsTypeDeleteModal from '@/container/ProductsType/ProductsTypeDeleteModal'
+import ProductsTypeAddModal from '@/container/ProductsType/ProductsTypeAddModal'
+
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
     const [numberSet, setNumberSet] = useState(props?.setNum);
@@ -21,11 +22,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ภาพ</th>
-                    <th>ชื่อสินค่า</th>
                     <th>ประเภทสินค้า</th>
-                    <th>ราคา</th>
-                    <th>รายละเอียด</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -35,25 +32,11 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
-                            </td>
-                            <td>
                                 {item.name}
                             </td>
                             <td>
-                                <Badge bg="primary">
-                                    {item.type}
-                                </Badge>
-                            </td>
-                            <td>
-                                {item.price}
-                            </td>
-                            <td>
-                                <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
-                            </td>
-                            <td>
-                                <ProductTypeEditModal value={item} getData={props?.getData} />
-                                <ProductTypeDeleteModal value={item} getData={props?.getData} />
+                                <ProductsTypeEditModal value={item} getData={props?.getData} />
+                                <ProductsTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -69,7 +52,7 @@ export default function ProductPage() {
         pageSize: '10'
     });
 
-    const [{ data: ProductTypeData, loading, error }, getProduct] = useAxios({ url: `/api/productType?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: productTypeData, loading, error }, getProductType] = useAxios({ url: `/api/productType?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
         if (productTypeData) {
             setParams({
@@ -100,10 +83,10 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <ProductTypeAddModal getData={getProductType}/>
+                    <ProductsTypeAddModal getData={getProductType}/>
                 </div>
-                <MyTable data={ProductTypeData?.data} setNum={(ProductTypeData?.page * ProductTypeData?.pageSize) - ProductTypeData?.pageSize} getData={getProductType} />
-                <MyPagination page={ProductTypeData.page} totalPages={ProductTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={productTypeData?.data} setNum={(productTypeData?.page * productTypeData?.pageSize) - productTypeData?.pageSize} getData={getProductType} />
+                <MyPagination page={productTypeData.page} totalPages={productTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );

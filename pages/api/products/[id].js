@@ -7,10 +7,7 @@ export default async function handler(req, res) {
         case 'GET':
             try {
                 const data = await prisma.products.findFirst({
-                    // include: {
-                    //     category: true,
-                    //     unit: true
-                    // },
+                    include: { productType: true },
                     where: {
                         id: req.query.id
                     }
@@ -31,7 +28,8 @@ export default async function handler(req, res) {
                         image: req.body.image,
                         name: req.body.name,
                         detail: req.body.detail,
-                        price: req.body.price,
+                        productTypeId: req.body.productTypeId,
+                        price: parseInt(req.body.price),
                     }
                 })
                 prisma.$disconnect();

@@ -42,7 +42,7 @@ function MyTable(props) {
                             </td>
                             <td>
                                 <Badge bg="primary">
-                                    {item.type}
+                                    {item.productType?.name}
                                 </Badge>
                             </td>
                             <td>
