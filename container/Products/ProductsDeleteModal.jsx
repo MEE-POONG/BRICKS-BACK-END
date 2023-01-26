@@ -39,15 +39,14 @@ export default function ProductsDeleteModal(props) {
                 <Modal.Body>
                     <Image src={props?.value?.image}  width="150px" height="150px" className='object-fit-cover' />
                     <Modal.Title>ชื่อสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
-                    <Modal.Title>ประเภทสินค้า : <span className='text-danger'>{props?.value?.type}</span></Modal.Title>
+                    <Modal.Title>ประเภทสินค้า : <span className='text-danger'>{props?.value?.productType?.name}</span></Modal.Title>
                     <Modal.Title>ราคา : <span className='text-danger'> {props?.value?.price}</span></Modal.Title>
-                    <Modal.Title>รายละเอียด : <span className='text-danger'><div dangerouslySetInnerHTML={{ __html: props?.value?.detail}} /></span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
+                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleDeleteData}>
+                    <Button bg="succeed" className='my-0' onClick={handleDeleteData}>
                         ยืนยันการลบ
                     </Button>
                 </Modal.Footer>

@@ -1,5 +1,5 @@
 :root {
-    --primary: #d5ad6d;
+    --primary: #c9d646;
     --success: #c5ffb9;
     --secondary: #ffff;
     --light: #6c7293;
@@ -84,13 +84,43 @@ h1,
     min-width: max-content;
 }
 
+
 .content {
+    position: relative;
     margin-left: 250px;
     min-height: 100vh;
-    background: var(--dark);
-    transition: 0.5s;
-    background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+    // background: var(--dark);
+    // transition: 0.5s;
+    background-color: #10180B;
+    // background: linear-gradient(90deg, #557a3d 0%, #3a5628 50%, #375325 100%);
+    // background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
 }
+.content{
+    overflow: hidden;
+}
+
+.background {
+    background-image: url(/images/gallery-bg.jpg);
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mix-blend-mode: color-dodge;
+    opacity: 0.7;
+    transition: background 0.3s, border-radius 0.3s, opacity 0.3s;
+    z-index: 0;
+  }
+
+  .bgsize {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: absolute;
+   
+  }
+  .element{
+    position: relative;
+  }
 
 .navbar-expand .navbar-nav .dropdown-menu {
     background-color: var(--secondary);

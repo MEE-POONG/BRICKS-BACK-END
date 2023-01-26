@@ -4,23 +4,23 @@ import { Container } from 'react-bootstrap';
 export default function RecentSalse() {
     return (
         <>
-            <Container fluid className="pt-4 px-4">
+            <Container fluid className="pt-4 px-4 element">
                 <div className="bg-secondary text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
-                        <h6 className="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
+                        <h6 className="mb-0">รายการสั่งซื้อ</h6>
+                        <a href="orders">Show All</a>
                     </div>
                     <div className="table-responsive">
                         <table className="table text-start align-middle table-bordered table-hover mb-0">
                             <thead>
                                 <tr className="text-white">
                                     <th scope="col"><input className="form-check-input" type="checkbox" /></th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Invoice</th>
-                                    <th scope="col">Customer</th>
-                                    <th scope="col">Amount</th>
-                                    <th scope="col">Status</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">วันที่</th>
+                                    <th scope="col">รหัสออเดอร์</th>
+                                    <th scope="col">ชื่อลูกค้า</th>
+                                    <th scope="col">จำนวน</th>
+                                    <th scope="col">สถานะชำระเงิน</th>
+                                    <th scope="col">จัดการ</th>
                                 </tr>
                             </thead>
                             <tbody>

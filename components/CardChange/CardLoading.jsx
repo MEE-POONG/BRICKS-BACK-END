@@ -7,7 +7,7 @@ export default function CardLoading() {
 
     return (
         <>
-            <div className="page-change">
+            <div className="page-change element">
                 <Card className='loading'>
                     <div className="ring">
                         <h1>Loading</h1>

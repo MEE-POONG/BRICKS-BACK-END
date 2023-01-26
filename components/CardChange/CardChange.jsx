@@ -9,7 +9,7 @@ export default function PageChange(props) {
   return (
     <div>
       <div
-        className="bg-cover fixed z-40 w-full h-full top-0 left-0"
+        className="bg-cover fixed z-40 w-full h-full top-0 left-0 element"
         // style={{
         //   backgroundImage: "url('/img/img-1-1000x600.jpg')",
         // }}

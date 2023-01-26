@@ -1,3 +1,4 @@
+import { Modal } from "bootstrap";
 import React from "react";
 
 // reactstrap components
@@ -6,6 +7,10 @@ import React from "react";
 // core components
 
 export default function ModelChange(props) {
+
+  const showCheck = props.show;
+  const handleClose = props.handleClose;
+  
   return (
     <Modal show={showCheck} onHide={handleClose} centered size='lg'>
       <div>
