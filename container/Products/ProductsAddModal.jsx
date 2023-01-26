@@ -6,16 +6,14 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 import FormData from 'form-data';
-
-import axios from 'axios'
 import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsAddModal(props) {
-    const [{ data: productsData}, getProducts] = useAxios({ url: '/api/products' })
-    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '../api/productType?' })
+    
+    console.log(props.subTypeData);
     
     
-    const [{ data:productsPost, error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
+    const [{ error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
 
@@ -32,9 +30,9 @@ export default function ProductsAddModal(props) {
     const [imageURL, setImageURL] = useState([])
     
     const [name, setName] = useState('');
-    const [detail, setDetail] = useState('');
     const [price, setPrice] = useState('');
-    const [type, setType] = useState('');
+    const [detail, setDetail] = useState('');
+    const [subTypeId, setSubTypeId] = useState('');
 
 
     useEffect(() => {
@@ -65,18 +63,19 @@ export default function ProductsAddModal(props) {
             await executeProducts({
                 data: {
                     name: name,
-                    detail: detail,
                     price: price,
-                    typeID,type,
+                    subTypeId:subTypeId,
+                    detail:detail,
                     image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
  
                 }
             }).then(() => {
                 Promise.all([    
                     setName(''),
-                    setDetail(''),
                     setPrice(''),
                     setImage(''),
+                    setSubTypeId(''),
+                    setDetail(''),
 
                     props.getData(),
                 ])
@@ -86,17 +85,17 @@ export default function ProductsAddModal(props) {
         
     }
 
-    // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (imgLoading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (imgError || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสมาชิก
+                <FaPlus />{" "}เพิ่มสินค้า
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                     <Row>
@@ -115,7 +114,7 @@ export default function ProductsAddModal(props) {
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="name">
                                         <Form.Label>ชื่อสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค่า"
+                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค้า"
                                          onChange={(e) => { setName(e.target.value) }}
                                          value={name} autoComplete="off"
                                          isValid={checkValue === false && name !== '' ? true : false}
@@ -139,15 +138,15 @@ export default function ProductsAddModal(props) {
                                     <Form.Group className="mb-3" controlId="price">
                                         <Form.Label>ประเภทสินค้า</Form.Label>
                                         <Form.Select  
-                                         onChange={(e) => { setType(e.target.value) }}
-                                         value={type} autoComplete="off"
-                                         isValid={checkValue === false && type !== '' ? true : false}
-                                         isInvalid={checkValue === false && type === '' ? true : false}>
-
+                                         onChange={(e) => { setSubTypeId(e.target.value) }}
+                                         value={subTypeId} autoComplete="off"
+                                         isValid={checkValue === false && subTypeId !== '' ? true : false}
+                                         isInvalid={checkValue === false && subTypeId === '' ? true : false}>
                                             <option value="">ประเภทสินค้า</option>
-                                            {productTypeData?.data.map((productType, index) => (
-                                                <option key={index} value={productType.id}>{productType.name}</option>
+                                            {props?.getSubTypeData?.map((subTypeData, index) => (
+                                                <option key={index} value={subTypeData.id}>{subTypeData.name}</option>
                                             ))}
+
                                         </Form.Select>
                                     </Form.Group>
                                 </Col>
@@ -160,29 +159,29 @@ export default function ProductsAddModal(props) {
                             <Form.Group className="mb-3" controlId="detail">
                                 <Form.Label>รายละเอียดสินค้า</Form.Label>
                                 <CKEditor
-                                onChange={event=> setDetail( event.editor.getData())}
-                                config={{
-                                uiColor: "#ddc173 ",
-                                language: "th",
-                                // extraPlugins: "uploadimage",
-                                // filebrowserUploadMethod: "form",
-                                // filebrowserUploadUrl: ("/uploader/upload"),
-                                // filebrowserBrowseUrl: '/addgallery',
-                                // toolbar: [
-                                // ],
-                                extraPlugins: "easyimage,autogrow,emoji",
-                                // removePlugins: 'image',
-                                }}
-                                />           
+                                    initData={detail}
+                                    onChange={event=> setDetail( event.editor.getData())}
+                                    config={{
+                                    uiColor: "#ddc173 ",
+                                    language: "th",
+                                    // extraPlugins: "uploadimage",
+                                    // filebrowserUploadMethod: "form",
+                                    // filebrowserUploadUrl: ("/uploader/upload"),
+                                    // filebrowserBrowseUrl: '/addgallery',
+                                    // toolbar: [
+                                    // ],
+                                    extraPlugins: "easyimage,autogrow,emoji",
+                                    // removePlugins: 'image',
+                                    }}
+                                    />           
                             </Form.Group>
-                    
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
+                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
+                    <Button bg="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
@@ -190,3 +189,4 @@ export default function ProductsAddModal(props) {
         </>
     )
 }
+
