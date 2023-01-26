@@ -69,6 +69,7 @@ function MyTable(props) {
                 <tr>
                     <th>No.</th>
                     <th>ประเภทสินค้า</th>
+                    <th>ประเภทย่อยสินค้า</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -77,6 +78,9 @@ function MyTable(props) {
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
+                            <td>
+                                {item.name}
+                            </td>
                             <td>
                                 {item.name}
                             </td>

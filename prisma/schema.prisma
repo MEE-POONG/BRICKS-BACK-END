@@ -32,7 +32,7 @@ model Products {
   image      String?
   name       String?
   detail     String?
-  price      String?
+  price      Int?
   subTypeId  String?   @db.Uuid
   subType    SubType?  @relation(fields: [subTypeId], references: [id])
   createdAt  DateTime? @default(now())

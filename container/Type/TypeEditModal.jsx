@@ -51,7 +51,7 @@ export default function TypeEditModal(props) {
         }
     }
 
-    if ( updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
+    if ( updateTypeLoading) return <ModelLoading showCheck={showCheck}/>
     if ( updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (

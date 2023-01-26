@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsTypeEditModal from '@/container/Type/TypeEditModal'
-import ProductsTypeDeleteModal from '@/container/Type/TypeDeleteModal'
-import ProductsTypeAddModal from '@/container/Type/TypeAddModal'
+import SubTypeEditModal from '@/container/SubType/SubTypeEditModal'
+import SubTypeDeleteModal from '@/container/SubType/SubTypeDeleteModal'
+import SubTypeAddModal from '@/container/SubType/SubTypeAddModal'
 
 export default function subTypePage() {
     const [params, setParams] = useState({
@@ -46,7 +46,7 @@ export default function subTypePage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <ProductsTypeAddModal getData={getSubType}/>
+                    <SubTypeAddModal getData={getSubType}/>
                 </div>
                 <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} />
                 <MyPagination page={subTypeData.page} totalPages={subTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
@@ -81,8 +81,8 @@ function MyTable(props) {
                                 {item.name}
                             </td>
                             <td>
-                                <ProductsTypeEditModal value={item} getData={props?.getData} />
-                                <ProductsTypeDeleteModal value={item} getData={props?.getData} />
+                                <SubTypeEditModal value={item} getData={props?.getData} />
+                                <SubTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))

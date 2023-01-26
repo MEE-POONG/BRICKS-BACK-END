@@ -28,7 +28,7 @@ export default async function handler(req, res) {
                         image: req.body.image,
                         name: req.body.name,
                         detail: req.body.detail,
-                        productTypeId: req.body.productTypeId,
+                        subTypeId: req.body.subTypeId,
                         price: parseInt(req.body.price),
                     }
                 })

@@ -16,6 +16,15 @@ export default function ProductPage() {
     });
 
     const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10`, method: 'GET' });
+
+    const [{ data: subTypeData }, getSubType] = useAxios({
+        url: "../api/subType?",
+      });
+    
+      console.log(subTypeData);
+
+ 
+
     useEffect(() => {
         if (productsData) {
             setParams({
@@ -46,7 +55,7 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <ProductsAddModal getData={getProduct}/>
+                    <ProductsAddModal getData={getProduct} getSubTypeData={subTypeData?.data}/>
                 </div>
                 <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />

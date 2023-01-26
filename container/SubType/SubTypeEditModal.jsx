@@ -10,7 +10,7 @@ import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function SubTypeEditModal(props) {
-    const [{ loading: updateSubTypeLoading, error: updateProductsError }, executeSubTypePut] = useAxios({}, { manual: true })
+    const [{ loading: updateSubTypeLoading, error: updateSubTypeError }, executeSubTypePut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
@@ -51,8 +51,8 @@ export default function SubTypeEditModal(props) {
         }
     }
 
-    if ( updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
-    if ( updateProductsError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if ( updateSubTypeLoading) return <ModelLoading showCheck={showCheck}/>
+    if ( updateSubTypeError) return <ModelError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
