@@ -5,32 +5,32 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsAddModal from '@/container/products/productsAddModal'
-import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
-import ProductsEditModal from '@/container/Products/ProductsEditModal'
+import ProductsTypeEditModal from '@/container/Type/TypeEditModal'
+import ProductsTypeDeleteModal from '@/container/Type/TypeDeleteModal'
+import ProductsTypeAddModal from '@/container/Type/TypeAddModal'
 
-export default function ProductPage() {
+export default function subTypePage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: subTypeData, loading, error }, getSubType] = useAxios({ url: `/api/subType?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
-        if (productsData) {
+        if (subTypeData) {
             setParams({
                 ...params,
-                page: productsData.page,
-                pageSize: productsData.pageSize
+                page: subTypeData.page,
+                pageSize: subTypeData.pageSize
             });
         }
-    }, [productsData]);
+    }, [subTypeData]);
 
     const handleSelectPage = (pageValue) => {
-        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` })
+        getSubType({ url: `/api/subType?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` })
+        getSubType({ url: `/api/subType?page=1&pageSize=${sizeValue}` })
     };
 
     if (loading) {
@@ -46,10 +46,10 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <ProductsAddModal getData={getProduct}/>
+                    <ProductsTypeAddModal getData={getSubType}/>
                 </div>
-                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
-                <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} />
+                <MyPagination page={subTypeData.page} totalPages={subTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );
@@ -68,11 +68,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ภาพ</th>
-                    <th>ชื่อสินค่า</th>
                     <th>ประเภทสินค้า</th>
-                    <th>ราคา</th>
-                    <th>รายละเอียด</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -82,25 +78,11 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
-                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
-                            </td>
-                            <td>
                                 {item.name}
                             </td>
                             <td>
-                                <Badge bg="primary">
-                                    {item.productType?.name}
-                                </Badge>
-                            </td>
-                            <td>
-                                {item.price}{' '}บาท
-                            </td>
-                            <td>
-                                <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
-                            </td>
-                            <td>
-                                <ProductsEditModal value={item} getData={props?.getData} />
-                                <ProductsDeleteModal value={item} getData={props?.getData} />
+                                <ProductsTypeEditModal value={item} getData={props?.getData} />
+                                <ProductsTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -110,4 +92,5 @@ function MyTable(props) {
     );
 }
 
-ProductPage.layout = IndexPage
+
+subTypePage.layout = IndexPage

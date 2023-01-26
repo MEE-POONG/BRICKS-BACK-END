@@ -4,28 +4,28 @@ import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function ProductsTypeDeleteModal(props) {
+export default function TypeDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deleteProductsLoading, error: deleteProductsError }, executeProductsDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteTypeLoading, error: deleteTypeError }, executeTypeDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executeProductsDelete({
-            url: '/api/product/' + props?.value?.id,
+        executeTypeDelete({
+            url: '/api/type/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deleteProductsLoading?.success) {
+                if (deleteTypeLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deleteProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deleteProductsError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (deleteTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (deleteTypeError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -37,10 +37,7 @@ export default function ProductsTypeDeleteModal(props) {
                     <Modal.Title className='text-center'>ลบรายการทีมและตำแหน่ง</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Modal.Title>username : <span className='text-danger'> {props?.value?.username}</span></Modal.Title>
-                    <Modal.Title>password : <span className='text-danger'>{props?.value?.password}</span></Modal.Title>
-                    <Modal.Title>ชื่อ : <span className='text-danger'> {props?.value?.firstname}</span></Modal.Title>
-                    <Modal.Title>นามสกุล : <span className='text-danger'>{props?.value?.lastname}</span></Modal.Title>
+                    <Modal.Title>ชื่อประเภทสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

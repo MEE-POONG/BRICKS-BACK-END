@@ -12,7 +12,7 @@ import { CKEditor } from 'ckeditor4-react'
 export default function ProductsEditModal(props) {
     const [{ data: productsData, loading, error }, getProducts] = useAxios({ url: '/api/products' })
 
-    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '/api/productType' })
+    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '/api/productType?' })
     
     const [{ loading: updateProductsLoading, error: updateProductsError }, executeProductsPut] = useAxios({}, { manual: true })
 
@@ -37,6 +37,8 @@ export default function ProductsEditModal(props) {
 
        
     useEffect(() => {
+        
+        
             if (props){
             setName(props?.value?.name);
             setDetail(props?.value?.detail);
@@ -44,9 +46,9 @@ export default function ProductsEditModal(props) {
             setImage(props?.value?.image);
             }
             
-        
 
-        //    if (image.length < 1)  return
+        //    if (image.length < 1) 
+        //    return
         //     const newImageUrl = []
         //     image.forEach(image => newImageUrl.push(URL.createObjectURL(image)))
         //     setImageURL(newImageUrl)  
@@ -142,7 +144,7 @@ export default function ProductsEditModal(props) {
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="price">
                                         <Form.Label>ราคาสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่ม ราคาของสินค้า"
+                                        <Form.Control type="number" placeholder="เพิ่ม ราคาของสินค้า"
                                          onChange={(e) => { setPrice(e.target.value) }}
                                          value={price} autoComplete="off"
                                          isValid={checkValue === false && price !== '' ? true : false}
@@ -157,17 +159,15 @@ export default function ProductsEditModal(props) {
                                          onChange={(e) => { setType(e.target.value) }}
                                          value={type} autoComplete="off"
                                          isValid={checkValue === false && type !== '' ? true : false}
-                                         isInvalid={checkValue === false && type === '' ? true : false}>
-
-                                            <option >ประเภทสินค้า</option>                                   
-                                            {productTypeData?.map((productType, index) => (
+                                         isInvalid={checkValue === false && type === '' ? true : false}
+                                         >
+                                            <option >ประเภทสินค้า</option>                               
+                                            {productTypeData?.data.map((productType, index) => (
                                                 <option key={index} value={productType.id}>{productType.name}</option>
                                             ))}
-
                                         </Form.Select>
                                     </Form.Group>
                                 </Col>
-
                             </Row>
 
                         </Col>

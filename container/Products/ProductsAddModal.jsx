@@ -12,7 +12,8 @@ import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsAddModal(props) {
     const [{ data: productsData}, getProducts] = useAxios({ url: '/api/products' })
-    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '../api/productType' })
+    const [{ data: productTypeData }, getProductsType] = useAxios({ url: '../api/productType?' })
+    
     
     const [{ data:productsPost, error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
     
@@ -125,7 +126,7 @@ export default function ProductsAddModal(props) {
                                 <Col md='12'>
                                     <Form.Group className="mb-3" controlId="price">
                                         <Form.Label>ราคาสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่ม ราคาของสินค้า"
+                                        <Form.Control type="number" placeholder="เพิ่ม ราคาของสินค้า"
                                          onChange={(e) => { setPrice(e.target.value) }}
                                          value={price} autoComplete="off"
                                          isValid={checkValue === false && price !== '' ? true : false}
@@ -144,10 +145,9 @@ export default function ProductsAddModal(props) {
                                          isInvalid={checkValue === false && type === '' ? true : false}>
 
                                             <option value="">ประเภทสินค้า</option>
-                                            {productTypeData?.articles?.map((productType, index) => (
+                                            {productTypeData?.data.map((productType, index) => (
                                                 <option key={index} value={productType.id}>{productType.name}</option>
                                             ))}
-
                                         </Form.Select>
                                     </Form.Group>
                                 </Col>

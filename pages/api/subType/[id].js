@@ -6,8 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.products.findFirst({
-                    include: { subType: true },
+                const data = await prisma.subType.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -20,16 +19,12 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.products.update({
+                await prisma.subType.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        image: req.body.image,
                         name: req.body.name,
-                        detail: req.body.detail,
-                        productTypeId: req.body.productTypeId,
-                        price: parseInt(req.body.price),
                     }
                 })
                 prisma.$disconnect();
@@ -40,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.products.delete({
+                await prisma.subType.delete({
                     where: {
                         id: req.query.id
                     }

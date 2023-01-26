@@ -1,69 +1,61 @@
 import React, { useEffect, useState } from 'react'
-import { Modal, Button, Form, Row, Col,Image } from 'react-bootstrap'
-import { FaEdit } from 'react-icons/fa'
+import { Modal, Button, Form, Row, Col, Image } from 'react-bootstrap'
+import { FaPlus, FaUserCircle } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import AutoComplete from '@/components/AutoComplete'
+import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-import ModelLoading from '@/components/ModelChange/ModelLoading'
-import ModelError from '@/components/ModelChange/ModelError'
 import FormData from 'form-data';
-import { CKEditor } from 'ckeditor4-react'
+import axios from 'axios'
 
-export default function ProductsTypeEditModal(props) {
-    const [{ data: productsTypeData, loading, error }, getProductType] = useAxios({ url: '/api/productType' })
-    const [{ loading: updateProductTypeLoading, error: updateProductsError }, executeProductTypePut] = useAxios({}, { manual: true })
 
+export default function ProductsTypeAddModal(props) {
+
+    const [{  error: errorMessage, loading: typeLoading }, executeType] = useAxios({ url: '/api/type', method: 'POST' }, { manual: true });
+    
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
     const handleClose = () => { setShowCheck(false), setCheckValue(true) };
     const handleShow = () => setShowCheck(true);
 
+    
     const [name, setName] = useState('');
 
-       
-    useEffect(() => {
-            if (props){
-            setName(props?.value?.name);
-            }
-        },[props] )
     
-    
-  
 
-    const handlePutData = () => {
-        setCheckValue(false);
-        if (name !== '') {
-            executeProductTypePut({
-                url: '/api/productType/' + props?.value?.id,
-                method: 'PUT',
+    const handleSubmit = () => { 
+        setCheckValue(false)
+        if ( name !== '' ){  
+            handleClose()
+            
+            executeType({
                 data: {
                     name: name,
+    
                 }
             }).then(() => {
-                Promise.all([
+                Promise.all([    
                     setName(''),
+
                     props.getData(),
-                ]).then(() => {
-                    if (updateProductTypeLoading?.success) {
-                        handleClose()
-                    }
-                })
-            })
-        }
+                ])
+            });
+        } 
+    
+        
     }
 
-    // if (loading || updateProductsLoading) return <ModelLoading showCheck={showCheck}/>
-    // if (error || updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
-            <Button bsPrefix='edit' className={showCheck ? 'icon active' : 'icon'} onClick={handleShow}>
-                <FaEdit />
+            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
+                <FaPlus />{" "}เพิ่มประเภทสินค้า
             </Button>
-
-            <Modal show={showCheck} onHide={handleClose} centered size='lg'>
-                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสมาชิกพนักงานองค์กร</Modal.Title>
+            <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
+                <Modal.Header closeButton>
+                    <Modal.Title className='text-center'>เพิ่มประเภทสินค้า</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
                 <Form.Group className="mb-3" controlId="name">
@@ -81,12 +73,11 @@ export default function ProductsTypeEditModal(props) {
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
             </Modal>
-            
         </>
     )
 }

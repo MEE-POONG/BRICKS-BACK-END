@@ -5,9 +5,55 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsTypeEditModal from '@/container/ProductsType/ProductsTypeEditModal'
-import ProductsTypeDeleteModal from '@/container/ProductsType/ProductsTypeDeleteModal'
-import ProductsTypeAddModal from '@/container/ProductsType/ProductsTypeAddModal'
+import ProductsTypeEditModal from '@/container/Type/TypeEditModal'
+import ProductsTypeDeleteModal from '@/container/Type/TypeDeleteModal'
+import ProductsTypeAddModal from '@/container/Type/TypeAddModal'
+
+export default function TypePage() {
+    const [params, setParams] = useState({
+        page: '1',
+        pageSize: '10'
+    });
+
+    const [{ data: typeData, loading, error }, getType] = useAxios({ url: `/api/type?page=1&pageSize=10`, method: 'GET' });
+    useEffect(() => {
+        if (typeData) {
+            setParams({
+                ...params,
+                page: typeData.page,
+                pageSize: typeData.pageSize
+            });
+        }
+    }, [typeData]);
+
+    const handleSelectPage = (pageValue) => {
+        getType({ url: `/api/type?page=${pageValue}&pageSize=${params.pageSize}` })
+    };
+    const handleSelectPageSize = (sizeValue) => {
+        getType({ url: `/api/type?page=1&pageSize=${sizeValue}` })
+    };
+
+    if (loading) {
+        return <PageLoading />;
+    }
+    if (error) {
+        return <PageError />;
+    }
+    return (
+        <Container fluid className="pt-4 px-4">
+            <Card className="bg-secondary text-center rounded shadow p-4">
+                <div className="d-flex align-items-center justify-content-between mb-4">
+                    <Card.Title className="mb-0">
+                        รายการสินค้า
+                    </Card.Title>
+                    <ProductsTypeAddModal getData={getType}/>
+                </div>
+                <MyTable data={typeData?.data} setNum={(typeData?.page * typeData?.pageSize) - typeData?.pageSize} getData={getType} />
+                <MyPagination page={typeData.page} totalPages={typeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+            </Card >
+        </Container >
+    );
+}
 
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.data);
@@ -46,49 +92,5 @@ function MyTable(props) {
     );
 }
 
-export default function ProductPage() {
-    const [params, setParams] = useState({
-        page: '1',
-        pageSize: '10'
-    });
 
-    const [{ data: productTypeData, loading, error }, getProductType] = useAxios({ url: `/api/productType?page=1&pageSize=10`, method: 'GET' });
-    useEffect(() => {
-        if (productTypeData) {
-            setParams({
-                ...params,
-                page: productTypeData.page,
-                pageSize: productTypeData.pageSize
-            });
-        }
-    }, [productTypeData]);
-
-    const handleSelectPage = (pageValue) => {
-        getProductType({ url: `/api/productType?page=${pageValue}&pageSize=${params.pageSize}` })
-    };
-    const handleSelectPageSize = (sizeValue) => {
-        getProductType({ url: `/api/productType?page=1&pageSize=${sizeValue}` })
-    };
-
-    if (loading) {
-        return <PageLoading />;
-    }
-    if (error) {
-        return <PageError />;
-    }
-    return (
-        <Container fluid className="pt-4 px-4">
-            <Card className="bg-secondary text-center rounded shadow p-4">
-                <div className="d-flex align-items-center justify-content-between mb-4">
-                    <Card.Title className="mb-0">
-                        รายการสินค้า
-                    </Card.Title>
-                    <ProductsTypeAddModal getData={getProductType}/>
-                </div>
-                <MyTable data={productTypeData?.data} setNum={(productTypeData?.page * productTypeData?.pageSize) - productTypeData?.pageSize} getData={getProductType} />
-                <MyPagination page={productTypeData.page} totalPages={productTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
-            </Card >
-        </Container >
-    );
-}
-ProductPage.layout = IndexPage
+TypePage.layout = IndexPage
