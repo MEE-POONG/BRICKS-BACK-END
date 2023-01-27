@@ -98,7 +98,7 @@ function MyTable(props) {
                             </td>
                             <td>
                                 <Badge bg="primary">
-                                    {item.productType?.name}
+                                    {item.subTypeId}
                                 </Badge>
                             </td>
                             <td>

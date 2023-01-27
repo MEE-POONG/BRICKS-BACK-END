@@ -6,8 +6,11 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 import FormData from 'form-data';
+import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsAddModal(props) {
+    
+    console.log(props.subTypeData);
     
     
     const [{ error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });
@@ -28,7 +31,8 @@ export default function ProductsAddModal(props) {
     
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [type, setType] = useState('');
+    const [detail, setDetail] = useState('');
+    const [subTypeId, setSubTypeId] = useState('');
 
 
     useEffect(() => {
@@ -60,7 +64,8 @@ export default function ProductsAddModal(props) {
                 data: {
                     name: name,
                     price: price,
-                    type,type,
+                    subTypeId:subTypeId,
+                    detail:detail,
                     image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
  
                 }
@@ -69,7 +74,8 @@ export default function ProductsAddModal(props) {
                     setName(''),
                     setPrice(''),
                     setImage(''),
-                    setType(''),
+                    setSubTypeId(''),
+                    setDetail(''),
 
                     props.getData(),
                 ])
@@ -132,13 +138,13 @@ export default function ProductsAddModal(props) {
                                     <Form.Group className="mb-3" controlId="price">
                                         <Form.Label>ประเภทสินค้า</Form.Label>
                                         <Form.Select  
-                                         onChange={(e) => { setType(e.target.value) }}
-                                         value={type} autoComplete="off"
-                                         isValid={checkValue === false && type !== '' ? true : false}
-                                         isInvalid={checkValue === false && type === '' ? true : false}>
+                                         onChange={(e) => { setSubTypeId(e.target.value) }}
+                                         value={subTypeId} autoComplete="off"
+                                         isValid={checkValue === false && subTypeId !== '' ? true : false}
+                                         isInvalid={checkValue === false && subTypeId === '' ? true : false}>
                                             <option value="">ประเภทสินค้า</option>
-                                            {props?.productTypeData.data?.map((productType, index) => (
-                                                <option key={index} value={productType.id}>{productType.name}</option>
+                                            {props?.getSubTypeData?.map((subTypeData, index) => (
+                                                <option key={index} value={subTypeData.id}>{subTypeData.name}</option>
                                             ))}
 
                                         </Form.Select>
@@ -149,6 +155,26 @@ export default function ProductsAddModal(props) {
 
                         </Col>
                     </Row>
+                    <h4>เพิ่มข้อมูลสินค้า</h4>
+                            <Form.Group className="mb-3" controlId="detail">
+                                <Form.Label>รายละเอียดสินค้า</Form.Label>
+                                <CKEditor
+                                    initData={detail}
+                                    onChange={event=> setDetail( event.editor.getData())}
+                                    config={{
+                                    uiColor: "#ddc173 ",
+                                    language: "th",
+                                    // extraPlugins: "uploadimage",
+                                    // filebrowserUploadMethod: "form",
+                                    // filebrowserUploadUrl: ("/uploader/upload"),
+                                    // filebrowserBrowseUrl: '/addgallery',
+                                    // toolbar: [
+                                    // ],
+                                    extraPlugins: "easyimage,autogrow,emoji",
+                                    // removePlugins: 'image',
+                                    }}
+                                    />           
+                            </Form.Group>
                     
                 </Modal.Body>
                 <Modal.Footer>

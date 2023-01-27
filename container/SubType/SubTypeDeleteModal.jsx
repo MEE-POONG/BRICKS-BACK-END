@@ -1,31 +1,31 @@
 import React, { useState } from 'react'
-import { Modal, Button ,Image } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function ProductsDeleteModal(props) {
+export default function SubTypeDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deleteProductsLoading, error: deleteProductsError }, executeProductsDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteSubTypeLoading, error: deleteSubTypeError }, executeSubTypeDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executeProductsDelete({
-            url: '/api/products/' + props?.value?.id,
+        executeSubTypeDelete({
+            url: '/api/subType/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
                 props.getData(),
             ]).then(() => {
-                if (deleteProductsLoading?.success) {
+                if (deleteSubTypeLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deleteProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deleteProductsError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (deleteSubTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (deleteSubTypeError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -34,14 +34,10 @@ export default function ProductsDeleteModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ลบรายการสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>ลบรายการทีมและตำแหน่ง</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Image src={props?.value?.image}  width="150px" height="150px" className='object-fit-cover' />
-                    <Modal.Title>ชื่อสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
-                    <Modal.Title>ประเภทสินค้า : <span className='text-danger'>{props?.value?.type}</span></Modal.Title>
-                    <Modal.Title>ราคา : <span className='text-danger'> {props?.value?.price}</span></Modal.Title>
-                    <Modal.Title>รายละเอียด : <span className='text-danger'><div dangerouslySetInnerHTML={{ __html: props?.value?.detail}} /></span></Modal.Title>
+                    <Modal.Title>ชื่อประเภทสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.productType.findFirst({
+                const data = await prisma.type.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.productType.update({
+                await prisma.type.update({
                     where: {
                         id: req.query.id
                     },
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.productType.delete({
+                await prisma.type.delete({
                     where: {
                         id: req.query.id
                     }

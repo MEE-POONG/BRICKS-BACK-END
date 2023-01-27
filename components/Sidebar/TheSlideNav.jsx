@@ -25,94 +25,107 @@ export default function TheSlideNav() {
     setCheckClickPath(asPath);
   }, [asPath])
 
-  return (
-    <>
-      <div className="sidebar pe-4 pb-3 ">
-        <nav className="navbar bg-secondary navbar-dark">
-          <Link href="/">
-            <a className="navbar-brand mx-4 mb-3" >
-              <h3 className="text-primary">
-                <FaUserEdit className="fa me-2" />
-                ร้านช่างพอง
-              </h3>
-            </a>
+  return <>
+    <div className="sidebar pe-4 pb-3 ">
+      <nav className="navbar bg-secondary navbar-dark">
+        <Link href="/" className="navbar-brand mx-4 mb-3">
+
+          <h3 className="text-primary">
+            <FaUserEdit className="fa me-2" />
+            ร้านช่างพอง
+          </h3>
+
+        </Link>
+        <div className="d-flex align-items-center ms-4 mb-4">
+          <div className="position-relative">
+            <Image
+              className="rounded-circle"
+              src={"./images/user.jpg"}
+              alt=""
+              style={{ width: "40px", height: "40px" }}
+            />
+            <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
+          </div>
+          <div className="ms-3">
+            <h6 className="mb-0">Jhon Doe</h6>
+            <span>Admin</span>
+          </div>
+        </div>
+        <div className="navbar-nav w-100">
+          <Link
+            href="/"
+            className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
+
+            <i className="me-2">
+              <FaTachometerAlt />
+            </i>Home
           </Link>
-          <div className="d-flex align-items-center ms-4 mb-4">
-            <div className="position-relative">
-              <Image
-                className="rounded-circle"
-                src={"./images/user.jpg"}
-                alt=""
-                style={{ width: "40px", height: "40px" }}
-              />
-              <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
-            </div>
-            <div className="ms-3">
-              <h6 className="mb-0">Jhon Doe</h6>
-              <span>Admin</span>
-            </div>
-          </div>
-          <div className="navbar-nav w-100">
-            <Link href="/">
-              <a className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
-                <i className="me-2">
-                  <FaTachometerAlt />
-                </i>
-                Home
-              </a>
+
+          <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <i className="me-2">
+              <BsFillBagFill />
+            </i>
+            Customer
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
+            <Link
+              id="buttons"
+              href="/customer"
+              className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+                สมาชิก
+              
             </Link>
-
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              Customer
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
-              <Link id="buttons" href="/customer">
-                <a className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  สมาชิก
-                </a>
-              </Link>
-              <Link id="buttons" href="/customer/position">
-                <a className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                  ทีม
-                </a>
-              </Link>
-            </Dropdown.Menu>
+            <Link
+              id="buttons"
+              href="/customer/position"
+              className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+                ทีม
+              
+            </Link>
+          </Dropdown.Menu>
 
 
-            <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-              <i className="me-2">
-                <BsFillBagFill />
-              </i>
-              จัดการสินค้า
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType"}>
-              <Link id="buttons" href="/products">
-                <a className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                สินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products/type">
-                <a className={asPath === "/products/type" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                ประเภทสินค้า
-                </a>
-              </Link>
-              <Link id="buttons" href="/products/subType">
-                <a className={asPath === "/products/subType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-                ประเภทย่อยสินค้า
-                </a>
-              </Link>
-            </Dropdown.Menu>
-          
+          <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <i className="me-2">
+              <BsFillBagFill />
+            </i>
+            จัดการสินค้า
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType"}>
+            <Link
+              id="buttons"
+              href="/products"
+              className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+              สินค้า
+              
+            </Link>
+            <Link
+              id="buttons"
+              href="/products/type"
+              className={asPath === "/products/type" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+              ประเภทสินค้า
+              
+            </Link>
+            <Link
+              id="buttons"
+              href="/products/subType"
+              className={asPath === "/products/subType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+              ประเภทย่อยสินค้า
+              
+            </Link>
+          </Dropdown.Menu>
+        
 
 
-          </div>
-        </nav>
-      </div>
-    </>
-  );
+        </div>
+      </nav>
+    </div>
+  </>;
 }
 export function ButtonSlideNav() {
   const [slideOpen, setSlideOpen] = React.useState("");

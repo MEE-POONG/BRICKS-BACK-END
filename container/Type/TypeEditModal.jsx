@@ -9,8 +9,8 @@ import ModelError from '@/components/ModelChange/ModelError'
 import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
-export default function ProductsTypeEditModal(props) {
-    const [{ loading: updateProductTypeLoading, error: updateProductsError }, executeProductTypePut] = useAxios({}, { manual: true })
+export default function TypeEditModal(props) {
+    const [{ loading: updateTypeLoading, error: updateProductsError }, executeTypePut] = useAxios({}, { manual: true })
 
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
@@ -32,8 +32,8 @@ export default function ProductsTypeEditModal(props) {
     const handlePutData = () => {
         setCheckValue(false);
         if (name !== '') {
-            executeProductTypePut({
-                url: '/api/productType/' + props?.value?.id,
+            executeTypePut({
+                url: '/api/type/' + props?.value?.id,
                 method: 'PUT',
                 data: {
                     name: name,
@@ -43,7 +43,7 @@ export default function ProductsTypeEditModal(props) {
                     setName(''),
                     props.getData(),
                 ]).then(() => {
-                    if (updateProductTypeLoading?.success) {
+                    if (updateTypeLoading?.success) {
                         handleClose()
                     }
                 })
@@ -51,8 +51,8 @@ export default function ProductsTypeEditModal(props) {
         }
     }
 
-    if (updateProductTypeLoading) return <ModelLoading showCheck={showCheck}/>
-    if (updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if ( updateTypeLoading) return <ModelLoading showCheck={showCheck}/>
+    if ( updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
     return (
         <>
@@ -67,7 +67,7 @@ export default function ProductsTypeEditModal(props) {
                 <Modal.Body >
                 <Form.Group className="mb-3" controlId="name">
                                         <Form.Label>ชื่อประเภทสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อประเภทสินค้า"
+                                        <Form.Control type="text" placeholder="แก้ไขประเภทสินค้า"
                                          onChange={(e) => { setName(e.target.value) }}
                                          value={name} autoComplete="off"
                                          isValid={checkValue === false && name !== '' ? true : false}
@@ -77,10 +77,10 @@ export default function ProductsTypeEditModal(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
+                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bg="succeed" className='my-0' onClick={handlePutData}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handlePutData}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>

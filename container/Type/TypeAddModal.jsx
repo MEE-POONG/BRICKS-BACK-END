@@ -10,7 +10,8 @@ import axios from 'axios'
 
 
 export default function ProductsTypeAddModal(props) {
-    const [{ data:productTypePost, error: errorMessage, loading: productTypeLoading }, executeProductType] = useAxios({ url: '/api/productType', method: 'POST' }, { manual: true });
+
+    const [{  error: errorMessage, loading: typeLoading }, executeType] = useAxios({ url: '/api/type', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
@@ -27,7 +28,7 @@ export default function ProductsTypeAddModal(props) {
         if ( name !== '' ){  
             handleClose()
             
-            executeProductType({
+            executeType({
                 data: {
                     name: name,
     
@@ -44,8 +45,8 @@ export default function ProductsTypeAddModal(props) {
         
     }
 
-    if (productTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -69,10 +70,10 @@ export default function ProductsTypeAddModal(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
+                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
                         ยกเลิก
                     </Button>
-                    <Button bg="succeed" className='my-0' onClick={handleSubmit}>
+                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
                         ยืนยันการเพิ่ม
                     </Button>
                 </Modal.Footer>
