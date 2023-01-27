@@ -41,19 +41,16 @@ model Products {
 }
 
 model About {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  image      String?
-  linkQrLine String?
-  title      String?
-  address    String?
-  tel        String?
-  email      String?
-  opentime   String?
-  facebook   String?
-  line       String?
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  deleted_at DateTime? @map("deleted_at")
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  address      String?
+  tel          String?
+  email        String?
+  linkMap      String?
+  facebook     String?
+  linkFacebook String?
+  line         String?
+  linkLine     String?
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  deleted_at   DateTime? @map("deleted_at")
 }
-
-
