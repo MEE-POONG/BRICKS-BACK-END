@@ -2,7 +2,7 @@
     --primary: #c9d646;
     --success: #c5ffb9;
     --secondary: #ffff;
-    --light: #6c7293;
+    --light: #252627;
     --dark: #e8e8e8;
     --bs-body-font-family: "Sarabun", sans-serif;
 }
@@ -91,16 +91,12 @@ h1,
     min-height: 100vh;
     // background: var(--dark);
     // transition: 0.5s;
-    background-color: rgb(43, 53, 68);
+    background-color: rgb(187, 192, 198);
     // background: linear-gradient(90deg, #557a3d 0%, #3a5628 50%, #375325 100%);
     // background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
 }
 .content{
     overflow: hidden;
-}
-
-.background {
-  background-color: rgb(43, 53, 68);
 }
 
 .navbar-expand .navbar-nav .dropdown-menu {

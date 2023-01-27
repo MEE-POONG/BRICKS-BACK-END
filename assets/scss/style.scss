@@ -1,5 +1,5 @@
 #__next {
-    --primary: #c9d646;
+    --primary: #dc3545;
 }
 
 .btn-primary {
@@ -69,11 +69,11 @@ table {
     font-weight: bold;
     padding: 0.25rem;
     background-color: #000000;
-    color: #133041;
+    color: #f4fafe;
     border-width: 3px;
     border-radius: 50px !important;
     svg {
-        color: #c9d646;
+        color: #dc3545;;
         // background: -webkit-linear-gradient(transparent, transparent),
         //     -webkit-linear-gradient(top, rgb(201 214 70) 0%, rgb(201 214 70) 26%, rgb(201 214 70)
         //                 35%, rgb(201 214 70) 45%, rgb(201 214 70) 61%, rgb(201 214 70) 100%);
@@ -85,9 +85,9 @@ table {
 .alert.docs-creator {
     &:hover,
     &.active {
-        border-color: var(--primary);
+        border-color: rgb(142, 56, 25);;
         color: #d5ad6d;
-        background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+        background: rgb(142, 56, 25);
         h5 {
             color: #d5ad6d;
         }
@@ -99,7 +99,7 @@ button.icon,
     color: #1f1f1f;
     font-size: 1rem;
     font-weight: bold;
-    background: #133041;
+    background: #f4fafe;
     display: inline-grid;
     margin: 0.25rem;
     padding: 0.25rem;
@@ -109,14 +109,15 @@ button.icon,
     -o-transition: background-color 2s ease-out;
     transition: background-color 2s ease-out;
     &.create {
-        background: #71c9ff;
+        color: rgb(31,41,55);
+        background: rgb(69, 205, 250);
     }
     &.view {
         background: var(--success);
     }
     &.edit {
-        color: #c9d646;
-        background: linear-gradient(90deg, #557a3d 0%, #3a5628 50%, #375325 100%);
+        color: #f7f7f7;
+        background: rgb(51, 151, 38);
     }
     &.delete {
         color: #f7f7f7;
