@@ -52,7 +52,8 @@ export default class MyApp extends App {
               name="viewport"
               content="width=device-width, initial-scale=1, shrink-to-fit=no"
             />
-            <title>PIG JUNGLE</title>
+            <title>ช่างพอง อิฐประสาน</title>
+            <link rel="icon" href="/images/logo.png" />
           </Head>
           <Layout>
             <Component {...pageProps} />

@@ -25,7 +25,7 @@ export default function AboutPage() {
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายละเอียดข้อมูล
+                        รายละเอียดข้อมูลเกี่ยวกับเรา
                     </Card.Title>
                 </div>
                 <MyTable aboutData={aboutData} getAboutData={getAbout} />
@@ -53,7 +53,7 @@ function MyTable(props) {
                             {newFunction("ชื่อหัวข้อหลัก", item?.headtitle )}
                             {newFunction("ชื่อหัวข้อ1", item?.history )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.subhistory}} />
-                            {newFunction("ชื่อหัวข้อ1", item?.portfolio )}
+                            {newFunction("ชื่อหัวข้อ2", item?.portfolio )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.subportfolio}} />
                             {newFunction("ชื่อหัวข้อ3", item?.headpolicy )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.subpolicy}} />
@@ -82,7 +82,7 @@ function MyTable(props) {
     );
 
     function newFunction(label, value) {
-        return <div className="mb-3 fonT ">
+        return <div className="mb-3 mt-2 fonT ">
          <strong> {label} </strong>
           <input className="form-control" value={value} readonly />
         </div>;

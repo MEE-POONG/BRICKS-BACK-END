@@ -26,7 +26,7 @@ export default function HomePage() {
   return (
     < >
     <Head>
-        <title>PIG JUNGLE</title>
+        <title>ช่างพอง อิฐประสาน</title>
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="" />
       </Head>
