@@ -3,12 +3,12 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Type {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
@@ -17,9 +17,9 @@ model Type {
 }
 
 model SubType {
-  id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String     @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
-  TypeId     String?    @db.Uuid
+  TypeId     String?    @db.ObjectId
   createdAt  DateTime?  @default(now())
   updatedAt  DateTime?  @updatedAt
   deleted_at DateTime?  @map("deleted_at")
@@ -28,11 +28,11 @@ model SubType {
 }
 
 model Products {
-  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   image      String?
   name       String?
   detail     String?
-  subTypeId  String?   @db.Uuid
+  subTypeId  String?   @db.ObjectId
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
@@ -41,7 +41,7 @@ model Products {
 }
 
 model Contact {
-  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
   address      String?
   tel          String?
   email        String?
@@ -56,7 +56,7 @@ model Contact {
 }
 
 model About {
-  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   headtitle    String?
   history      String?
   subhistory   String?
@@ -65,16 +65,26 @@ model About {
   videotitle   String?
   video        String?
   headpolicy   String?
-  subpolicy   String?
-  createdAt    DateTime? @default(now())
-  updatedAt    DateTime? @updatedAt
-  deleted_at   DateTime? @map("deleted_at")
-}
-model Policy {
-  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  headpolicy   String?
   subpolicy    String?
   createdAt    DateTime? @default(now())
   updatedAt    DateTime? @updatedAt
   deleted_at   DateTime? @map("deleted_at")
+}
+
+model Policy {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  headpolicy String?
+  subpolicy  String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
+
+model HomeTop {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  title      String?
+  subTitle   String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
 }
