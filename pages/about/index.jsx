@@ -52,11 +52,11 @@ function MyTable(props) {
                             <Col >
                             {newFunction("ชื่อหัวข้อหลัก", item?.headtitle )}
                             {newFunction("ชื่อหัวข้อ1", item?.history )}
-                            {newFunction("รายละเอียด1", item?.subhistory )}
+                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.subhistory}} />
                             {newFunction("ชื่อหัวข้อ1", item?.portfolio )}
-                            {newFunction("รายละเอียด2", item?.subportfolio )}
+                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.subportfolio}} />
                             {newFunction("ชื่อหัวข้อ3", item?.headpolicy )}
-                            {newFunction("รายละเอียด3", item?.subpolicy )}
+                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.subpolicy}} />
                             </Col>
                             <Col>
                             {newFunction("ชื่อหัวข้อวีดิโอ", item?.videotitle )}
