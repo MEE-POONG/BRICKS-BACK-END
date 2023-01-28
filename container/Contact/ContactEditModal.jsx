@@ -9,10 +9,10 @@ import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 
-export default function AboutEditModal(props) {
+export default function ContactEditModal(props) {
   const [
-    { loading: updateAboutLoading, error: updateAboutError },
-    executeAboutPut,
+    { loading: updateContactLoading, error: updateContactError },
+    executeContactPut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -23,7 +23,7 @@ export default function AboutEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  const [fromAbout, setFromAbout] = useState({
+  const [fromContact, setFromContact] = useState({
     address: "",
     tel: "",
     email: "",
@@ -36,7 +36,7 @@ export default function AboutEditModal(props) {
 
   useEffect(() => {
     if (props) {
-      setFromAbout({
+      setFromContact({
         address: props?.value?.address,
         tel: props?.value?.tel,
         email: props?.value?.email,
@@ -51,15 +51,22 @@ export default function AboutEditModal(props) {
 
   const handlePutData = async () => {
     setCheckValue(false);
-    if (fromAbout?.address !== "") {
-      await executeAboutPut({
-        url: "/api/about/" + props?.value?.id,
+    if (fromContact?.address !== "") {
+      await executeContactPut({
+        url: "/api/contact/" + props?.value?.id,
         method: "PUT",
         data: {
-          address: fromAbout?.address,
+          address: fromContact?.address,
+          tel: fromContact?.tel,
+          email: fromContact?.email,
+          linkMap: fromContact?.linkMap,
+          facebook: fromContact?.facebook,
+          linkFacebook: fromContact?.linkFacebook,
+          line: fromContact?.line,
+          linkLine: fromContact?.linkLine,
         },
       }).then(() => {
-        setFromAbout({
+        setFromContact({
           address: "",
           tel: "",
           email: "",
@@ -69,8 +76,8 @@ export default function AboutEditModal(props) {
           line: "",
           linkLine: "",
         }),
-          props.getAboutData().then(() => {
-            if (updateAboutLoading?.success) {
+          props.getContactData().then(() => {
+            if (updateContactLoading?.success) {
               handleClose();
             }
           });
@@ -78,8 +85,8 @@ export default function AboutEditModal(props) {
     }
   };
 
-  // if (loading || updateAboutLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateAboutError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  // if (loading || updateContactLoading) return <ModelLoading showCheck={showCheck}/>
+  // if (error || updateContactError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
   return (
     <>
@@ -88,7 +95,7 @@ export default function AboutEditModal(props) {
         className={showCheck ? "icon active" : "icon"}
         onClick={handleShow}
       >
-        <FaEdit /> แก้ไข
+         แก้ไข
       </Button>
 
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
@@ -97,10 +104,19 @@ export default function AboutEditModal(props) {
             เพิ่มสมาชิกพนักงานองค์กร
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="form-customer">
+        <Modal.Body>
           <Row>
             <Col>
-              {EditFunction("ที่ตั้ง", fromAbout?.address, setFromAbout, "address")}
+              {EditFunction("ที่ตั้ง",fromContact?.address,setFromContact,"address")}
+              {EditFunction("เบอร์มือถือ",fromContact?.tel, setFromContact, "tel")}
+              {EditFunction("อีเมล์",fromContact?.email, setFromContact, "email")}
+              {EditFunction("ลิงค์ Map",fromContact?.linkMap,setFromContact,"linkMap")}
+            </Col>
+            <Col>
+              {EditFunction("Facebook",fromContact?.facebook,setFromContact,"facebook")}
+              {EditFunction("ลิงค์ Facebook",fromContact?.linkFacebook,setFromContact,"linkFacebook")}
+              {EditFunction("Line", fromContact?.line, setFromContact, "line")}
+              {EditFunction("ลิงค์ Line",fromContact?.linkLine,setFromContact,"linkLine")}
             </Col>
           </Row>
         </Modal.Body>
@@ -113,17 +129,22 @@ export default function AboutEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
+      {console.log(fromContact)}
     </>
   );
 
   function EditFunction(label, value, setValue, name) {
     return (
       <>
-        <Form.Label>{label}</Form.Label>
+        <Form.Label className="mt-2">{label}</Form.Label>
         <Form.Control
           type="text"
           placeholder="เพิ่ม ราคาของสินค้า"
-          onChange={(e) => setValue({ [name]: e.target.value })}
+          onChange={(e) => {
+            setValue((oldState) => {
+              return { ...oldState, [name]: e.target.value };
+            });
+          }}
           value={value}
           autoComplete="off"
           isValid={checkValue === false && { value } !== "" ? true : false}

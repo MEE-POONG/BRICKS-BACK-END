@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.about.findMany({
+                const data = await prisma.contact.findMany({
                     where: {
                         id: req.query.id
                     }

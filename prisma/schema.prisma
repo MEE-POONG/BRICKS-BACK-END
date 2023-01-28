@@ -10,21 +10,21 @@ datasource db {
 model Type {
   id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name       String?
-  subType    SubType[]
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
+  subType    SubType[]
 }
 
 model SubType {
   id         String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name       String?
   TypeId     String?    @db.Uuid
-  type       Type?      @relation(fields: [TypeId], references: [id])
-  products   Products[]
   createdAt  DateTime?  @default(now())
   updatedAt  DateTime?  @updatedAt
   deleted_at DateTime?  @map("deleted_at")
+  products   Products[]
+  type       Type?      @relation(fields: [TypeId], references: [id])
 }
 
 model Products {
@@ -32,15 +32,15 @@ model Products {
   image      String?
   name       String?
   detail     String?
-  price      Int?
   subTypeId  String?   @db.Uuid
-  subType    SubType?  @relation(fields: [subTypeId], references: [id])
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
+  price      Int?
+  subType    SubType?  @relation(fields: [subTypeId], references: [id])
 }
 
-model About {
+model Contact {
   id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   address      String?
   tel          String?

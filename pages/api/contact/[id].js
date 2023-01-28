@@ -6,13 +6,19 @@ export default async function handler(req, res) {
     switch (method) {
         case 'PUT':
             try {
-                await prisma.about.update({
+                await prisma.contact.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
                         address: req.body.address,
-                        
+                        tel: req.body.tel,
+                        email: req.body.email,
+                        linkMap: req.body.linkMap,
+                        facebook: req.body.facebook,
+                        linkFacebook: req.body.linkFacebook,
+                        line: req.body.line,
+                        linkLine: req.body.linkLine,
                     }
                 })
                 prisma.$disconnect();
@@ -23,7 +29,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.about.delete({
+                await prisma.contact.delete({
                     where: {
                         id: req.query.id
                     }
