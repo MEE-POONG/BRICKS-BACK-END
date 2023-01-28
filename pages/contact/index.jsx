@@ -5,12 +5,12 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import AboutEditModal from '@/container/About/AboutEditModal'
+import ContactEditModal from '@/container/Contact/ContactEditModal'
 
 export default function ProductPage() {
 
-    const [{ data: aboutData,loading,error }, getAbout] = useAxios({
-        url: "/api/about",
+    const [{ data: contactData,loading,error }, getContact] = useAxios({
+        url: "/api/contact",
       });
 
 
@@ -28,14 +28,14 @@ export default function ProductPage() {
                         รายการสินค้า
                     </Card.Title>
                 </div>
-                <MyTable aboutData={aboutData} getAboutData={getAbout} />
+                <MyTable contactData={contactData} getContactData={getContact} />
             </Card >
         </Container >
     );
 }
 
 function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.aboutData);
+    const [currentItems, setCurrentItems] = useState(props?.contactData);
     console.log(currentItems);
     useEffect(() => {
         setCurrentItems(currentItems);
@@ -71,7 +71,8 @@ function MyTable(props) {
                             </div>
                             </Col>
                         </Row>
-                            <AboutEditModal value={item} getAboutData={props?.getAboutData} />
+                        <br/>
+                            <ContactEditModal value={item} getContactData={props?.getContactData} />
                     </div>
                 ))
             }    
