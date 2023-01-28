@@ -5,9 +5,9 @@
             .nav-link {
                 &:hover,
                 &.active {
-                    border-color: var(--primary);
-                    color: #f7594f;
-                    background: linear-gradient(90deg, rgb(55, 58, 64) 0%, rgb(42, 46, 61) 50%, rgb(31,41,55) 100%);
+                    border-color: #dc3545;
+                    color:  #dc3545;
+                    background-color: rgb(187, 192, 198);
                 }
             }
        }
