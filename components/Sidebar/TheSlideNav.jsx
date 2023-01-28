@@ -92,7 +92,19 @@ export default function TheSlideNav() {
             </i>
             จัดการหน้าเว็บ
           </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/contact" }>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/contact" || checkClickPath === "/about" || checkClickPath === "/about/policy"}>
+          <Link
+              id="buttons"
+              href="/about"
+              className={asPath === "/about" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              จัดการหน้าเกี่ยวกับเรา
+            </Link>
+            <Link
+              id="buttons"
+              href="/about/policy"
+              className={asPath === "/about/policy" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              จัดการนโยบาย
+            </Link>
             <Link
               id="buttons"
               href="/contact"

@@ -86,8 +86,7 @@ function MyTable(props) {
                 </tr>
             </thead>
             <tbody>
-                {currentItems.length ? (
-                    currentItems?.map((item, index) => (
+           { currentItems?.map((item, index) => (
                         <tr key={item.id}>
                             <td>{index + 1 + numberSet}</td>
                             <td>
@@ -116,8 +115,7 @@ function MyTable(props) {
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
-                    )))
-                    : ""}
+                    ))}
             </tbody>
         </Table>
     );

@@ -5,12 +5,12 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ContactEditModal from '@/container/Contact/ContactEditModal'
+import AboutEditModal from '@/container/About/AboutEditModal'
 
-export default function ProductPage() {
+export default function AboutPage() {
 
-    const [{ data: contactData,loading,error }, getContact] = useAxios({
-        url: "/api/contact",
+    const [{ data: aboutData,loading,error }, getAbout] = useAxios({
+        url: "/api/about",
       });
 
 
@@ -25,17 +25,17 @@ export default function ProductPage() {
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                        รายละเอียดข้อมูล
                     </Card.Title>
                 </div>
-                <MyTable contactData={contactData} getContactData={getContact} />
+                <MyTable aboutData={aboutData} getAboutData={getAbout} />
             </Card >
         </Container >
     );
 }
 
 function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.contactData);
+    const [currentItems, setCurrentItems] = useState(props?.aboutData);
     console.log(currentItems);
     useEffect(() => {
         setCurrentItems(currentItems);
@@ -50,29 +50,30 @@ function MyTable(props) {
 
                         <Row>
                             <Col >
-                            {newFunction("ที่ตั้ง", item?.address )}
-                            {newFunction("เบอร์มือถือ", item?.tel )}
-                            {newFunction("อีเมล์", item?.email )}
-                            {newFunction("Facebook", item?.facebook )}
-                            {newFunction("ลิงค์ Facebook", item?.linkFacebook )}
-                            {newFunction("Line", item?.line )}
-                            {newFunction("ลิงค์ Line", item?.linkLine )}
+                            {newFunction("ชื่อหัวข้อหลัก", item?.headtitle )}
+                            {newFunction("ชื่อหัวข้อ1", item?.history )}
+                            {newFunction("รายละเอียด1", item?.subhistory )}
+                            {newFunction("ชื่อหัวข้อ1", item?.portfolio )}
+                            {newFunction("รายละเอียด2", item?.subportfolio )}
+                            {newFunction("ชื่อหัวข้อ3", item?.headpolicy )}
+                            {newFunction("รายละเอียด3", item?.subpolicy )}
                             </Col>
                             <Col>
-                            {newFunction("ลิงค์ Map", item?.linkMap )}
-                            <div className=" mt-4 w-100 h-75">
+                            {newFunction("ชื่อหัวข้อวีดิโอ", item?.videotitle )}
+                            {newFunction("ลิงค์วีดิโอ", item?.video )}
+                            <div className=" mt-4 w-100 h-50">
                                 <iframe
-                                src={item?.linkMap}
+                                src={item?.video}
                                 allowFullScreen=""
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                                 className=" w-100 h-100 "
                                 ></iframe>
-                            </div>
+                            </div>          
                             </Col>
                         </Row>
                         <br/>
-                            <ContactEditModal value={item} getContactData={props?.getContactData} />
+                            <AboutEditModal value={item} getAboutData={props?.getAboutData} />
                     </div>
                 ))
             }    
@@ -88,4 +89,4 @@ function MyTable(props) {
       }
 }
 
-ProductPage.layout = IndexPage
+AboutPage.layout = IndexPage

@@ -54,3 +54,27 @@ model Contact {
   updatedAt    DateTime? @updatedAt
   deleted_at   DateTime? @map("deleted_at")
 }
+
+model About {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  headtitle    String?
+  history      String?
+  subhistory   String?
+  portfolio    String?
+  subportfolio String?
+  videotitle   String?
+  video        String?
+  headpolicy   String?
+  subpolicy   String?
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  deleted_at   DateTime? @map("deleted_at")
+}
+model Policy {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  headpolicy   String?
+  subpolicy    String?
+  createdAt    DateTime? @default(now())
+  updatedAt    DateTime? @updatedAt
+  deleted_at   DateTime? @map("deleted_at")
+}
