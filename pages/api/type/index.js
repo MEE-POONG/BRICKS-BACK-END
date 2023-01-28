@@ -19,6 +19,7 @@ export default async function handler(req, res) {
                 const data = await prisma.$transaction([
                     prisma.type.count(),
                     prisma.type.findMany({
+                        include: { subType: true },
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })

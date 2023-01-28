@@ -14,17 +14,17 @@ export default function ProductPage() {
         page: '1',
         pageSize: '10'
     });
+    
+    const [name, setName] = useState("")
 
-    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
 
     const [{ data: subTypeData }, getSubType] = useAxios({
         url: "../api/subType?",
       });
+
+
     
-      console.log(subTypeData);
-
- 
-
     useEffect(() => {
         if (productsData) {
             setParams({
@@ -55,9 +55,25 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
+
+                    <Form.Group className="mb-3" controlId="price">
+                        <Form.Label>ค้นหาสินค้า</Form.Label>
+                        <form className="d-none d-md-flex ms-4">
+                        <input
+                            className="form-control bg-dark border-0"
+                            type="search"
+                            placeholder="Search"
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                }}
+                        />
+                        <button >ค้นหา</button>
+                        </form>
+                    </Form.Group>
+
                     <ProductsAddModal getData={getProduct} getSubTypeData={subTypeData?.data}/>
                 </div>
-                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
+                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} getSubTypeData={subTypeData?.data} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
@@ -111,7 +127,7 @@ function MyTable(props) {
                                 <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
-                                <ProductsEditModal value={item} getData={props?.getData} />
+                                <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
