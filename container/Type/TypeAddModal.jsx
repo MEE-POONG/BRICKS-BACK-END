@@ -70,12 +70,12 @@ export default function ProductsTypeAddModal(props) {
                     
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button bsPrefix="cancel" className='my-0' onClick={handleClose}>
-                        ยกเลิก
-                    </Button>
-                    <Button bsPrefix="succeed" className='my-0' onClick={handleSubmit}>
-                        ยืนยันการเพิ่ม
-                    </Button>
+                <Button bg="danger"className="my-0 btn-danger" onClick={handleClose}>
+                    ยกเลิก
+                </Button>
+                <Button bg="succeed" className="my-0" onClick={handleSubmit}>
+                    ยืนยันการเพิ่ม
+                </Button>
                 </Modal.Footer>
             </Modal>
         </>
