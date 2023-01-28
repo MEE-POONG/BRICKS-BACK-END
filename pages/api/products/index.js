@@ -16,9 +16,13 @@ export default async function handler(req, res) {
       try {
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
+        let name = req.query.name ;
         const data = await prisma.$transaction([
-          prisma.products.count(),
+          prisma.products.count(
+            {where:{name:{contains:name}}}
+          ),
           prisma.products.findMany({
+            where:{name:{contains:name}},
             include: { subType: { include: { type: true } } },
             skip: (page - 1) * pageSize,
             take: pageSize,

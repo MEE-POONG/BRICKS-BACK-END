@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsTypeEditModal from '@/container/Type/TypeEditModal'
-import ProductsTypeDeleteModal from '@/container/Type/TypeDeleteModal'
-import ProductsTypeAddModal from '@/container/Type/TypeAddModal'
+import TypeEditModal from '@/container/Type/TypeEditModal'
+import TypeDeleteModal from '@/container/Type/TypeDeleteModal'
+import TypeAddModal from '@/container/Type/TypeAddModal'
 
 export default function TypePage() {
     const [params, setParams] = useState({
@@ -46,7 +46,7 @@ export default function TypePage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <ProductsTypeAddModal getData={getType}/>
+                    <TypeAddModal getData={getType}/>
                 </div>
                 <MyTable data={typeData?.data} setNum={(typeData?.page * typeData?.pageSize) - typeData?.pageSize} getData={getType} />
                 <MyPagination page={typeData.page} totalPages={typeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
@@ -91,8 +91,8 @@ function MyTable(props) {
                                 ))}
                             </td>
                             <td>
-                                <ProductsTypeEditModal value={item} getData={props?.getData} />
-                                <ProductsTypeDeleteModal value={item} getData={props?.getData} />
+                                <TypeEditModal value={item} getData={props?.getData} />
+                                <TypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
