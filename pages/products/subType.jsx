@@ -52,7 +52,7 @@ export default function subTypePage() {
                     </Card.Title>
                     <SubTypeAddModal getData={getSubType} getTypeData={typeData?.data}/>
                 </div>
-                <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} />
+                <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} getTypeData={typeData?.data} />
                 <MyPagination page={subTypeData.page} totalPages={subTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
@@ -85,7 +85,7 @@ function MyTable(props) {
                                 {item.name}
                             </td>
                             <td>
-                                <SubTypeEditModal value={item} getData={props?.getData} />
+                                <SubTypeEditModal value={item} getData={props?.getData} getTypeData={props?.getTypeData} />
                                 <SubTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>

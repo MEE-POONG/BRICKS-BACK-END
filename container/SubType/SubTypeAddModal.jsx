@@ -48,7 +48,7 @@ export default function ProductsSubTypeAddModal(props) {
         className={showCheck ? "icon active d-flex" : "icon d-flex"}
         onClick={handleShow}
       >
-        <FaPlus /> เพิ่มประเภทสินค้า
+        <FaPlus /> เพิ่มประเภทย่อยสินค้า
       </Button>
       <Modal
         show={showCheck}
@@ -58,7 +58,7 @@ export default function ProductsSubTypeAddModal(props) {
         className="form-Products"
       >
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">เพิ่มประเภทสินค้า</Modal.Title>
+          <Modal.Title className="text-center">ชื่อประเภทย่อยสินค้า</Modal.Title>
         </Modal.Header>
         <Modal.Body>
             
@@ -83,10 +83,10 @@ export default function ProductsSubTypeAddModal(props) {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="name">
-            <Form.Label>ชื่อประเภทสินค้า</Form.Label>
+            <Form.Label>ชื่อประเภทย่อยสินค้า</Form.Label>
             <Form.Control
               Type="text"
-              placeholder="เพิ่มชื่อประเภทสินค้า"
+              placeholder="เพิ่มชื่อประเภทย่อยสินค้า"
               onChange={(e) => {
                 setName(e.target.value);
               }}
@@ -100,10 +100,10 @@ export default function ProductsSubTypeAddModal(props) {
 
         </Modal.Body>
         <Modal.Footer>
-          <Button bsPrefix="cancel" className="my-0" onClick={handleClose}>
+          <Button bg="danger"className="my-0 btn-danger" onClick={handleClose}>
             ยกเลิก
           </Button>
-          <Button bsPrefix="succeed" className="my-0" onClick={handleSubmit}>
+          <Button bg="succeed" className="my-0" onClick={handleSubmit}>
             ยืนยันการเพิ่ม
           </Button>
         </Modal.Footer>
