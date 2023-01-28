@@ -98,6 +98,10 @@ function MyTable(props) {
                             </td>
                             <td>
                                 <Badge bg="primary">
+                                    {item.subType.type.name}
+                                </Badge>
+                                <br/>
+                                <Badge bg="primary">
                                     {item.subType.name}
                                 </Badge>
                             </td>

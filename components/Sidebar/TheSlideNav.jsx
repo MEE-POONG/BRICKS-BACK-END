@@ -90,7 +90,7 @@ export default function TheSlideNav() {
             <i className="me-2">
               <BsFillBagFill />
             </i>
-            จัดการสินค้า
+            จัดการหน้าเว็บ
           </Dropdown.Toggle>
           <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/contact" }>
             <Link
