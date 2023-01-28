@@ -34,6 +34,7 @@ export default async function handler(req, res) {
                 await prisma.subType.create({
                     data: {
                         name: req.body.name,
+                        TypeId: req.body.TypeId,
                     }
                 })
                 res.status(201).json({ success: true })

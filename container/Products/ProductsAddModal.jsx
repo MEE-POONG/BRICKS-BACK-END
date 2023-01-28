@@ -70,15 +70,20 @@ export default function ProductsAddModal(props) {
  
                 }
             }).then(() => {
-                Promise.all([    
+                Promise.all([
                     setName(''),
                     setPrice(''),
                     setImage(''),
                     setSubTypeId(''),
                     setDetail(''),
 
+
                     props.getData(),
-                ])
+                ]).then(() => {
+                    if (ProductsLoading?.success) {
+                        handleClose()
+                    }
+                })
             });
         } 
     

@@ -21,10 +21,6 @@ export default function ProductPage() {
         url: "../api/subType?",
       });
     
-      console.log(subTypeData);
-
- 
-
     useEffect(() => {
         if (productsData) {
             setParams({
@@ -57,7 +53,7 @@ export default function ProductPage() {
                     </Card.Title>
                     <ProductsAddModal getData={getProduct} getSubTypeData={subTypeData?.data}/>
                 </div>
-                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} />
+                <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} getSubTypeData={subTypeData?.data} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
@@ -112,7 +108,7 @@ function MyTable(props) {
                                 <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
-                                <ProductsEditModal value={item} getData={props?.getData} />
+                                <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>

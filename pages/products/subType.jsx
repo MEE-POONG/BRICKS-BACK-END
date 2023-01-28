@@ -26,6 +26,10 @@ export default function subTypePage() {
         }
     }, [subTypeData]);
 
+    const [{ data: typeData }, getType] = useAxios({
+        url: "../api/type?",
+      });
+
     const handleSelectPage = (pageValue) => {
         getSubType({ url: `/api/subType?page=${pageValue}&pageSize=${params.pageSize}` })
     };
@@ -46,7 +50,7 @@ export default function subTypePage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <SubTypeAddModal getData={getSubType}/>
+                    <SubTypeAddModal getData={getSubType} getTypeData={typeData?.data}/>
                 </div>
                 <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} />
                 <MyPagination page={subTypeData.page} totalPages={subTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
@@ -68,7 +72,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ประเภทสินค้า</th>
+                    <th>ประเภทย่อยสินค้า</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
