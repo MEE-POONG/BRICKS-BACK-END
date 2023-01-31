@@ -224,7 +224,7 @@ export default function AboutEditModal(props) {
         <Form.Label className="mt-2 mb-3">{label}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="เพิ่ม ราคาของสินค้า"
+          placeholder="กรุณากรอกข้อมูล"
           onChange={(e) => {
             setValue((oldState) => {
               return { ...oldState, [name]: e.target.value };
