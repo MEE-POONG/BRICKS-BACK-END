@@ -5,7 +5,7 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-// import HomeTopEditModal from '@/container/HomeTop/HomeTopEditModal'
+import HomeTopEditModal from '@/container/HomeTop/HomeTopEditModal'
 
 export default function ProductPage() {
 
@@ -59,7 +59,7 @@ function MyTable(props) {
                            
                         </Row>
                         <br/>
-                            {/* <HomeTopEditModal value={item} getHomeTopData={props?.getHomeTopData} /> */}
+                            <HomeTopEditModal value={item} getHomeTopData={props?.getHomeTopData} />
                     </div>
                 ))
             }    
