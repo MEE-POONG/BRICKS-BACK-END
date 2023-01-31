@@ -9,10 +9,10 @@ import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 
-export default function ContactEditModal(props) {
+export default function HomeTopEditModal(props) {
   const [
-    { loading: updateContactLoading, error: updateContactError },
-    executeContactPut,
+    { loading: updateHomeTopLoading, error: updateHomeTopError },
+    executeHomeTopPut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -23,61 +23,37 @@ export default function ContactEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  const [fromContact, setFromContact] = useState({
-    address: "",
-    tel: "",
-    email: "",
-    linkMap: "",
-    facebook: "",
-    linkFacebook: "",
-    line: "",
-    linkLine: "",
+  const [fromHomeTop, setFromHomeTop] = useState({
+    title: "",
+    subTitle: "",
   });
 
   useEffect(() => {
     if (props) {
-      setFromContact({
-        address: props?.value?.address,
-        tel: props?.value?.tel,
-        email: props?.value?.email,
-        linkMap: props?.value?.linkMap,
-        facebook: props?.value?.facebook,
-        linkFacebook: props?.value?.linkFacebook,
-        line: props?.value?.line,
-        linkLine: props?.value?.linkLine,
+      setFromHomeTop({
+        title: props?.value?.title,
+        subTitle: props?.value?.subTitle,
       });
     }
   }, [props]);
 
   const handlePutData = async () => {
     setCheckValue(false);
-    if (fromContact?.address !== "") {
-      await executeContactPut({
-        url: "/api/contact/" + props?.value?.id,
+    if (fromHomeTop?.address !== "") {
+      await executeHomeTopPut({
+        url: "/api/homeTop/" + props?.value?.id,
         method: "PUT",
         data: {
-          address: fromContact?.address,
-          tel: fromContact?.tel,
-          email: fromContact?.email,
-          linkMap: fromContact?.linkMap,
-          facebook: fromContact?.facebook,
-          linkFacebook: fromContact?.linkFacebook,
-          line: fromContact?.line,
-          linkLine: fromContact?.linkLine,
+          title: fromHomeTop?.title,
+          subTitle: fromHomeTop?.subTitle,
         },
       }).then(() => {
-        setFromContact({
-          address: "",
-          tel: "",
-          email: "",
-          linkMap: "",
-          facebook: "",
-          linkFacebook: "",
-          line: "",
-          linkLine: "",
+        setFromHomeTop({
+          title: "",
+          subTitle: "",
         }),
-          props.getContactData().then(() => {
-            if (updateContactLoading?.success) {
+          props.getHomeTopData().then(() => {
+            if (updateHomeTopLoading?.success) {
               handleClose();
             }
           });
@@ -85,8 +61,8 @@ export default function ContactEditModal(props) {
     }
   };
 
-  // if (loading || updateContactLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateContactError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  // if (loading || updateHomeTopLoading) return <ModelLoading showCheck={showCheck}/>
+  // if (error || updateHomeTopError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
 
   return (
     <>
@@ -101,24 +77,12 @@ export default function ContactEditModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">
-            เพิ่มสมาชิกพนักงานองค์กร
+            แก้ไขหน้าบ้าน
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Row>
-            <Col>
-              {EditFunction("ที่ตั้ง",fromContact?.address,setFromContact,"address")}
-              {EditFunction("เบอร์มือถือ",fromContact?.tel, setFromContact, "tel")}
-              {EditFunction("อีเมล์",fromContact?.email, setFromContact, "email")}
-              {EditFunction("ลิงค์ Map",fromContact?.linkMap,setFromContact,"linkMap")}
-            </Col>
-            <Col>
-              {EditFunction("Facebook",fromContact?.facebook,setFromContact,"facebook")}
-              {EditFunction("ลิงค์ Facebook",fromContact?.linkFacebook,setFromContact,"linkFacebook")}
-              {EditFunction("Line", fromContact?.line, setFromContact, "line")}
-              {EditFunction("ลิงค์ Line",fromContact?.linkLine,setFromContact,"linkLine")}
-            </Col>
-          </Row>
+              {EditFunction("ชื่อร้าน",fromHomeTop?.title,setFromHomeTop,"title")}
+              {EditFunction("คำอธิบาย",fromHomeTop?.subTitle, setFromHomeTop, "subTitle")}
         </Modal.Body>
         <Modal.Footer>
         <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
@@ -129,7 +93,7 @@ export default function ContactEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromContact)}
+      {console.log(fromHomeTop)}
     </>
   );
 

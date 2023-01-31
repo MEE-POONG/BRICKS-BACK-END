@@ -9,13 +9,45 @@ import ProductsAddModal from '@/container/products/productsAddModal'
 import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
 import ProductsEditModal from '@/container/Products/ProductsEditModal'
 
-export default function ProductPage() {
+export default function Search() {
+    const [name, setName] = useState("")
+
+    return (
+        <Container fluid className="pt-4 px-4">
+            <Card className="bg-secondary text-center rounded shadow p-4">
+                <div className="d-flex align-items-center justify-content-between mb-4">
+
+
+                    <Form.Group className="mb-3" controlId="price">
+                        <Form.Label>ค้นหาสินค้า</Form.Label>
+                        <form className="d-none d-md-flex ms-4">
+                        <input
+                            className="form-control bg-dark border-0"
+                            type="search"
+                            placeholder="Search"
+                            onChange={(e) => {
+                                setName(e.target.value);
+                                }}
+                        />
+                        <button >ค้นหา</button>
+                        </form>
+                    </Form.Group>
+
+                </div>
+            </Card >
+           {ProductPage(name)}
+        </Container >
+        
+    );
+}
+
+ function ProductPage(name) {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
     
-    const [name, setName] = useState("")
+    
 
     const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
 
@@ -55,21 +87,6 @@ export default function ProductPage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-
-                    <Form.Group className="mb-3" controlId="price">
-                        <Form.Label>ค้นหาสินค้า</Form.Label>
-                        <form className="d-none d-md-flex ms-4">
-                        <input
-                            className="form-control bg-dark border-0"
-                            type="search"
-                            placeholder="Search"
-                            onChange={(e) => {
-                                setName(e.target.value);
-                                }}
-                        />
-                        <button >ค้นหา</button>
-                        </form>
-                    </Form.Group>
 
                     <ProductsAddModal getData={getProduct} getSubTypeData={subTypeData?.data}/>
                 </div>
@@ -137,4 +154,4 @@ function MyTable(props) {
     );
 }
 
-ProductPage.layout = IndexPage
+Search.layout = IndexPage

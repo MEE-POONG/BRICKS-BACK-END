@@ -5,32 +5,32 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import TypeEditModal from '@/container/Type/TypeEditModal'
-import TypeDeleteModal from '@/container/Type/TypeDeleteModal'
-import TypeAddModal from '@/container/Type/TypeAddModal'
+import RateEditModal from '@/container/Rate/RateEditModal'
+import RateDeleteModal from '@/container/Rate/RateDeleteModal'
+import RateAddModal from '@/container/Rate/RateAddModal'
 
-export default function TypePage() {
+export default function RatePage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: typeData, loading, error }, getType] = useAxios({ url: `/api/type?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: rateData, loading, error }, getRate] = useAxios({ url: `/api/Rate?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
-        if (typeData) {
+        if (rateData) {
             setParams({
                 ...params,
-                page: typeData.page,
-                pageSize: typeData.pageSize
+                page: rateData.page,
+                pageSize: rateData.pageSize
             });
         }
-    }, [typeData]);
+    }, [rateData]);
 
     const handleSelectPage = (pageValue) => {
-        getType({ url: `/api/type?page=${pageValue}&pageSize=${params.pageSize}` })
+        getRate({ url: `/api/Rate?page=${pageValue}&pageSize=${params.pageSize}` })
     };
     const handleSelectPageSize = (sizeValue) => {
-        getType({ url: `/api/type?page=1&pageSize=${sizeValue}` })
+        getRate({ url: `/api/Rate?page=1&pageSize=${sizeValue}` })
     };
 
     if (loading) {
@@ -46,10 +46,10 @@ export default function TypePage() {
                     <Card.Title className="mb-0">
                         รายการสินค้า
                     </Card.Title>
-                    <TypeAddModal getData={getType}/>
+                    <RateAddModal getData={getRate}/>
                 </div>
-                <MyTable data={typeData?.data} setNum={(typeData?.page * typeData?.pageSize) - typeData?.pageSize} getData={getType} />
-                <MyPagination page={typeData.page} totalPages={typeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={rateData?.data} setNum={(rateData?.page * rateData?.pageSize) - rateData?.pageSize} getData={getRate} />
+                <MyPagination page={rateData.page} totalPages={rateData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
         </Container >
     );
@@ -68,7 +68,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ประเภทสินค้า</th>
+                    <th>ระยะทาง</th>
                     <th>ประเภทย่อยสินค้า</th>
                     <th>จัดการ</th>
                 </tr>
@@ -83,11 +83,11 @@ function MyTable(props) {
                             </td>
                             <td>
                                 <Row xs='3'>
-                                {item.subType?.map((subType, index) =>(
+                                {item.subRate?.map((subRate, index) =>(
                                         <Col>
                                             <Badge bg="primary" key={index}>
 
-                                                {subType.name}
+                                                {subRate.name}
                                                 
                                             </Badge>
                                         </Col>
@@ -95,8 +95,8 @@ function MyTable(props) {
                                 </Row>
                             </td>
                             <td>
-                                <TypeEditModal value={item} getData={props?.getData} />
-                                <TypeDeleteModal value={item} getData={props?.getData} />
+                                <RateEditModal value={item} getData={props?.getData} />
+                                <RateDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))
@@ -107,4 +107,4 @@ function MyTable(props) {
 }
 
 
-TypePage.layout = IndexPage
+RatePage.layout = IndexPage
