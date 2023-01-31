@@ -101,7 +101,7 @@ export default function ContactEditModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">
-            เพิ่มสมาชิกพนักงานองค์กร
+            แก้ไขข้อมูลช่องทางการติดต่อ
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -139,7 +139,7 @@ export default function ContactEditModal(props) {
         <Form.Label className="mt-2">{label}</Form.Label>
         <Form.Control
           type="text"
-          placeholder="เพิ่ม ราคาของสินค้า"
+          placeholder="กรุณากรอกข้อมูล"
           onChange={(e) => {
             setValue((oldState) => {
               return { ...oldState, [name]: e.target.value };

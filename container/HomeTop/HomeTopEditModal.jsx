@@ -103,6 +103,7 @@ export default function HomeTopEditModal(props) {
         <Form.Label className="mt-2">{label}</Form.Label>
         <Form.Control
           type="text"
+          placeholder="กรุณากรอกข้อมูลา"
           onChange={(e) => {
             setValue((oldState) => {
               return { ...oldState, [name]: e.target.value };
