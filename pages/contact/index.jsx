@@ -25,7 +25,7 @@ export default function ProductPage() {
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                        ช่องทางการติดต่อ
                     </Card.Title>
                 </div>
                 <MyTable contactData={contactData} getContactData={getContact} />

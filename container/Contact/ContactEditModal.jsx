@@ -101,7 +101,7 @@ export default function ContactEditModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">
-            เพิ่มสมาชิกพนักงานองค์กร
+            แก้ไขข้อมูลช่องทางการติดต่อ
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
