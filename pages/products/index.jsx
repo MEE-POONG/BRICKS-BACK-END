@@ -8,6 +8,7 @@ import PageError from '@/components/PageChange/pageError'
 import ProductsAddModal from '@/container/products/productsAddModal'
 import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
 import ProductsEditModal from '@/container/Products/ProductsEditModal'
+import AddOnRateModal from '@/container/Products/AddOnRateModal'
 
 export default function Search() {
     const [name, setName] = useState("")
@@ -15,10 +16,10 @@ export default function Search() {
     return (
         <Container fluid className="pt-4 px-4">
             <Card className="bg-secondary text-center rounded shadow p-4">
-                <div className="d-flex align-items-center justify-content-between mb-4">
+                <div className=" d-inline  justify-content-center ">
 
 
-                    <Form.Group className="mb-3" controlId="price">
+                    <Form.Group className="mb-3" >
                         <Form.Label>ค้นหาสินค้า</Form.Label>
                         <form className="d-none d-md-flex ms-4">
                         <input
@@ -29,7 +30,6 @@ export default function Search() {
                                 setName(e.target.value);
                                 }}
                         />
-                        <button >ค้นหา</button>
                         </form>
                     </Form.Group>
 
@@ -81,7 +81,7 @@ export default function Search() {
         return <PageError />;
     }
     return (
-        <Container fluid className="pt-4 px-4">
+        <Container fluid className="pt-4">
             <Card className="bg-secondary text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
@@ -144,6 +144,7 @@ function MyTable(props) {
                                 <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
+                                <AddOnRateModal value={item}/>
                                 <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>
