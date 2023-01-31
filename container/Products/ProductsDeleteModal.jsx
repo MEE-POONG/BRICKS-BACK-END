@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from 'react'
 import { Modal, Button ,Image } from 'react-bootstrap'
 import { FaTrash } from 'react-icons/fa'
@@ -38,6 +39,7 @@ export default function ProductsDeleteModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <Image src={props?.value?.image}  width="250px" height="250px" className='object-fit-cover'/>
+                    <br />  <br />
                     <Modal.Title>ชื่อสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
                     
                     <Modal.Title>ประเภทสินค้า : <span className='text-danger'>{props?.value?.type}</span></Modal.Title>
