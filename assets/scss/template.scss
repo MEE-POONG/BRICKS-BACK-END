@@ -4,7 +4,8 @@
     --secondary: #ffff;
     --light: #252627;
     --dark: #e8e8e8;
-    --bs-body-font-family: "Sarabun", sans-serif;
+    --bs-body-font-family:'Noto Sans Thai', sans-serif;
+    // --bs-body-font-family: "Sarabun", sans-serif;
 }
 *,
 h6,
@@ -19,7 +20,7 @@ h2,
 .h2,
 h1,
 .h1 {
-    font-family: "Sarabun", sans-serif;
+    font-family:'Noto Sans Thai', sans-serif;
 }
 
 .back-to-top {
