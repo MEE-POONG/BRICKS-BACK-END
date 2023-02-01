@@ -55,7 +55,16 @@ export default function Search() {
         url: "../api/subType?",
       });
 
+      useEffect(() => {
 
+        if (loading === false) {
+            const getProductList = async () => {
+              await getProduct();
+            };
+            getProductList();
+        }
+      }, [name]);
+    
     
     useEffect(() => {
         if (productsData) {
