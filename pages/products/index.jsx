@@ -144,7 +144,7 @@ function MyTable(props) {
                                 <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
-                                <AddOnRateModal value={item}/>
+                                <AddOnRateModal value={item} getData={props?.getData}/>
                                 <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>

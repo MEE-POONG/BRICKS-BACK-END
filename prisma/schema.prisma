@@ -94,8 +94,8 @@ model AddOnRate {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   length     Int?
   addOn      Int?
-  productsId String?   @db.ObjectId
-  products   Products? @relation(fields: [productsId], references: [id])
+  productId String?   @db.ObjectId
+  products   Products? @relation(fields: [productId], references: [id])
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
