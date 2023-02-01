@@ -7,7 +7,7 @@ export default function Orders() {
     return (
         <>
         <Container fluid className="pt-4 px-4">
-            <Card className="bg-secondary text-center rounded shadow p-4">
+            <Card className="text-center rounded shadow p-4">
                 <div className=" d-inline  justify-content-center ">
 
 

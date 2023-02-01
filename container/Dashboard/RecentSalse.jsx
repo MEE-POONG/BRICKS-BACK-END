@@ -5,7 +5,7 @@ export default function RecentSalse() {
     return (
         <>
             <Container fluid className="pt-4 px-4 element">
-                <div className="bg-secondary text-center rounded shadow p-4">
+                <div className=" text-center rounded shadow p-4">
                     <div className="d-flex align-items-center justify-content-between mb-4">
                         <h6 className="mb-0">รายการสั่งซื้อ</h6>
                         <a href="orders">Show All</a>

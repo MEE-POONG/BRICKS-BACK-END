@@ -2,8 +2,7 @@ import Head from 'next/head';
 import IndexPage from "components/layouts/IndexPage";
 import { Card, Table } from 'react-bootstrap';
 import Warn from 'container/home/warn';
-import RecentSalse from '@/container/Dashboard/RecentSalse';
-import NewListing from '@/container/Dashboard/NewListing';
+import Widget from '@/container/Dashboard/widget';
 export default function HomePage() {
   const contactData = [
     { id: '1', title: 'a', detail: 'แก้ฟิล title จาก มองบน เป็น มองบนฟ้าแก้ฟิล facebook จาก facebook.com/api เป็น facebook.com/ipa', firstname: 'งง', lastname: 'งง', customerId: '1', contactID: '1', audienceRecordID: '', newsId: '', aboutID: '' },
@@ -25,12 +24,14 @@ export default function HomePage() {
   ]
   return (
     < >
-    <Head>
+      <Head>
         <title>ช่างพอง อิฐประสาน</title>
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="" />
       </Head>
-
+      <div>
+        <Widget/>
+      </div>
 
     </ >
   );

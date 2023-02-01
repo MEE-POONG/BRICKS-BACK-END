@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
@@ -41,7 +42,7 @@ export default function TypePage() {
     }
     return (
         <Container fluid className="pt-4 px-4">
-            <Card className="bg-secondary text-center rounded shadow p-4">
+            <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
                         รายการสินค้า
