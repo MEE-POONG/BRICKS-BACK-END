@@ -28,17 +28,19 @@ model SubType {
 }
 
 model Products {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  image      String?
-  name       String?
-  detail     String?
-  subTypeId  String?     @db.ObjectId
-  createdAt  DateTime?   @default(now())
-  updatedAt  DateTime?   @updatedAt
-  deleted_at DateTime?   @map("deleted_at")
-  price      Int?
-  subType    SubType?    @relation(fields: [subTypeId], references: [id])
-  addOnRate  AddOnRate[]
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  productCode String?
+  image       String?
+  name        String?
+  detail      String?
+  subTypeId   String?       @db.ObjectId
+  createdAt   DateTime?     @default(now())
+  updatedAt   DateTime?     @updatedAt
+  deleted_at  DateTime?     @map("deleted_at")
+  price       Int?
+  subType     SubType?      @relation(fields: [subTypeId], references: [id])
+  addOnRate   AddOnRate[]
+  OrderDetail OrderDetail[]
 }
 
 model Contact {
@@ -94,9 +96,45 @@ model AddOnRate {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   length     Int?
   addOn      Int?
-  productId String?   @db.ObjectId
+  productId  String?   @db.ObjectId
   products   Products? @relation(fields: [productId], references: [id])
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
+}
+
+model Customer {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  username   String?
+  email      String?
+  password   String?
+  createdAt  DateTime? @default(now())
+  deleted_at DateTime? @map("deleted_at")
+  updatedAt  DateTime? @updatedAt
+  Order      Order[]
+}
+
+model Order {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  orderCode   String?
+  longitude   String?
+  latitude    String?
+  totalPrice  Int?
+  status      String?
+  customerId  String?       @db.ObjectId
+  customer    Customer?     @relation(fields: [customerId], references: [id])
+  createdAt   DateTime?     @default(now())
+  deleted_at  DateTime?     @map("deleted_at")
+  updatedAt   DateTime?     @updatedAt
+  OrderDetail OrderDetail[]
+}
+
+model OrderDetail {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  sumPrice  Int?
+  sumQty    Int?
+  productId String?   @db.ObjectId
+  orderId   String?   @db.ObjectId
+  order     Order?    @relation(fields: [orderId], references: [id])
+  products  Products? @relation(fields: [productId], references: [id])
 }
