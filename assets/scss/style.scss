@@ -73,7 +73,7 @@ table {
     border-width: 3px;
     border-radius: 50px !important;
     svg {
-        color: #dc3545;;
+        color: #dc3545;
         // background: -webkit-linear-gradient(transparent, transparent),
         //     -webkit-linear-gradient(top, rgb(201 214 70) 0%, rgb(201 214 70) 26%, rgb(201 214 70)
         //                 35%, rgb(201 214 70) 45%, rgb(201 214 70) 61%, rgb(201 214 70) 100%);
@@ -121,12 +121,13 @@ button.icon,
     }
     &.delete {
         color: #f7f7f7;
-        background: #dc3545;
+        background: #96202c;
     }
     &:hover,
     &.active {
         // border-color: #100f0f;
-        background: #375325;
+        background: #b06d50;
+        // background: #375325;
         // background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
         // svg {
         //     background: -webkit-linear-gradient(transparent, transparent),
