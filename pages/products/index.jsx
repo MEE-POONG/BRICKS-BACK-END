@@ -100,7 +100,7 @@ export default function Search() {
         return <PageError />;
     }
     return (
-        <Container fluid className="pt-4">
+        <div fluid className="pt-4">
             <Card className=" text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
@@ -112,7 +112,7 @@ export default function Search() {
                 <MyTable data={productsData?.data} setNum={(productsData?.page * productsData?.pageSize) - productsData?.pageSize} getData={getProduct} getSubTypeData={subTypeData?.data} />
                 <MyPagination page={productsData.page} totalPages={productsData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
             </Card >
-        </Container >
+        </div >
     );
 }
 
