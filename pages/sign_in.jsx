@@ -1,72 +1,57 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import React from "react";
-import Head from 'next/head';
+import Head from "next/head";
 import BackGroundMain from "@/components/Bg/BackGroundMain";
-import { Image } from 'react-bootstrap';
+import { Image } from "react-bootstrap";
 
 export default function AdderssUserPage() {
-    return (
-        <>
+  return (
+    <>
+      <Head>
+        <title>Shang Pong</title>
+        <meta name="description" content="I2AROBOT 2" />
+        <link rel="icon" href="/images/logo.png" />
+      </Head>
 
-            <Head>
-                <title>PigJungle</title>
-                <meta
-                    name="description"
-                    content="I2AROBOT 2"
-                />
-                <link rel="icon" href="/images/logo.png" />
-            </Head>
+      <BackGroundMain />
 
-            <BackGroundMain />
-
-            <div id='sign-user' name="sign-user" className='sign-user'>
-
-                <div className="topnav  justify-content-around">
-
-                    <a className='btunav ' type='SignIn' href="/">กลับ</a>
-
-
-                </div>
-                <div className='box-Container-Si'>
-
-
-                
-                        <div className="box-img">
-                            <Image src={'images/moke02.png'} width={'50%'} />
-                        </div>
-
-
-
-                    <div className='Container-Si'>
-
-                        <Image src={'images/profile.jpg'} className='img-Si-Su' />
-
-                        <form>
-
-                            <input className='input-Si-Su' type="text" id="Email" name="Email" placeholder="Email" />
-
-                            <input className='input-Si-Su' type="password" id="Password" name="Password" placeholder="Password" />
-
-
-                        </form>
-                        <div className='box-btu-Si-Su'>
-                            <a className='btu-Si-Su-Ad' type='SignIn'>เข้าสู่ระบบ</a>
-                        </div>
-                        <div className="box-text">
-                            <a className='text-Si-Su' type='SignIn' href="">ลืมรหัสผ่าน?</a>
-                        </div>
-
-
-                    </div>
-
-                    <div className="box-img">
-                        <Image  src={'images/moke03.png'} width={'50%'} />
-                    </div>
-
-                </div>
+      <div id="sign-user" name="sign-user" className="sign-user">
+        <div class="wrapper">
+          <div class="logo">
+            <img
+              src="/images/logo.png"
+              alt=""
+            />
+          </div>
+          <div class="text-center mt-4 name">Shang Pong</div>
+          <form class="p-3 mt-3">
+            <div class="form-field d-flex align-items-center">
+              <span class="far fa-user"></span>
+              <input
+                type="text"
+                name="userName"
+                id="userName"
+                placeholder="Username"
+              />
             </div>
-
-        </>
-    );
+            <div class="form-field d-flex align-items-center">
+              <span class="fas fa-key"></span>
+              <input
+                type="password"
+                name="password"
+                id="pwd"
+                placeholder="Password"
+              />
+            </div>
+            <button class="btn mt-3">Login</button>
+          </form>
+          <div class="text-center fs-6">
+            <a href="#">Forget password?</a>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

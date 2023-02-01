@@ -12,7 +12,7 @@ export default function Orders() {
 
 
                     <Form.Group className="mb-3" >
-                        <Form.Label>ค้นหาสินค้า</Form.Label>
+                        <Form.Label>ค้นหาคำสั่งซื้อ</Form.Label>
                         <form className="d-none d-md-flex ms-4">
                         <input
                             className="form-control bg-dark border-0"
