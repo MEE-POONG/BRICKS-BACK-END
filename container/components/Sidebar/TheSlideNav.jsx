@@ -41,7 +41,7 @@ export default function TheSlideNav() {
             <div className="position-relative">
               <Image
                 className="rounded-circle"
-                src={"/images/logo.png"}
+                src={"/images/logo1.png"}
                 alt=""
                 style={{ width: "40px", height: "40px" }}
               />

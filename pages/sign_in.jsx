@@ -12,7 +12,7 @@ export default function AdderssUserPage() {
       <Head>
         <title>Shang Pong</title>
         <meta name="description" content="I2AROBOT 2" />
-        <link rel="icon" href="/images/logo.png" />
+        <link rel="icon" href="/images/logo1.png" />
       </Head>
 
       <BackGroundMain />
@@ -21,7 +21,7 @@ export default function AdderssUserPage() {
         <div class="wrapper">
           <div class="logo">
             <img
-              src="/images/logo.png"
+              src="/images/logo1.png"
               alt=""
             />
           </div>

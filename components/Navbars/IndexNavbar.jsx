@@ -19,7 +19,7 @@ export default function IndexNavbar() {
           <NavDropdown
             id="nav-dropdown-dark-example"
             title={<>
-              <Image className="rounded-circle me-lg-2" src="/images/logo.png" alt="" style={{ width: "40px", height: "40px" }} />
+              <Image className="rounded-circle me-lg-2" src="/images/logo1.png" alt="" style={{ width: "40px", height: "40px" }} />
               <span className="d-none d-lg-inline-flex text-dark">Admin Shang Pong</span>
             </>}
             menuVariant="dark"
