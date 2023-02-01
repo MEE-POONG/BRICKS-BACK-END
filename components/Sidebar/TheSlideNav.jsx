@@ -30,7 +30,7 @@ export default function TheSlideNav() {
       <nav className="navbar bg-secondary navbar-dark">
         <Link href="/" className="navbar-brand mx-4 mb-3">
 
-          <h3 className="text-primary">
+          <h3 className="text-dark">
             <FaUserEdit className="fa me-2" />
             ร้านช่างพอง
           </h3>
@@ -47,7 +47,7 @@ export default function TheSlideNav() {
             <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
           </div>
           <div className="ms-3">
-            <h6 className="mb-0">Shang Pong</h6>
+            <h6 className="mb-0 text-dark">Shang Pong</h6>
             <span>Admin</span>
           </div>
         </div>

@@ -90,11 +90,7 @@ h1,
     position: relative;
     margin-left: 250px;
     min-height: 100vh;
-    // background: var(--dark);
-    // transition: 0.5s;
-    background-color: #EDDBC0;
-    // background: linear-gradient(90deg, #557a3d 0%, #3a5628 50%, #375325 100%);
-    // background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
+    background-color: #ede7e7;
 }
 .content{
     overflow: hidden;
@@ -105,7 +101,8 @@ h1,
 }
 
 .bg-templant .modal-content {
-    background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity)) !important;
+    background-color: #ffff;
+    // background-color: rgba(var(--bs-secondary-rgb), var(--bs-bg-opacity));
 }
 
 .color-d3d3d3 {
@@ -120,7 +117,7 @@ h1,
     width: 250px;
     height: 100vh;
     overflow-y: auto;
-    background: var(--secondary);
+    background: #96202c;
     transition: 0.5s;
     z-index: 999;
     .navbar {

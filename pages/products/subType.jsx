@@ -45,7 +45,7 @@ export default function subTypePage() {
     }
     return (
         <Container fluid className="pt-4 px-4">
-            <Card className="bg-secondary text-center rounded shadow p-4">
+            <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
                         รายการสินค้า

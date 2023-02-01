@@ -9,342 +9,110 @@
     }
 
 
-    .btunav {
-        margin: 0 auto;
-        text-decoration: none;
-        font-size: 16px;
-        line-height: 1.2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 20px;
-        min-width: 120px;
-        height: 50px;
-        border-radius: 25px;
-        margin-top: 20px;
-        color: #ffffff;
-        border-bottom: 5px solid rgba(0, 0, 0, 1);
+/* Reseting */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-        border: 2px double transparent;
-        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, #fff42b, rgb(117, 255, 142), rgb(151, 104, 255));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
+body {
+    background: #ecf0f3;
+}
 
-        animation: gradient 15s ease infinite;
-        background-size: 400%;
-        transition: 0.2s all ease;
+.wrapper {
+    max-width: 350px;
+    min-height: 500px;
+    margin: 80px auto;
+    padding: 40px 30px 30px 30px;
+    background-color: #ecf0f3;
+    border-radius: 15px;
+    box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #fff;
+}
 
-        &:hover {
-            color: #6cef60;
-            box-shadow: 0px 0px 15px 0px rgb(151, 104, 255);  
-        }
+.logo {
+    width: 80px;
+    margin: auto;
+}
 
+.logo img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%;
+    box-shadow: 0px 0px 3px #5f5f5f,
+        0px 0px 0px 5px #ecf0f3,
+        8px 8px 15px #a7aaa7,
+        -8px -8px 15px #fff;
+}
+
+.wrapper .name {
+    font-weight: 600;
+    font-size: 1.4rem;
+    letter-spacing: 1.3px;
+    padding-left: 10px;
+    color: #555;
+}
+
+.wrapper .form-field input {
+    width: 100%;
+    display: block;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 10px 15px 10px 10px;
+    /* border: 1px solid red; */
+}
+
+.wrapper .form-field {
+    padding-left: 10px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+}
+
+.wrapper .form-field .fas {
+    color: #555;
+}
+
+.wrapper .btn {
+    box-shadow: none;
+    width: 100%;
+    height: 40px;
+    background-color: brown;
+    // background-color: #03A9F4;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 3px 3px 3px #b1b1b1,
+        -3px -3px 3px #fff;
+    letter-spacing: 1.3px;
+}
+
+.wrapper .btn:hover {
+    background-color: rgb(132, 35, 35);
+    // background-color: #039BE5;
+}
+
+.wrapper a {
+    text-decoration: none;
+    font-size: 0.8rem;
+    color: brown;
+    // color: #03A9F4;
+}
+
+.wrapper a:hover {
+    color: rgb(205, 56, 56);
+
+    // color: #039BE5;
+}
+
+@media(max-width: 380px) {
+    .wrapper {
+        margin: 30px 20px;
+        padding: 40px 15px 15px 15px;
     }
-
-
-
-    // -------------Sign in-------------------//
-    /* -------Si =Sign in---------- */
-    /* -------Su =Sign up ---------- */
-    /* -------Ad =Sign adress ---------- */
-
-
-
-    .box-Container-Si {
-        width: 100%;
-        min-height: 50vh;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        position: relative;
-        z-index: 1;
-    }
-
-    .Container-Si {
-
-        width: 500px;
-        border-radius: 10px;
-
-        padding: 30px 30px 20px;
-        background: #ffffff;
-
-        border: 10px double transparent;
-        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, #fff42b, rgb(117, 255, 142), rgb(151, 104, 255));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-
-        animation: gradient 15s ease infinite;
-        background-size: 400%;
-    }
-
-    /* -----End sign in------ */
-
-    /* -----Sign up------ */
-
-    .box-Container-Su {
-        width: 100%;
-        display: flex;
-        min-height: 50vh;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        position: relative;
-        z-index: 1;
-
-
-    }
-
-
-    .Container-Su {
-        width: 500px;
-        border-radius: 10px;
-        overflow: hidden;
-        padding: 30px 30px 20px;
-        background: #ffffff;
-
-        border: 10px double transparent;
-        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, #fff42b, rgb(117, 255, 142), rgb(151, 104, 255));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-
-        animation: gradient 15s ease infinite;
-        background-size: 400%;
-    }
-
-    /* -----End Sign up------ */
-
-    /* -----address------ */
-    .box-Container-address {
-        width: 100%;
-        display: flex;
-        min-height: 100vh;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: center;
-        padding: 15px;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-        position: relative;
-        z-index: 1;
-    }
-
-    .Container-address {
-        width: 800px;
-        border-radius: 10px;
-        overflow: hidden;
-        padding: 30px 30px 30px;
-        background: #ffffff;
-
-
-        border: 10px double transparent;
-        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, #fff42b, rgb(117, 255, 142), rgb(151, 104, 255));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-
-        animation: gradient 15s ease infinite;
-        background-size: 400%;
-    }
-
-    .box-address {
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-        
-    }
-
-    .input-address {
-        box-sizing: border-box;
-        width: 100%;
-        padding: 0 35px 0 10px;
-        border: 1px solid #ddd;
-        font-size: 16px;
-        height: 50px;
-    }
-
-
-    .box-btu-address {
-        width: 100%;
-        display: flex;
-        margin-right: 20px;
-        justify-content: center;
-    }
-
-    /* -----End address------ */
-
-    /* -------Sign in , Sign up ,address ---------- */
-
-    .box-img {
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        width: 32%;
-        animation: smoke1 10s linear infinite;
-    }
-
-    .img-Si-Su {
-        position: relative;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        width: 50%;
-    }
-
-    .title-Si-Su-Ad {
-        font-size: 55px;
-        color: #ffffff;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 120px;
-        margin: 0 auto;
-    }
-
-    .input-Si-Su {
-        font-size: 16px;
-        color: rgb(255, 255, 255);
-        line-height: 1.2;
-        display: block;
-        width: 100%;
-        height: 45px;
-        background: 0 0;
-        padding: 0 5px 0 38px;
-        margin-top: 30px;
-        outline: none;
-        border: none;
-        border-bottom: 5px solid rgb(255, 255, 255);
-
-    }
-
-    .input-Si-Su::placeholder {
-        color: rgb(255, 255, 255);
-    }
-
-    .btu-Si-Su-Ad {
-        text-decoration: none;
-        font-size: 16px;
-        line-height: 1.2;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 0 20px;
-        min-width: 120px;
-        height: 50px;
-        border-radius: 25px;
-        margin-top: 20px;
-        color: #ffffff;
-        border-bottom: 5px solid rgba(0, 0, 0, 1);
-
-        border: 2px double transparent;
-        background-image: linear-gradient(rgb(13, 14, 33), rgb(13, 14, 33)), radial-gradient(circle at left top, #fff42b, rgb(117, 255, 142), rgb(151, 104, 255));
-        background-origin: border-box;
-        background-clip: padding-box, border-box;
-
-        animation: gradient 15s ease infinite;
-        background-size: 400%;
-        transition: 0.2s all ease;
-
-        &:hover {
-            color: #6cef60;
-            box-shadow: 0px 0px 15px 0px rgb(151, 104, 255);  
-        }
-
-
-    }
-
-    .box-btu-Si-Su {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .text-Ad {
-        color: rgb(255, 255, 255);
-        margin-top: 5px;
-
-    }
-
-    .text-Si-Su {
-        color: rgb(255, 255, 255);
-        font-size: 15px;
-        line-height: 1.5;
-    }
-
-    .box-text {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        padding-top: 10px;
-    }
-
-
-    /* -------End Sign in and Sign up ---------- */
-
-
-    /* -----GRADIENT ANIMATOR------ */
-
-
-    @keyframes gradient {
-        0% {
-            background-position: 0% 50%;
-        }
-
-        50% {
-            background-position: 100% 50%;
-        }
-
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    /* -----End GRADIENT ANIMATOR------ */
-    @keyframes smoke1{
-        0% {
-            filter: blur(0px);
-            transform: translateY(0px) scale(-1,1);
-            opacity: 0;
-        }
-        25%{
-            filter: blur(1px);
-            transform: translateY(-10px) scale(-1,1.2);
-            opacity: 0.5;
-        }
-        50% {
-            filter: blur(5px);
-            transform: translateY(-20px) scale(-1,1.3);
-            opacity: 1;
-        }
-        75% {
-            filter: blur(5px);
-            transform: translateY(-30px) scale(-1,1.14);
-            opacity: 0.5;
-        }
-        100% {
-            filter: blur(7px);
-            transform: translateY(-40px) scale(-1,1.7);
-            opacity: 0;
-        }
-    }
-    /* -----End GRADIENT ANIMATOR------ */
-
-
-    @media screen and (max-width: 1420px) {
-        .box-img {
-            height: 0%;
-            width: 0%;
-        }
-        
-    }
+}
 }

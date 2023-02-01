@@ -1,5 +1,5 @@
 #__next {
-    --primary: #dc3545;
+    --primary: #96202c;
 }
 
 .btn-primary {
@@ -234,3 +234,14 @@ button {
     padding: 2px;
     background-color: #e8e8e8;
 }
+
+.card{
+    .card-title{
+        font-size: 40px;
+    }
+}
+
+.underline:hover{
+    text-decoration: underline;
+}
+
