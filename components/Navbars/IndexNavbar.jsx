@@ -11,7 +11,7 @@ export default function IndexNavbar() {
   return (
     <>
       <Navbar className="navbar-expand bg-secondary navbar-dark sticky-top px-4 py-0">
-        <ButtonSlideNav />
+        {/* <ButtonSlideNav /> */}
 
 
         <div className="navbar-nav align-items-center ms-auto">
@@ -20,7 +20,7 @@ export default function IndexNavbar() {
             id="nav-dropdown-dark-example"
             title={<>
               <Image className="rounded-circle me-lg-2" src="/images/logo.png" alt="" style={{ width: "40px", height: "40px" }} />
-              <span className="d-none d-lg-inline-flex">Admin Shang Pong</span>
+              <span className="d-none d-lg-inline-flex text-primary">Admin Shang Pong</span>
             </>}
             menuVariant="dark"
           >

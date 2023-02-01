@@ -47,8 +47,8 @@ export default function TheSlideNav() {
               />
               <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
             </div>
-            <div className="ms-3">
-              <h6 className="mb-0">Shang Pong</h6>
+            <div className="ms-3 text-primary">
+              <h6 className="mb-0 ">Shang Pong</h6>
               <span>Admin</span>
             </div>
           </div>
