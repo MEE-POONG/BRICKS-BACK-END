@@ -10,13 +10,13 @@ export default async function handler(req, res) {
         let pageSize = +req.query.pageSize || 10;
         let status = req.query.status;
         const data = await prisma.$transaction([
-          prisma.order.count({
+          prisma.orders.count({
             where :{status:{contains:status}}
           }),
-          prisma.order.findMany({
+          prisma.orders.findMany({
             where :{status:{contains:status}},
             include: { 
-              OrderDetail:{
+              orderDetail:{
                 include:{
                   products: true
                 }
@@ -40,7 +40,7 @@ export default async function handler(req, res) {
     case "POST":
       console.log("req.body", req.body);
       try {
-        await prisma.order.create({
+        await prisma.orders.create({
           data: {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
@@ -55,7 +55,7 @@ export default async function handler(req, res) {
             status:req.body.status,
             total:parseInt(req.body.total),
 
-            OrderDetail: {
+            ordersDetail: {
               create:
                 req.body.productIdList.map((product) => ({
                   productId: product.productId,

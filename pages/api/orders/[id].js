@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.order.findFirst({
+                const data = await prisma.orders.findFirst({
                     
                     where: {
                         id: req.query.id
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.order.update({
+                await prisma.orders.update({
                     where: {
                         id: req.query.id
                     },

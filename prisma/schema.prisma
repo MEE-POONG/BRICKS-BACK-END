@@ -111,14 +111,14 @@ model Customer {
   createdAt  DateTime? @default(now())
   deleted_at DateTime? @map("deleted_at")
   updatedAt  DateTime? @updatedAt
-  Order      Order[]
+  orders     Orders[]
 }
 
-model Order {
+model Orders {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   orderCode   String?
-  longitude   String?
-  latitude    String?
+  longitude   Float?
+  latitude    Float?
   totalPrice  Int?
   status      String?
   customerId  String?       @db.ObjectId
@@ -135,6 +135,6 @@ model OrderDetail {
   sumQty    Int?
   productId String?   @db.ObjectId
   orderId   String?   @db.ObjectId
-  order     Order?    @relation(fields: [orderId], references: [id])
+  orders    Orders?   @relation(fields: [orderId], references: [id])
   products  Products? @relation(fields: [productId], references: [id])
 }
