@@ -130,7 +130,7 @@ function MyTable(props) {
             <tbody>
            { currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td>{item.productCode}</td>
                             <td>
                                 <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
                             </td>
