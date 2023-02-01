@@ -61,12 +61,12 @@ export default function AddOnRateModal(props) {
 
     const handleChange = (i, e) => {
         const newFormValues = [...formValues];
-            newFormValues[i][e.target.name] = e.target.value;
+            newFormValues[i][e.target.length] = e.target.value;
             setFormValues(newFormValues);
         }
             
         const addFormFields = () => {
-            setFormValues([...formValues, { name: "", email: "" }])
+            setFormValues([...formValues, { length: "", email: "" }])
         }
 
         const removeFormFields = (i) => {
@@ -80,21 +80,28 @@ export default function AddOnRateModal(props) {
     return (
         <>      
             <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
-                <FaPlus />{" "}เพิ่มสินค้า
+                เพิ่มเรทราคา
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-AddOnRate'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>เพิ่มสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>เพิ่มเรทราคา</Modal.Title>
                 </Modal.Header>
                 <Modal.Body >
-                    
-                    {formValues.map((element, index) => (
-                    <Row key={index} xs="5">
-                        
+                    <Row  xs="5">
                         <Col xs={{ span: 5 }}>
-                                    <Form.Label>ระยะทาง</Form.Label>
-                                    <Form.Group className="mb-3" controlId="length">
-                                        <Form.Control type="number" placeholder="เพิ่ม ระยะทาง"
+                           <Form.Label>ระยะทาง</Form.Label> 
+                        </Col>
+                        <Col xs={{ span: 5 }}>
+                            <Form.Label>ราคาสินค้า บวกเพิ่ม</Form.Label> 
+                        </Col>
+                    </Row>
+                    {formValues.map((element, index) => (
+                    
+                    <Row key={index} xs="5">
+                        <Col xs={{ span: 5 }} >
+                                    
+                                    <Form.Group className="mb-3 " controlId="length">
+                                        <Form.Control type="number" placeholder="เพิ่ม ระยะทาง กม."
                                          onChange={(e) => { setLength(e.target.value) }}
                                          value={length} autoComplete="off"
                                          isValid={checkValue === false && length !== '' ? true : false}
@@ -103,9 +110,9 @@ export default function AddOnRateModal(props) {
                                     </Form.Group>
                 
                         </Col>
-                        <Col xs={{ span: 5 }}> 
+                        <Col xs={{ span: 5}} > 
                         
-                                    <Form.Label>ราคาสินค้า</Form.Label>    
+                                       
                                     <Form.Group className="mb-3" controlId="addOn">   
                                         <Form.Control type="number" placeholder="เพิ่ม เรทราคาของสินค้า"
                                          onChange={(e) => { setAddOn(e.target.value) }}
@@ -115,18 +122,20 @@ export default function AddOnRateModal(props) {
                                         />
                                     </Form.Group>
                         </Col>
-                        <Col  xs={{ span: 1 }}>
+
+                        <Col  xs={{ span: 2 }} >
                         {
                             index ? 
-                            <Button type="button" bg="danger" className="my-0 btn-danger"  onClick={() => removeFormFields(index)}>ลบ</Button> 
+                            <Button type="button" bg="danger" className="  btn-danger"  onClick={() => removeFormFields(index)}>ลบ</Button> 
                             : null
                         }
                         </Col>
                         
                         
-                    </Row>
                     
+                        </Row>
                     ))}
+                    
                             <Button className="button add" type="button" onClick={() => addFormFields()}>เพิ่ม</Button>
                 </Modal.Body>
                 <Modal.Footer>
