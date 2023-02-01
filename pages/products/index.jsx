@@ -12,24 +12,33 @@ import AddOnRateModal from '@/container/Products/AddOnRateModal'
 
 export default function Search() {
     const [name, setName] = useState("")
+    const [searchName,setSearchName] = useState("")
 
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log('form submitted ✅');
+      };
     return (
         <Container fluid className="pt-4 px-4">
             <Card className=" text-center rounded shadow p-4">
                 <div className=" d-inline  justify-content-center ">
 
 
-                    <Form.Group className="mb-3" >
+                    <Form.Group className="mb-3" onSubmit={handleSubmit}>
                         <Form.Label>ค้นหาสินค้า</Form.Label>
-                        <form className="d-none d-md-flex ms-4">
+                        <form onSubmit={handleSubmit}>
                         <input
                             className="form-control bg-dark border-0"
                             type="search"
                             placeholder="Search"
+                            value={searchName}
                             onChange={(e) => {
-                                setName(e.target.value);
+                                setSearchName(e.target.value);
                                 }}
                         />
+                        <Button type='submit' onClick={() => {setName(searchName)}}>
+                            ค้นหาสินค้า
+                        </Button>
                         </form>
                     </Form.Group>
 
@@ -82,6 +91,7 @@ export default function Search() {
     const handleSelectPageSize = (sizeValue) => {
         getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` })
     };
+    
 
     if (loading) {
         return <PageLoading />;
