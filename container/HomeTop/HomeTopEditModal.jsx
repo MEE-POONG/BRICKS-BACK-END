@@ -15,6 +15,10 @@ export default function HomeTopEditModal(props) {
     executeHomeTopPut,
   ] = useAxios({}, { manual: true });
 
+  const [img, setImg] = useState([]);
+  const [image, setImage] = useState([]);
+  const [imageURL, setImageURL] = useState([]);
+
   const [checkValue, setCheckValue] = useState(true);
 
   const [showCheck, setShowCheck] = useState(false);
@@ -81,6 +85,37 @@ export default function HomeTopEditModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+              <Form.Group className="mb-3" controlId="formFile">
+                <Form.Label className="text-center">เลือกรูปปก</Form.Label>
+
+                {imageURL?.length === 0 && (
+                  <Image
+                    className="mb-2"
+                    style={{ height: 200 }}
+                    src={img}
+                    alt="home_img"
+                    fluid
+                    rounded
+                  />
+                )}
+                {imageURL?.map((imageSrcHomePage, index) => (
+                  <Image
+                    key={index}
+                    className="mb-2"
+                    style={{ height: 200 }}
+                    src={imageSrcHomePage}
+                    alt="home_img"
+                    fluid
+                    rounded
+                  />
+                ))}
+                <Form.Control
+                  type="file"
+                  accept="image/*"
+                  // onChange={onImageSrcHomePageChange}
+                />
+              </Form.Group>
+    
               {EditFunction("ชื่อร้าน",fromHomeTop?.title,setFromHomeTop,"title")}
               {EditFunction("คำอธิบาย",fromHomeTop?.subTitle, setFromHomeTop, "subTitle")}
         </Modal.Body>
