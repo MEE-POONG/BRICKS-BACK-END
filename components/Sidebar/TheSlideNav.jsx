@@ -48,7 +48,7 @@ export default function TheSlideNav() {
           </div>
           <div className="ms-3">
             <h6 className="mb-0 text-dark">Shang Pong</h6>
-            <span>Admin</span>
+            <span className="text-dark">Admin</span>
           </div>
         </div>
         <div className="navbar-nav w-100">
@@ -65,13 +65,13 @@ export default function TheSlideNav() {
             <i className="me-2">
               <BsFillBagFill />
             </i>
-            Customer
+            จัดการผู้ใช้
           </Dropdown.Toggle>
           <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/customer/position"}>
             <Link
               id="buttons"
-              href="/customer"
-              className={asPath === "/customer" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              href="/customers/users"
+              className={asPath === "/customers/users" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
               
                 สมาชิก
               
@@ -79,7 +79,7 @@ export default function TheSlideNav() {
             <Link
               id="buttons"
               href="/customer/position"
-              className={asPath === "/customer/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              className={asPath === "/customers/position" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
               
                 ทีม
               
