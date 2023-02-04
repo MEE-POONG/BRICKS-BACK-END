@@ -18,11 +18,11 @@ import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-// import OrdersAddModal from '@/container/Orders/OrdersAddModal'
-// import OrdersDeleteModal from "@/container/Orders/OrdersDeleteModal";
-// import OrdersShowDetailModal from "@/container/Orders/OrderShowDetailModal";
-// import OrdersConfirmModal from "@/container/Orders/OrdersConfirmModal";
-// import OrdersEditModal from '@/container/Orders/OrdersEditModal'
+// import OrdersAddModal from '@/container/Orderss/OrdersAddModal'
+// import OrdersDeleteModal from "@/container/Orderss/OrdersDeleteModal";
+// import OrdersShowDetailModal from "@/container/Orderss/OrdersShowDetailModal";
+// import OrdersConfirmModal from "@/container/Orderss/OrdersConfirmModal";
+// import OrdersEditModal from '@/container/Orderss/OrdersEditModal'
 import { format } from "date-fns";
 
 export default function OrdersPage() {
@@ -34,7 +34,7 @@ export default function OrdersPage() {
   const [status, setStatus] = useState("");
 
   const [{ data: ordersData, loading, error }, getOrders] = useAxios({
-    url: `/api/orders?page=1&pageSize=10&status=${status}`,
+    url: `/api/orders?page=1&pageSize=10`,
     method: "GET",
   });
 
@@ -164,7 +164,7 @@ function MyTable(props) {
                   {item.firstname} {item.lastname}
                 </td>
                 <td>
-                  {/* <OrdershowDetailModal value={item} getData={props?.getData} /> */}
+                  {/* <OrdersShowDetailModal value={item} getData={props?.getData} /> */}
                 </td>
                 <td>
                   {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}

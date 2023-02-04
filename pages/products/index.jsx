@@ -130,7 +130,7 @@ function MyTable(props) {
                 <tr>
                     <th>No.</th>
                     <th>ภาพ</th>
-                    <th>ชื่อสินค่า</th>
+                    <th>ชื่อสินค้า</th>
                     <th>ประเภทสินค้า</th>
                     <th>ราคา</th>
                     <th>รายละเอียด</th>
