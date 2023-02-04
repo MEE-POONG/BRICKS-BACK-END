@@ -21,7 +21,7 @@ export default async function handler(req, res) {
                   products: true
                 }
             },
-              customer:true
+              users:true
             },
             orderBy: {
               id: "desc",
