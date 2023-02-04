@@ -141,6 +141,8 @@ model Orders {
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt
   orderDetail OrderDetail[]
+  summary     Summary?      @relation(fields: [summaryId], references: [id])
+  summaryId   String?       @db.ObjectId
 }
 
 model OrderDetail {
@@ -176,4 +178,13 @@ model TeamType {
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
   Team       Team[]
+}
+
+model Summary {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+  orders     Orders[]
 }
