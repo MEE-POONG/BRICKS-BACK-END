@@ -177,6 +177,24 @@ export default function TheSlideNav() {
               
             </Link>
           </Dropdown.Menu>
+
+          
+          <Dropdown.Toggle onClick={() => { setCheckClickPath('/summary') }} className={checkClickPath === "/summary" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
+            <i className="me-2">
+              <BsFillBagFill />
+            </i>
+            จัดการสรุปรายได้
+          </Dropdown.Toggle>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/summary"}>
+            <Link
+              id="buttons"
+              href="/summary"
+              className={asPath === "/summary" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+              สรุปการสั่งซื้อ
+              
+            </Link>
+          </Dropdown.Menu>
         
 
 
