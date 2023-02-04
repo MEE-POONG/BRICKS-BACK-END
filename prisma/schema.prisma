@@ -144,10 +144,21 @@ model OrderDetail {
 
 model Team {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name       String?
+  fname      String?
+  lname      String?
+  tel        String?
+  email      String?
   username   String?
   password   String?
+  userlevel  String?
   createdAt  DateTime? @default(now())
   deleted_at DateTime? @map("deleted_at")
   updatedAt  DateTime? @updatedAt
+}
+model TeamType {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
 }
