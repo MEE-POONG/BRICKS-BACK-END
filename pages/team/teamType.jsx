@@ -6,9 +6,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import teamTypeEditModal from '@/container/teamType/teamTypeEditModal'
-import teamTypeDeleteModal from '@/container/teamType/teamTypeDeleteModal'
-import teamTypeAddModal from '@/container/teamType/teamTypeAddModal'
+import TeamTypeAddModal from '@/container/TeamType/TeamTypeAddModal'
+import TeamTypeEditModal from '@/container/TeamType/TeamTypeEditModal'
+import TeamTypeDeleteModal from '@/container/TeamType/TeamTypeDeleteModal'
 
 export default function teamTypePage() {
     const [params, setParams] = useState({
@@ -49,9 +49,9 @@ export default function teamTypePage() {
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                       รายการระดับสิทธิ์ผู้ดูแลระบบ
                     </Card.Title>
-                    <teamTypeAddModal getData={getTeamType} getTypeData={typeData?.data}/>
+                    <TeamTypeAddModal getData={getTeamType} getTypeData={typeData?.data}/>
                 </div>
                 <MyTable data={teamTypeData?.data} setNum={(teamTypeData?.page * teamTypeData?.pageSize) - teamTypeData?.pageSize} getData={getTeamType} getTypeData={typeData?.data} />
                 <MyPagination page={teamTypeData.page} totalPages={teamTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
@@ -73,7 +73,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ประเภทย่อยสินค้า</th>
+                    <th>ประเภทสิทธิ์ผู้ใช้</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -86,8 +86,8 @@ function MyTable(props) {
                                 {item.name}
                             </td>
                             <td>
-                                <teamTypeEditModal value={item} getData={props?.getData} getTypeData={props?.getTypeData} />
-                                <teamTypeDeleteModal value={item} getData={props?.getData} />
+                                <TeamTypeEditModal value={item} getData={props?.getData} getTypeData={props?.getTypeData} />
+                                <TeamTypeDeleteModal value={item} getData={props?.getData} />
                             </td>
                         </tr>
                     )))

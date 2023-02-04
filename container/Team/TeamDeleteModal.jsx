@@ -15,7 +15,7 @@ export default function TeamDeleteModal(props) {
             method: 'DELETE',
         }).then(() => {
             Promise.all([
-                props.getData(),
+                props.getTeam(),
             ]).then(() => {
                 if (deleteTeamLoading?.success) {
                     handleClose()

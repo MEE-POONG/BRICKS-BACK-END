@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         // case 'GET':
         //     try {
-        //         const data = await prisma.team.findMany({});
+        //         const data = await prisma.teamType.findMany({});
         //         res.status(200).json(data)
         //     } catch (error) {
         //         res.status(400).json({ success: false })
@@ -17,9 +17,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.team.count(),
-                    prisma.team.findMany({
-                    include: {teamType: true},
+                    prisma.teamType.count(),
+                    prisma.teamType.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -32,16 +31,10 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.team.create({
+                await prisma.teamType.create({
                     data: {
-                        fname: req.body.fname,
-                        lname: req.body.lname,
-                        tel: req.body.username,
-                        email: req.body.email,
-                        username: req.body.tel,
-                        password: req.body.password,
-                        userlevel: req.body.userlevel,
-                        teamTypeId: req.body.teamTypeId,
+                        name: req.body.name,
+                        TeamTypeId: req.body.TeamTypeId,
                     }
                 })
                 res.status(201).json({ success: true })

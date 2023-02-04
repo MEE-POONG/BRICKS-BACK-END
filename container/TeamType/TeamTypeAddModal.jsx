@@ -68,12 +68,12 @@ export default function TeamTypeAddModal(props) {
               onChange={(e) => {
                 setTeamId(e.target.value);
               }}
-              value={TeamId}
+              value={teamId}
               autoComplete="off"
-              isValid={checkValue === false && TeamId !== "" ? true : false}
-              isInvalid={checkValue === false && TeamId === "" ? true : false}
+              isValid={checkValue === false && teamId !== "" ? true : false}
+              isInvalid={checkValue === false && teamId === "" ? true : false}
             >
-              <option value="">ประเภทสินค้า</option>
+              <option value="">ประเภทสิทธิ์ผู้ดูแล</option>
               {props?.getTypeData?.map((TypeData, index) => (
                 <option key={index} value={TypeData.id}>
                   {TypeData.name}
