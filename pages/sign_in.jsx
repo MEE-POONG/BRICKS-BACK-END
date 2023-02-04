@@ -12,7 +12,7 @@ export default function AdderssUserPage() {
       <Head>
         <title>Shang Pong</title>
         <meta name="description" content="I2AROBOT 2" />
-        <link rel="icon" href="/images/logo1.png" />
+        <link rel="icon" href="/images/logo2.png" />
       </Head>
 
       <BackGroundMain />

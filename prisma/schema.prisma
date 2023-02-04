@@ -141,3 +141,24 @@ model OrderDetail {
   orders    Orders?   @relation(fields: [orderId], references: [id])
   products  Products? @relation(fields: [productId], references: [id])
 }
+
+model Team {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  fname      String?
+  lname      String?
+  tel        String?
+  email      String?
+  username   String?
+  password   String?
+  userlevel  String?
+  createdAt  DateTime? @default(now())
+  deleted_at DateTime? @map("deleted_at")
+  updatedAt  DateTime? @updatedAt
+}
+model TeamType {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String?
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+}
