@@ -41,6 +41,7 @@ model Products {
   subType     SubType?      @relation(fields: [subTypeId], references: [id])
   addOnRate   AddOnRate[]
   OrderDetail OrderDetail[]
+  Basket      Basket[]
 }
 
 model Contact {
