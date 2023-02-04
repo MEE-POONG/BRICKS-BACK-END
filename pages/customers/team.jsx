@@ -52,8 +52,8 @@ function MyTable(props) {
                             <td> 098888998</td>
                             <td> password</td>
                             <td>
-                                <TeamEditModal value={item} getData={props?.getData} getTypeData={props?.getTypeData} />
-                                <TeamDeleteModal value={item} getData={props?.getData} />
+                                <TeamEditModal />
+                                <TeamDeleteModal />
                             </td>
                         </tr>
                 
