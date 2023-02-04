@@ -79,7 +79,7 @@ export default function AddOnRateModal(props) {
 
     return (
         <>      
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
+            <Button bsPrefix="create" className={showCheck ? 'icon active ' : 'icon '} onClick={handleShow}>
                 เพิ่มเรทราคา
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-AddOnRate'>

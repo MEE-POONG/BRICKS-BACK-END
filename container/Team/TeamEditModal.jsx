@@ -31,6 +31,7 @@ export default function TeamEditModal(props) {
     username: "",
     password: "",
     teamId: "",
+    teamTypeId: "",
 
   });
 
@@ -44,6 +45,7 @@ export default function TeamEditModal(props) {
         username:  props?.value?.username,
         password:  props?.value?.password,
         teamId:  props?.value?.teamId,
+        teamTypeId:  props?.value?.teamTypeId,
 
       });
     }
@@ -63,6 +65,7 @@ export default function TeamEditModal(props) {
             username: fromTeam?.username,
             password: fromTeam?.password,
             teamId: fromTeam?.teamId,
+            teamTypeId: fromTeam?.teamTypeId,
         },
       }).then(() => {
         setFromTeam({
@@ -73,6 +76,7 @@ export default function TeamEditModal(props) {
             username: "",
             password: "",
             teamId: "",
+            teamTypeId: "",
         }),
           props?.getTeam().then(() => {
             if (updateTeamLoading?.success) {
@@ -176,17 +180,20 @@ export default function TeamEditModal(props) {
                                     <Form.Group className="mb-3" controlId="price">
                                         <Form.Label>ประเภทสิทธิ์ผู้ใช้</Form.Label>
                                         <Form.Select  
-                                         onChange={(e) => { setTeamId(e.target.value) }}
-                                         value={fromTeam.teamId} autoComplete="off"
-                                         isValid={checkValue === false && fromTeam.teamId !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromTeam.teamId === '' ? true : false}>
-                                            <option value="">ประเภทสิทธิ์ผู้ใช้</option>
-                                            {props?.getTeamTypeData?.map((teamTypeData, index) => (
+                                          onChange={(e) => {setFromTeam((oldState)=> {
+                                            return { ...oldState, teamTypeId: e.target.value }
+                                          })}}
+                                         value={fromTeam.teamTypeId} autoComplete="off"
+                                         isValid={checkValue === false && fromTeam.teamTypeId !== '' ? true : false}
+                                         isInvalid={checkValue === false && fromTeam.teamTypeId === '' ? true : false}>
+                                            <option value="">ระดับสิทธิ์ผู้ใช้</option>
+                                            {props?.getTeamType?.map((teamTypeData, index) => (
                                                 <option key={index} value={teamTypeData.id}>{teamTypeData.name}</option>
                                             ))}
 
                                         </Form.Select>
                                     </Form.Group>
+
                                   </Col>
                                   </Row>
       

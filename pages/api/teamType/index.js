@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         // case 'GET':
         //     try {
-        //         const data = await prisma.rate.findMany({});
+        //         const data = await prisma.teamType.findMany({});
         //         res.status(200).json(data)
         //     } catch (error) {
         //         res.status(400).json({ success: false })
@@ -17,9 +17,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.rate.count(),
-                    prisma.rate.findMany({
-                        include: { subrate: true },
+                    prisma.teamType.count(),
+                    prisma.teamType.findMany({
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -32,9 +31,10 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.rate.create({
+                await prisma.teamType.create({
                     data: {
                         name: req.body.name,
+                        TeamTypeId: req.body.TeamTypeId,
                     }
                 })
                 res.status(201).json({ success: true })

@@ -9,10 +9,10 @@ import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 
-export default function SubTypeEditModal(props) {
+export default function TeamTypeEditModal(props) {
   const [
-    { loading: updateSubTypeLoading, error: updateSubTypeError },
-    executeSubTypePut,
+    { loading: updateTeamTypeLoading, error: updateTeamTypeError },
+    executeTeamTypePut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -23,29 +23,29 @@ export default function SubTypeEditModal(props) {
   const handleShow = () => setShowCheck(true);
 
   const [name, setName] = useState("");
-  const [TypeId, setTypeId] = useState("");
+  const [teamTypeId, setTeamTypeId] = useState("");
 
   useEffect(() => {
     if (props) {
 
       setName(props?.value?.name);
-      setTypeId(props?.value?.TypeId);
+      setTeamTypeId(props?.value?.TeamTypeId);
     }
   }, [props]);
 
   const handlePutData = () => {
     setCheckValue(false);
     if (name !== "") {
-      executeSubTypePut({
-        url: "/api/subType/" + props?.value?.id,
+      executeTeamTypePut({
+        url: "/api/teamType/" + props?.value?.id,
         method: "PUT",
         data: {
           name: name,
-          TypeId: TypeId,
+          teamTypeId: teamTypeId,
         },
       }).then(() => {
-        Promise.all([setName(""), setTypeId(""), props.getData()]).then(() => {
-          if (updateSubTypeLoading?.success) {
+        Promise.all([setName(""), setTeamTypeId(""), props.getData()]).then(() => {
+          if (updateTeamTypeLoading?.success) {
             handleClose();
           }
         });
@@ -53,8 +53,8 @@ export default function SubTypeEditModal(props) {
     }
   };
 
-  if (updateSubTypeLoading) return <ModelLoading showCheck={showCheck} />;
-  if (updateSubTypeError)
+  if (updateTeamTypeLoading) return <ModelLoading showCheck={showCheck} />;
+  if (updateTeamTypeError)
     return (
       <ModelError show={showCheck} fnShow={handleClose} centered size="lg" />
     );
@@ -71,21 +71,21 @@ export default function SubTypeEditModal(props) {
 
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">แก้ไขประเภทย่อยสินค้า</Modal.Title>
+          <Modal.Title className="text-center">แก้ไขประเภทสิทธิ์ผู้ใช้</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form.Group className="mb-3" controlId="price">
-            <Form.Label>ประเภทสินค้า</Form.Label>
+            <Form.Label>ประเภทสิทธิ์ผู้ใช้</Form.Label>
             <Form.Select
               onChange={(e) => {
-                setTypeId(e.target.value);
+                setTeamTypeId(e.target.value);
               }}
-              value={TypeId}
+              value={teamTypeId}
               autoComplete="off"
-              isValid={checkValue === false && TypeId !== "" ? true : false}
-              isInvalid={checkValue === false && TypeId === "" ? true : false}
+              isValid={checkValue === false && teamTypeId !== "" ? true : false}
+              isInvalid={checkValue === false && teamTypeId === "" ? true : false}
             >
-              <option value="">ประเภทสินค้า</option>
+              <option value="">ประเภทสิทธิ์ผู้ใช้</option>
               {props?.getTypeData?.map((TypeData, index) => (
                 <option key={index} value={TypeData.id}>
                   {TypeData.name}
@@ -94,20 +94,6 @@ export default function SubTypeEditModal(props) {
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="name">
-            <Form.Label>ชื่อประเภทย่อยสินค้า</Form.Label>
-            <Form.Control
-              Type="text"
-              placeholder="แก้ไขประเภทย่อยสินค้า"
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              value={name}
-              autoComplete="off"
-              isValid={checkValue === false && name !== "" ? true : false}
-              isInvalid={checkValue === false && name === "" ? true : false}
-            />
-          </Form.Group>
         </Modal.Body>
         <Modal.Footer>
           <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>

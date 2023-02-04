@@ -16,7 +16,6 @@ export default function Search() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('form submitted ✅');
       };
     return (
         <Container fluid className="pt-4 px-4">
@@ -36,8 +35,11 @@ export default function Search() {
                                 setSearchName(e.target.value);
                                 }}
                         />
-                        <Button type='submit' onClick={() => {setName(searchName)}}>
+                        <Button type='submit' className=" mt-1" onClick={() => {setName(searchName)}}>
                             ค้นหาสินค้า
+                        </Button>
+                        <Button type='submit' className=" mt-1" onClick={() => {setName("")}}>
+                            ยกเลิก
                         </Button>
                         </form>
                     </Form.Group>
@@ -58,20 +60,14 @@ export default function Search() {
     
     
 
-    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
+    const [{ data: productsData, loading:productLoading, error:productError }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
 
     const [{ data: subTypeData }, getSubType] = useAxios({
         url: "../api/subType?",
       });
 
       useEffect(() => {
-
-        if (loading === false) {
-            const getProductList = async () => {
-              await getProduct();
-            };
-            getProductList();
-        }
+        getProduct().catch((error) => {console.log(error)});
       }, [name]);
     
     
@@ -86,17 +82,17 @@ export default function Search() {
     }, [productsData]);
 
     const handleSelectPage = (pageValue) => {
-        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` })
+        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
     };
     const handleSelectPageSize = (sizeValue) => {
-        getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` })
+        getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` },{manual: true})
     };
     
 
-    if (loading) {
+    if (productLoading) {
         return <PageLoading />;
     }
-    if (error) {
+    if (productError) {
         return <PageError />;
     }
     return (
@@ -134,6 +130,7 @@ function MyTable(props) {
                     <th>ประเภทสินค้า</th>
                     <th>ราคา</th>
                     <th>รายละเอียด</th>
+                    <th>เรทราคา</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -163,7 +160,9 @@ function MyTable(props) {
                                 <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
                             </td>
                             <td>
-                                <AddOnRateModal value={item} getData={props?.getData}/>
+                            <AddOnRateModal value={item} getData={props?.getData}/>
+                            </td>
+                            <td>
                                 <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
                                 <ProductsDeleteModal value={item} getData={props?.getData} />
                             </td>

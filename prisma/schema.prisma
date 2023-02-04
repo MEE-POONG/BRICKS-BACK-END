@@ -151,14 +151,18 @@ model Team {
   username   String?
   password   String?
   userlevel  String?
+  teamTypeId String?   @db.ObjectId
   createdAt  DateTime? @default(now())
   deleted_at DateTime? @map("deleted_at")
   updatedAt  DateTime? @updatedAt
+  teamType   TeamType? @relation(fields: [teamTypeId], references: [id])
 }
+
 model TeamType {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
+  Team       Team[]
 }

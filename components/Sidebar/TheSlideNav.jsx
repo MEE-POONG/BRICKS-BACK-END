@@ -67,7 +67,7 @@ export default function TheSlideNav() {
             </i>
             จัดการผู้ใช้
           </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/team"}>
+          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/team" || checkClickPath === "/team/teamType"}>
             <Link
               id="buttons"
               href="/customers/users"
@@ -82,6 +82,14 @@ export default function TheSlideNav() {
               className={asPath === "/team" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
               
                 ทีม
+              
+            </Link>
+            <Link
+              id="buttons"
+              href="/team/teamType"
+              className={asPath === "/team/teamType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
+              
+                ระดับสิทธิ์ผู้ใช้
               
             </Link>
           </Dropdown.Menu>

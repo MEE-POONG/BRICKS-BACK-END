@@ -19,7 +19,7 @@ export default async function handler(req, res) {
                 const data = await prisma.$transaction([
                     prisma.team.count(),
                     prisma.team.findMany({
-                    
+                    include: {teamType: true},
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -41,6 +41,7 @@ export default async function handler(req, res) {
                         username: req.body.tel,
                         password: req.body.password,
                         userlevel: req.body.userlevel,
+                        teamTypeId: req.body.teamTypeId,
                     }
                 })
                 res.status(201).json({ success: true })

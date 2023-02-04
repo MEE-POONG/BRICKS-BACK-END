@@ -18,11 +18,11 @@ import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
-// import OrdersAddModal from '@/container/Orderss/OrdersAddModal'
-// import OrdersDeleteModal from "@/container/Orderss/OrdersDeleteModal";
-// import OrdersShowDetailModal from "@/container/Orderss/OrdersShowDetailModal";
-// import OrdersConfirmModal from "@/container/Orderss/OrdersConfirmModal";
-// import OrdersEditModal from '@/container/Orderss/OrdersEditModal'
+// import OrdersAddModal from '@/container/Orders/OrderAddModal'
+import OrdersDeleteModal from "@/container/Orders/OrderDeleteModal";
+import OrdersShowDetailModal from "@/container/Orders/OrderShowDetailModal";
+import OrdersConfirmModal from "@/container/Orders/OrderConfirmModal";
+// import OrdersEditModal from '@/container/Orders/OrderEditModal'
 import { format } from "date-fns";
 
 export default function OrdersPage() {
@@ -38,15 +38,15 @@ export default function OrdersPage() {
     method: "GET",
   });
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (loading === false) {
-        const getOrdersList = async () => {
-          await getOrders();
-        };
-        getOrdersList();
-    }
-  }, [status]);
+  //   if (loading === false) {
+  //       const getOrdersList = async () => {
+  //         await getOrders();
+  //       };
+  //       getOrdersList();
+  //   }
+  // }, [status]);
 
 
 
@@ -161,10 +161,10 @@ function MyTable(props) {
               <tr key={item.id}>
                 <td>{item.ordersCode}</td>
                 <td>
-                  {item.firstname} {item.lastname}
+                  {item.users.fname} {item.users.lname}
                 </td>
                 <td>
-                  {/* <OrdersShowDetailModal value={item} getData={props?.getData} /> */}
+                  <OrdersShowDetailModal value={item} getData={props?.getData} />
                 </td>
                 <td>
                   {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
@@ -185,8 +185,8 @@ function MyTable(props) {
 
                 <td>{item.total} บาท</td>
                 <td>
-                  {/* <OrdersConfirmModal value={item} getData={props?.getData} />
-                  <OrdersDeleteModal value={item} getData={props?.getData} /> */}
+                  <OrdersConfirmModal value={item} getData={props?.getData} />
+                  <OrdersDeleteModal value={item} getData={props?.getData} />
                 </td>
               </tr>
             ))

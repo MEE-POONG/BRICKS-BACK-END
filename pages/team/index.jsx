@@ -16,6 +16,9 @@ export default function TeamPage( ){
     });
 
     const [{ data: teamData, loading, error }, getTeam] = useAxios({ url: `/api/team?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: teamTypeData }, getTeamType] = useAxios({
+        url: "../api/teamType?",
+      });
     useEffect(() => {
         if (teamData) {
             setParams({
@@ -39,9 +42,9 @@ export default function TeamPage( ){
                     <Card.Title className="mb-0">
                         รายการบัญชีผู้ดูแลระบบ
                     </Card.Title>
-                    <TeamAddModal getData={getTeam} />
+                    <TeamAddModal getData={getTeam} getTeamType={teamTypeData?.data}/>
                 </div>
-                <MyTable data={teamData?.data} getTeam={getTeam} />
+                <MyTable data={teamData?.data} getTeam={getTeam} getTeamType={teamTypeData?.data} />
             </Card >
         </Container >
     );
@@ -66,6 +69,7 @@ function MyTable(props) {
                     <th>อีเมล์</th>
                     <th>ชื่อผู้ใช้</th>
                     <th>รหัสผ่าน</th>
+                    <th>ระดับสิทธิ์ผู้ใช้</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -93,7 +97,10 @@ function MyTable(props) {
                                 {item.password}
                             </td>
                             <td>
-                                <TeamEditModal value={item} getTeam={props?.getTeam}  />
+                                {item.teamType?.name}
+                            </td>
+                            <td>
+                                <TeamEditModal value={item} getTeam={props?.getTeam} getTeamType={props?.getTeamType}  />
                                 <TeamDeleteModal value={item} getTeam={props?.getTeam} />
                             </td>
                         </tr>

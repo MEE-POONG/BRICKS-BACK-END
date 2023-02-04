@@ -31,6 +31,7 @@ export default async function handler(req, res) {
                         username: req.body.tel,
                         password: req.body.password,
                         userlevel: req.body.userlevel,
+                        teamTypeId: req.body.teamTypeId,
                     }
                 })
                 prisma.$disconnect();
