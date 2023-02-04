@@ -41,6 +41,7 @@ model Products {
   subType     SubType?      @relation(fields: [subTypeId], references: [id])
   addOnRate   AddOnRate[]
   OrderDetail OrderDetail[]
+  Basket      Basket[]
 }
 
 model Contact {
@@ -155,10 +156,20 @@ model Team {
   deleted_at DateTime? @map("deleted_at")
   updatedAt  DateTime? @updatedAt
 }
+
 model TeamType {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   name       String?
   createdAt  DateTime? @default(now())
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
+}
+
+model Basket {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  sumPrice  Int?
+  sumQty    Int?
+  productId String?   @db.ObjectId
+  orderId   String?   @db.ObjectId
+  products  Products? @relation(fields: [productId], references: [id])
 }
