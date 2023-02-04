@@ -16,7 +16,6 @@ export default function Search() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log('form submitted ✅');
       };
     return (
         <Container fluid className="pt-4 px-4">
@@ -58,7 +57,7 @@ export default function Search() {
     
     
 
-    const [{ data: productsData, loading, error }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
+    const [{ data: productsData, loading:productLoading, error:productError }, getProduct] = useAxios({ url: `/api/products?page=1&pageSize=10&name=${name}`, method: 'GET' });
 
     const [{ data: subTypeData }, getSubType] = useAxios({
         url: "../api/subType?",
@@ -66,9 +65,9 @@ export default function Search() {
 
       useEffect(() => {
 
-        if (loading === false) {
+        if (productLoading === false) {
             const getProductList = async () => {
-              await getProduct();
+              await getProduct().catch((error) => {console.log(error)});
             };
             getProductList();
         }
@@ -86,17 +85,17 @@ export default function Search() {
     }, [productsData]);
 
     const handleSelectPage = (pageValue) => {
-        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` })
+        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
     };
     const handleSelectPageSize = (sizeValue) => {
-        getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` })
+        getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` },{manual: true})
     };
     
 
-    if (loading) {
+    if (productLoading) {
         return <PageLoading />;
     }
-    if (error) {
+    if (productError) {
         return <PageError />;
     }
     return (
