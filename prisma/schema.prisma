@@ -39,8 +39,30 @@ model Products {
   deleted_at  DateTime?     @map("deleted_at")
   price       Int?
   subType     SubType?      @relation(fields: [subTypeId], references: [id])
-  addOnRate   AddOnRate[]
   OrderDetail OrderDetail[]
+  QtyRate     QtyRate[]
+}
+
+model QtyRate {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  qtyCheck   Int?
+  productId  String?     @db.ObjectId
+  products   Products?   @relation(fields: [productId], references: [id])
+  createdAt  DateTime?   @default(now())
+  updatedAt  DateTime?   @updatedAt
+  deleted_at DateTime?   @map("deleted_at")
+  AddOnRate  AddOnRate[]
+}
+
+model AddOnRate {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  length     Int?
+  addOn      Float?
+  qtyRateId  String?   @db.ObjectId
+  qtyRate    QtyRate?  @relation(fields: [qtyRateId], references: [id])
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
 }
 
 model Contact {
@@ -92,17 +114,6 @@ model HomeTop {
   deleted_at DateTime? @map("deleted_at")
 }
 
-model AddOnRate {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  length     Int?
-  addOn      Int?
-  productId  String?   @db.ObjectId
-  products   Products? @relation(fields: [productId], references: [id])
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  deleted_at DateTime? @map("deleted_at")
-}
-
 model Users {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   fname      String?
@@ -130,6 +141,8 @@ model Orders {
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt
   orderDetail OrderDetail[]
+  summary     Summary?      @relation(fields: [summaryId], references: [id])
+  summaryId   String?       @db.ObjectId
 }
 
 model OrderDetail {
@@ -165,4 +178,13 @@ model TeamType {
   updatedAt  DateTime? @updatedAt
   deleted_at DateTime? @map("deleted_at")
   Team       Team[]
+}
+
+model Summary {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  createdAt  DateTime? @default(now())
+  updatedAt  DateTime? @updatedAt
+  deleted_at DateTime? @map("deleted_at")
+  orders     Orders[]
 }
