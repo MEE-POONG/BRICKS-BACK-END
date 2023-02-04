@@ -43,6 +43,7 @@ export default function TeamAddModal(props) {
                     username: username,
                     password: password,
                     userlevel: userlevel,
+                    teamTypeId: teamTypeId,
                 }
             }).then(() => {
                 Promise.all([    
@@ -135,14 +136,14 @@ export default function TeamAddModal(props) {
                                         />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ระดับสิทธิ์ผู้ใช้</Form.Label>
+                                        <Form.Label>ประเภทสิทธิ์ผู้ใช้</Form.Label>
                                         <Form.Select  
                                          onChange={(e) => { setTeamTypeId(e.target.value) }}
                                          value={teamTypeId} autoComplete="off"
                                          isValid={checkValue === false && teamTypeId !== '' ? true : false}
                                          isInvalid={checkValue === false && teamTypeId === '' ? true : false}>
-                                            <option value="">ระดับ</option>
-                                            {props?.getTeamTypeData?.map((teamTypeData, index) => (
+                                            <option value="">ระดับสิทธิ์ผู้ใช้</option>
+                                            {props?.getTeamType?.map((teamTypeData, index) => (
                                                 <option key={index} value={teamTypeData.id}>{teamTypeData.name}</option>
                                             ))}
 

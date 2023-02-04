@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
             try {
-                const data = await prisma.team.findFirst({
+                const data = await prisma.teamType.findFirst({
                     where: {
                         id: req.query.id
                     }
@@ -19,19 +19,13 @@ export default async function handler(req, res) {
             break
         case 'PUT':
             try {
-                await prisma.team.update({
+                await prisma.teamType.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        fname: req.body.fname,
-                        lname: req.body.lname,
-                        tel: req.body.username,
-                        email: req.body.email,
-                        username: req.body.tel,
-                        password: req.body.password,
-                        userlevel: req.body.userlevel,
-                        teamTypeId: req.body.teamTypeId,
+                        name: req.body.name,
+                        TeamTypeId: req.body.TeamTypeId,
                     }
                 })
                 prisma.$disconnect();
@@ -42,7 +36,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.team.delete({
+                await prisma.teamType.delete({
                     where: {
                         id: req.query.id
                     }

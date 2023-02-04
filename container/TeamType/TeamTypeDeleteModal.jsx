@@ -4,28 +4,28 @@ import { FaTrash } from 'react-icons/fa'
 import useAxios from 'axios-hooks'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
-export default function SubTypeDeleteModal(props) {
+export default function TeamTypeDeleteModal(props) {
     const [showCheck, setShowCheck] = useState(false);
     const handleShow = () => setShowCheck(true);
     const handleClose = () => setShowCheck(false);
-    const [{ loading: deleteSubTypeLoading, error: deleteSubTypeError }, executeSubTypeDelete] = useAxios({}, { manual: true })
+    const [{ loading: deleteTeamTypeLoading, error: deleteTeamTypeError }, executeTeamTypeDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
-        executeSubTypeDelete({
-            url: '/api/subType/' + props?.value?.id,
+        executeTeamTypeDelete({
+            url: '/api/teamType/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([
-                props.getData(),
+                props.getTeam(),
             ]).then(() => {
-                if (deleteSubTypeLoading?.success) {
+                if (deleteTeamTypeLoading?.success) {
                     handleClose()
                 }
             })
         })
     }
 
-    if (deleteSubTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    if (deleteSubTypeError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (deleteTeamTypeLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (deleteTeamTypeError) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
     return (
         <>
@@ -34,10 +34,10 @@ export default function SubTypeDeleteModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ลบรายการทีมและตำแหน่ง</Modal.Title>
+                    <Modal.Title className='text-center'>ลบรายการประเภทสิทธิ์ผู้ใช้</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Modal.Title>ชื่อประเภทสินค้า : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
+                    <Modal.Title>ชื่อประเภทสิทธิ์ผู้ใช้ : <span className='text-danger'> {props?.value?.name}</span></Modal.Title>
                 </Modal.Body>
                 <Modal.Footer>
                 <Button bg="cancel" className='my-0' onClick={handleClose}>
