@@ -49,6 +49,9 @@ function MyTable(props) {
                     <div key={index}>
 
                         <Row>
+                            <Col>
+                            <Image src={item.image}  width="350px" height="150px" className='object-fit-cover' /> 
+                            </Col>
                             <Col >
                             {newFunction("ชื่อร้าน", item?.title )} 
                             </Col>

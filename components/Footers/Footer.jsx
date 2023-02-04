@@ -21,9 +21,9 @@ export default function Footer() {
                 Designed By{" "}
                 <a
                   href="https://www.meepoong.com/?fbclid=IwAR2Xk_uNgi5GuJ758qZt00YYtLTKH6TNxpvTV6_xPrGhcgNm157FkX1JXl4"
-                  className="text-dark underline"
+                  className="text-dark underline text-uppercase"
                 >
-                  ME PROMT TECHNOLOGY Co.,Ltd.
+                  ME PROMT TECHNOLOGY COMPANY LIMITED.
                 </a>{" "}
               </div>
             </div>

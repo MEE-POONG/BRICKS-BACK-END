@@ -103,8 +103,11 @@ model AddOnRate {
   deleted_at DateTime? @map("deleted_at")
 }
 
-model Customer {
+model Users {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  fname      String?
+  lname      String?
+  tel        String?
   username   String?
   email      String?
   password   String?
@@ -121,8 +124,8 @@ model Orders {
   latitude    Float?
   totalPrice  Int?
   status      String?
-  customerId  String?       @db.ObjectId
-  customer    Customer?     @relation(fields: [customerId], references: [id])
+  usersId     String?       @db.ObjectId
+  users       Users?        @relation(fields: [usersId], references: [id])
   createdAt   DateTime?     @default(now())
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt

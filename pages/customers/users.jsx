@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
@@ -6,37 +6,26 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import SubTypeEditModal from '@/container/SubType/SubTypeEditModal'
-import SubTypeDeleteModal from '@/container/SubType/SubTypeDeleteModal'
-import SubTypeAddModal from '@/container/SubType/SubTypeAddModal'
+import UsersAddModal from '@/container/Users/UsersAddModal'
+import UsersEditModal from '@/container/Users/UsersEditModal'
+import UsersDeleteModal from '@/container/Users/UsersDeleteModal'
 
-export default function subTypePage() {
+export default function usersPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: subTypeData, loading, error }, getSubType] = useAxios({ url: `/api/subType?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: usersData, loading, error }, getUsers] = useAxios({ url: `/api/users?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
-        if (subTypeData) {
+        if (usersData) {
             setParams({
                 ...params,
-                page: subTypeData.page,
-                pageSize: subTypeData.pageSize
+                page: usersData.page,
+                pageSize: usersData.pageSize
             });
         }
-    }, [subTypeData]);
-
-    const [{ data: typeData }, getType] = useAxios({
-        url: "../api/type?",
-      });
-
-    const handleSelectPage = (pageValue) => {
-        getSubType({ url: `/api/subType?page=${pageValue}&pageSize=${params.pageSize}` })
-    };
-    const handleSelectPageSize = (sizeValue) => {
-        getSubType({ url: `/api/subType?page=1&pageSize=${sizeValue}` })
-    };
+    }, [usersData]);
 
     if (loading) {
         return <PageLoading />;
@@ -49,12 +38,11 @@ export default function subTypePage() {
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการสินค้า
+                        รายการบัญชีสมาชิก
                     </Card.Title>
-                    <SubTypeAddModal getData={getSubType} getTypeData={typeData?.data}/>
+                    <UsersAddModal getData={getUsers} />
                 </div>
-                <MyTable data={subTypeData?.data} setNum={(subTypeData?.page * subTypeData?.pageSize) - subTypeData?.pageSize} getData={getSubType} getTypeData={typeData?.data} />
-                <MyPagination page={subTypeData.page} totalPages={subTypeData.totalPage} onChangePage={handleSelectPage} pageSize={params.pageSize} onChangePageSize={handleSelectPageSize} />
+                <MyTable data={usersData?.data} getUsers={getUsers} />
             </Card >
         </Container >
     );
@@ -73,7 +61,12 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ประเภทย่อยสินค้า</th>
+                    <th>ชื่อจริง</th>
+                    <th>นามสกุล</th>
+                    <th>เบอร์โทร</th>
+                    <th>อีเมล์</th>
+                    <th>ชื่อผู้ใช้</th>
+                    <th>รหัสผ่าน</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -81,13 +74,28 @@ function MyTable(props) {
                 {currentItems.length ? (
                     currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 + numberSet}</td>
+                            <td>{index + 1 }</td>
                             <td>
-                                {item.name}
+                                {item.fname}
                             </td>
                             <td>
-                                <SubTypeEditModal value={item} getData={props?.getData} getTypeData={props?.getTypeData} />
-                                <SubTypeDeleteModal value={item} getData={props?.getData} />
+                                {item.lname}
+                            </td>
+                            <td>
+                                {item.tel}
+                            </td>
+                            <td>
+                                {item.email}
+                            </td>
+                            <td>
+                                {item.username}
+                            </td>
+                            <td>
+                                {item.password}
+                            </td>
+                            <td>
+                                <UsersEditModal value={item} getUsers={props?.getUsers}  />
+                                <UsersDeleteModal value={item} getUsers={props?.getUsers} />
                             </td>
                         </tr>
                     )))
@@ -98,4 +106,5 @@ function MyTable(props) {
 }
 
 
-subTypePage.layout = IndexPage
+
+usersPage.layout = IndexPage
