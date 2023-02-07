@@ -19,10 +19,11 @@ import useAxios from "axios-hooks";
 import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
 // import OrdersAddModal from '@/container/Orders/OrderAddModal'
+// import OrdersEditModal from '@/container/Orders/OrderEditModal'
 import OrdersDeleteModal from "@/container/Orders/OrderDeleteModal";
 import OrdersShowDetailModal from "@/container/Orders/OrderShowDetailModal";
 import OrdersConfirmModal from "@/container/Orders/OrderConfirmModal";
-// import OrdersEditModal from '@/container/Orders/OrderEditModal'
+import OrderQuotationModal from "@/container/Orders/OrderQuotationModal";
 import { format } from "date-fns";
 
 export default function Search() {
@@ -39,7 +40,7 @@ export default function Search() {
           <Col>
             <div className=" d-inline  justify-content-center ">
               <Form.Group className="mb-3" onSubmit={handleSubmit}>
-                <Form.Label>ค้นหาสินค้า</Form.Label>
+                <Form.Label>ค้นหาเลขออเดอร์</Form.Label>
                 <form onSubmit={handleSubmit}>
                   <input
                     className="form-control bg-dark border-0"
@@ -52,17 +53,18 @@ export default function Search() {
                   />
                   <Button
                     type="submit"
+                    variant="success"
                     className="m-2"
                     onClick={() => {
                       setName(searchName);
                     }}
                   >
-                    ค้นหาสินค้า
+                    ค้นหาเลขออเดอร์
                   </Button>
                   <Button
                     type="submit"
-                    bsPrefix="delete"
-                    className="icon"
+                    variant="danger"
+                    className="m-2"
                     onClick={() => {
                       setName("");
                     }}
@@ -239,9 +241,11 @@ function MyTable(props) {
 
                 <td>{item.total} บาท</td>
                 <td>
+                  <OrderQuotationModal value={item} getData={props?.getData} />
+                  <br/>
                   <OrdersConfirmModal value={item} getData={props?.getData} />
                   <OrdersDeleteModal value={item} getData={props?.getData} />
-                </td>
+                 </td>
               </tr>
             ))
           : ""}

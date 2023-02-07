@@ -27,7 +27,7 @@ export default function OrderEditModal(props) {
 
     if (props?.value?.status == "รอการตรวจสอบ") {
       executeOrderPut({
-        url: "/api/order/" + props?.value?.id,
+        url: "/api/orders/" + props?.value?.id,
         method: "PUT",
         data: {
           status: "กำลังดำเนินการ",
@@ -41,7 +41,7 @@ export default function OrderEditModal(props) {
       });
     } else if (props?.value?.status == "กำลังดำเนินการ") {
       executeOrderPut({
-        url: "/api/order/" + props?.value?.id,
+        url: "/api/orders/" + props?.value?.id,
         method: "PUT",
         data: {
           status: "จัดส่งเสร็จสิ้น",
