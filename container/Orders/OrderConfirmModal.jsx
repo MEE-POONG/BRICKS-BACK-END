@@ -82,7 +82,7 @@ export default function OrderEditModal(props) {
             <Col md="12">
             <div className="row">
              <h4 className="p-2 text-start">รายละเอียดข้อมูล </h4>
-            {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users.fname + " " + props?.value?.users.lname)}
+            {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users?.fname + " " + props?.value?.users?.lname)}
             {newFunction("สถานะ", props?.value?.status )}
          </div>
           </Col>

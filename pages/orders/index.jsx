@@ -28,6 +28,7 @@ import { format } from "date-fns";
 
 export default function Search() {
   const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
   const [searchName, setSearchName] = useState("");
 
   const handleSubmit = (e) => {
@@ -107,33 +108,26 @@ export default function Search() {
           </Col>
         </Row>
       </Card>
-      {OrdersPage(name)}
+      {OrdersPage(name,status)}
     </Container>
   );
 }
 
-function OrdersPage(name) {
+function OrdersPage(name,status) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
   });
 
-  const [status, setStatus] = useState("");
-
   const [{ data: ordersData, loading, error }, getOrders] = useAxios({
-    url: `/api/orders?page=1&pageSize=10`,
+    url: `/api/orders?page=1&pageSize=10&status=${status}`,
     method: "GET",
   });
 
-  // useEffect(() => {
 
-  //   if (loading === false) {
-  //       const getOrdersList = async () => {
-  //         await getOrders();
-  //       };
-  //       getOrdersList();
-  //   }
-  // }, [status]);
+  useEffect(() => {
+    getOrders().catch((error) => {console.log(error)});
+  }, [status]);
 
   useEffect(() => {
     if (ordersData) {
@@ -143,7 +137,7 @@ function OrdersPage(name) {
         pageSize: ordersData.pageSize,
       });
     }
-  }, [ordersData]);
+  }, [ordersData]); 
 
   const handleSelectPage = (pageValue) => {
     getOrders({
@@ -214,7 +208,7 @@ function MyTable(props) {
               <tr key={item.id}>
                 <td>{item.ordersCode}</td>
                 <td>
-                  {item.users.fname} {item.users.lname}
+                  {item?.users?.fname} {item?.users?.lname}
                 </td>
                 <td>
                   <OrdersShowDetailModal
@@ -223,23 +217,23 @@ function MyTable(props) {
                   />
                 </td>
                 <td>
-                  {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
+                  {format(new Date(item?.createdAt), "dd/MM/yyyy HH:mm:ss")}
                 </td>
                 {item.status === "รอการตรวจสอบ" ? (
                   <td>
-                    <Badge bg="danger">{item.status}</Badge>
+                    <Badge bg="danger">{item?.status}</Badge>
                   </td>
                 ) : item.status === "กำลังดำเนินการ" ? (
                   <td>
-                    <Badge bg="warning">{item.status}</Badge>
+                    <Badge bg="warning">{item?.status}</Badge>
                   </td>
                 ) : (
                   <td>
-                    <Badge bg="success">{item.status}</Badge>
+                    <Badge bg="success">{item?.status}</Badge>
                   </td>
                 )}
 
-                <td>{item.total} บาท</td>
+                <td>{item?.total} บาท</td>
                 <td>
                   <OrderQuotationModal value={item} getData={props?.getData} />
                   <br/>
