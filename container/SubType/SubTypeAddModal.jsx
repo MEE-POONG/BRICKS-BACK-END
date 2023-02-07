@@ -38,9 +38,12 @@ export default function ProductsSubTypeAddModal(props) {
     }
   };
 
-  // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-
+  if (SubTypeLoading)
+  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (errorMessage)
+  return (
+    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  );
   return (
     <>
       <Button

@@ -8,6 +8,7 @@ import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
+import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function UsersEditModal(props) {
   const [
@@ -79,8 +80,12 @@ export default function UsersEditModal(props) {
     }
   };
 
-  // if (loading || updateUsersLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateUsersError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  if (updateUsersLoading)
+  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (updateUsersError)
+  return (
+    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  );
 
   return (
     <>

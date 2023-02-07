@@ -45,8 +45,12 @@ export default function ProductsTypeAddModal(props) {
         
     }
 
-    // if (loading || ProductsLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-    // if (error || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    if (typeLoading)
+    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (errorMessage)
+    return (
+      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    );
 
     return (
         <>

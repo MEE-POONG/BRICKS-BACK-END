@@ -8,6 +8,7 @@ import ModelLoading from '@/components/ModelChange/ModelLoading'
 import ModelError from '@/components/ModelChange/ModelError'
 import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
+import CardLoading from '@/components/CardChange/CardLoading'
 
 export default function TypeEditModal(props) {
     const [{ loading: updateTypeLoading, error: updateProductsError }, executeTypePut] = useAxios({}, { manual: true })
@@ -51,8 +52,12 @@ export default function TypeEditModal(props) {
         }
     }
 
-    if ( updateTypeLoading) return <ModelLoading showCheck={showCheck}/>
-    if ( updateProductsError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+    if (updateTypeLoading)
+    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (updateProductsError)
+    return (
+      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    );
 
     return (
         <>

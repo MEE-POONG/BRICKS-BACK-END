@@ -8,6 +8,7 @@ import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
+import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function HomeTopEditModal(props) {
   const [
@@ -65,8 +66,12 @@ export default function HomeTopEditModal(props) {
     }
   };
 
-  // if (loading || updateHomeTopLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateHomeTopError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
+  if (updateHomeTopLoading)
+  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (updateHomeTopError)
+  return (
+    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  );
 
   return (
     <>

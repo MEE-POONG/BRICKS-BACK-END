@@ -25,63 +25,52 @@ import OrdersConfirmModal from "@/container/Orders/OrderConfirmModal";
 // import OrdersEditModal from '@/container/Orders/OrderEditModal'
 import { format } from "date-fns";
 
-export default function OrdersPage() {
-  const [params, setParams] = useState({
-    page: "1",
-    pageSize: "10",
-  });
+export default function Search() {
+  const [name, setName] = useState("");
+  const [searchName, setSearchName] = useState("");
 
-  const [status, setStatus] = useState("");
-
-  const [{ data: ordersData, loading, error }, getOrders] = useAxios({
-    url: `/api/orders?page=1&pageSize=10`,
-    method: "GET",
-  });
-
-  // useEffect(() => {
-
-  //   if (loading === false) {
-  //       const getOrdersList = async () => {
-  //         await getOrders();
-  //       };
-  //       getOrdersList();
-  //   }
-  // }, [status]);
-
-
-
-  useEffect(() => {
-    if (ordersData) {
-      setParams({
-        ...params,
-        page: ordersData.page,
-        pageSize: ordersData.pageSize,
-      });
-    }
-  }, [ordersData]);
-
-  const handleSelectPage = (pageValue) => {
-    getOrders({
-      url: `/api/orders?page=${pageValue}&pageSize=${params.pageSize}`,
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
   };
-  const handleSelectPageSize = (sizeValue) => {
-    getOrders({ url: `/api/orders?page=1&pageSize=${sizeValue}` });
-  };
-
-  if (loading) {
-    return <PageLoading />;
-  }
-  if (error) {
-    return <PageError />;
-  }
   return (
     <Container fluid className="pt-4 px-4">
-      <Card className="bg-secondary text-center rounded shadow p-4">
+      <Card className=" text-center rounded shadow p-4">
         <Row>
           <Col>
-            <div className="d-flex align-items-center mb-4">
-              <Card.Title className="mb-0">รายการสินค้า</Card.Title>
+            <div className=" d-inline  justify-content-center ">
+              <Form.Group className="mb-3" onSubmit={handleSubmit}>
+                <Form.Label>ค้นหาสินค้า</Form.Label>
+                <form onSubmit={handleSubmit}>
+                  <input
+                    className="form-control bg-dark border-0"
+                    type="search"
+                    placeholder="Search"
+                    value={searchName}
+                    onChange={(e) => {
+                      setSearchName(e.target.value);
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    className="m-2"
+                    onClick={() => {
+                      setName(searchName);
+                    }}
+                  >
+                    ค้นหาสินค้า
+                  </Button>
+                  <Button
+                    type="submit"
+                    bsPrefix="delete"
+                    className="icon"
+                    onClick={() => {
+                      setName("");
+                    }}
+                  >
+                    ยกเลิก
+                  </Button>
+                </form>
+              </Form.Group>
             </div>
           </Col>
 
@@ -115,12 +104,74 @@ export default function OrdersPage() {
             </Button>
           </Col>
         </Row>
+      </Card>
+      {OrdersPage(name)}
+    </Container>
+  );
+}
+
+function OrdersPage(name) {
+  const [params, setParams] = useState({
+    page: "1",
+    pageSize: "10",
+  });
+
+  const [status, setStatus] = useState("");
+
+  const [{ data: ordersData, loading, error }, getOrders] = useAxios({
+    url: `/api/orders?page=1&pageSize=10`,
+    method: "GET",
+  });
+
+  // useEffect(() => {
+
+  //   if (loading === false) {
+  //       const getOrdersList = async () => {
+  //         await getOrders();
+  //       };
+  //       getOrdersList();
+  //   }
+  // }, [status]);
+
+  useEffect(() => {
+    if (ordersData) {
+      setParams({
+        ...params,
+        page: ordersData.page,
+        pageSize: ordersData.pageSize,
+      });
+    }
+  }, [ordersData]);
+
+  const handleSelectPage = (pageValue) => {
+    getOrders({
+      url: `/api/orders?page=${pageValue}&pageSize=${params.pageSize}`,
+    });
+  };
+  const handleSelectPageSize = (sizeValue) => {
+    getOrders({ url: `/api/orders?page=1&pageSize=${sizeValue}` });
+  };
+
+  if (loading) {
+    return <PageLoading />;
+  }
+  if (error) {
+    return <PageError />;
+  }
+  return (
+    <div fluid className="pt-4 ">
+      <Card className="text-center rounded shadow p-4">
+        <div className="d-flex align-items-center mb-4">
+          <Card.Title className="mb-0">รายการสินค้า</Card.Title>
+        </div>
 
         {/* <OrdersAddModal getData={getOrders}/> */}
 
         <MyTable
           data={ordersData?.data}
-          setNum={ordersData?.page * ordersData?.pageSize - ordersData?.pageSize}
+          setNum={
+            ordersData?.page * ordersData?.pageSize - ordersData?.pageSize
+          }
           getData={getOrders}
         />
         <MyPagination
@@ -131,7 +182,7 @@ export default function OrdersPage() {
           onChangePageSize={handleSelectPageSize}
         />
       </Card>
-    </Container>
+    </div>
   );
 }
 function MyTable(props) {
@@ -145,7 +196,7 @@ function MyTable(props) {
   return (
     <Table striped bordersed hover>
       <thead>
-        <tr >
+        <tr>
           <th className="text-center">No.</th>
           <th>ชื่อผู้สั่งสินค้า</th>
           <th>รายละเอียดที่ต้องจัดส่ง</th>
@@ -164,7 +215,10 @@ function MyTable(props) {
                   {item.users.fname} {item.users.lname}
                 </td>
                 <td>
-                  <OrdersShowDetailModal value={item} getData={props?.getData} />
+                  <OrdersShowDetailModal
+                    value={item}
+                    getData={props?.getData}
+                  />
                 </td>
                 <td>
                   {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
@@ -195,4 +249,4 @@ function MyTable(props) {
     </Table>
   );
 }
-OrdersPage.layout = IndexPage;
+Search.layout = IndexPage;

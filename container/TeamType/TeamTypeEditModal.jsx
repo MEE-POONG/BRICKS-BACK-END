@@ -8,6 +8,7 @@ import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
+import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function TeamTypeEditModal(props) {
   const [
@@ -53,10 +54,11 @@ export default function TeamTypeEditModal(props) {
     }
   };
 
-  if (updateTeamTypeLoading) return <ModelLoading showCheck={showCheck} />;
-  if (updateTeamTypeError)
+    if (updateTeamTypeLoading)
+    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+    if (updateTeamTypeError)
     return (
-      <ModelError show={showCheck} fnShow={handleClose} centered size="lg" />
+      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
     );
 
   return (

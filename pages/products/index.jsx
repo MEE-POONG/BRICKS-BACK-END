@@ -35,10 +35,10 @@ export default function Search() {
                                 setSearchName(e.target.value);
                                 }}
                         />
-                        <Button type='submit' className=" mt-1" onClick={() => {setName(searchName)}}>
+                        <Button type='submit' className="m-2" onClick={() => {setName(searchName)}}>
                             ค้นหาสินค้า
                         </Button>
-                        <Button type='submit' className=" mt-1" onClick={() => {setName("")}}>
+                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={() => {setName("")}}>
                             ยกเลิก
                         </Button>
                         </form>
