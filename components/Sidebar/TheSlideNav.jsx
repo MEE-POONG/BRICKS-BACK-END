@@ -20,188 +20,333 @@ import Link from "next/link";
 
 export default function TheSlideNav() {
   const { asPath } = useRouter();
-  const [checkClickPath, setCheckClickPath] = useState('/')
+  const [checkClickPath, setCheckClickPath] = useState("/");
   useEffect(() => {
     setCheckClickPath(asPath);
-  }, [asPath])
+  }, [asPath]);
 
-  return <>
-    <div className="sidebar pe-4 pb-3 ">
-      <nav className="navbar bg-secondary navbar-dark">
-        <Link href="/" className="navbar-brand mx-4 mb-3">
-
-          <h3 className="text-dark">
-            <FaUserEdit className="fa me-2" />
-            ร้านช่างพอง
-          </h3>
-
-        </Link>
-        <div className="d-flex align-items-center ms-4 mb-4">
-          <div className="position-relative">
-            <Image
-              className="rounded-circle"
-              src={"/images/logo1.png"}
-              alt=""
-              style={{ width: "40px", height: "40px" }}
-            />
-            <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
-          </div>
-          <div className="ms-3">
-            <h6 className="mb-0 text-dark">Shang Pong</h6>
-            <span className="text-dark">Admin</span>
-          </div>
-        </div>
-        <div className="navbar-nav w-100">
-          <Link
-            href="/"
-            className={asPath === "/" ? "nav-item nav-link active" : "nav-item nav-link"}>
-
-            <i className="me-2">
-              <FaTachometerAlt />
-            </i>Home
+  return (
+    <>
+      <div className="sidebar pe-4 pb-3 ">
+        <nav className="navbar bg-secondary navbar-dark">
+          <Link href="/" className="navbar-brand mx-4 mb-3">
+            <h3 className="text-dark">
+              <FaUserEdit className="fa me-2" />
+              ร้านช่างพอง
+            </h3>
           </Link>
-
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/customer') }} className={checkClickPath === "/customer" || checkClickPath === "/customer/position" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-            <i className="me-2">
-              <BsFillBagFill />
-            </i>
-            จัดการผู้ใช้
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/customer" || checkClickPath === "/team" || checkClickPath === "/team/teamType"}>
+          <div className="d-flex align-items-center ms-4 mb-4">
+            <div className="position-relative">
+              <Image
+                className="rounded-circle"
+                src={"/images/logo1.png"}
+                alt=""
+                style={{ width: "40px", height: "40px" }}
+              />
+              <div className="bg-success roundedborder border-2 border-white position-absolute end-0 bottom-0 p-1" />
+            </div>
+            <div className="ms-3">
+              <h6 className="mb-0 text-dark">Shang Pong</h6>
+              <span className="text-dark">Admin</span>
+            </div>
+          </div>
+          <div className="navbar-nav w-100">
             <Link
-              id="buttons"
-              href="/customers/users"
-              className={asPath === "/customers/users" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
+              href="/"
+              className={
+                asPath === "/"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+            >
+              <i className="me-2">
+                <FaTachometerAlt />
+              </i>
+              Home
+            </Link>
+
+            <Dropdown.Toggle
+              onClick={() => {
+                setCheckClickPath("/customer");
+              }}
+              className={
+                checkClickPath === "/customer" ||
+                checkClickPath === "/customer/position"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+              id="dropdown-custom-components"
+            >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการผู้ใช้
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="bg-transparent border-0"
+              show={
+                checkClickPath === "/customer" ||
+                checkClickPath === "/team" ||
+                checkClickPath === "/team/teamType"
+              }
+            >
+              <Link
+                id="buttons"
+                href="/customers/users"
+                className={
+                  asPath === "/customers/users"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
                 สมาชิก
-              
-            </Link>
-            <Link
-              id="buttons"
-              href="/team"
-              className={asPath === "/team" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
+              </Link>
+              <Link
+                id="buttons"
+                href="/team"
+                className={
+                  asPath === "/team"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
                 ทีม
-              
-            </Link>
-            <Link
-              id="buttons"
-              href="/team/teamType"
-              className={asPath === "/team/teamType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
+              </Link>
+              <Link
+                id="buttons"
+                href="/team/teamType"
+                className={
+                  asPath === "/team/teamType"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
                 ระดับสิทธิ์ผู้ใช้
-              
-            </Link>
-          </Dropdown.Menu>
-          
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/homeTop') }} className={checkClickPath === "/homeTop" ||checkClickPath === "/contact" || checkClickPath === "/about" || checkClickPath === "/about/policy" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-            <i className="me-2">
-              <BsFillBagFill />
-            </i>
-            จัดการหน้าเว็บ
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/homeTop" ||checkClickPath === "/contact" || checkClickPath === "/about" || checkClickPath === "/about/policy"}>
-          <Link
-              id="buttons"
-              href="/homeTop"
-              className={asPath === "/homeTop" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              จัดการหลัก
-            </Link>
-          <Link
-              id="buttons"
-              href="/about"
-              className={asPath === "/about" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              จัดการหน้าเกี่ยวกับเรา
-            </Link>
-            <Link
-              id="buttons"
-              href="/about/policy"
-              className={asPath === "/about/policy" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              จัดการนโยบาย
-            </Link>
-            <Link
-              id="buttons"
-              href="/contact"
-              className={asPath === "/contact" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              จัดการหน้าติดต่อ
-            </Link>
-          </Dropdown.Menu>
+              </Link>
+            </Dropdown.Menu>
 
+            <Dropdown.Toggle
+              onClick={() => {
+                setCheckClickPath("/homeTop");
+              }}
+              className={
+                checkClickPath === "/homeTop" ||
+                checkClickPath === "/contact" ||
+                checkClickPath === "/about" ||
+                checkClickPath === "/about/policy"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+              id="dropdown-custom-components"
+            >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการหน้าเว็บ
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="bg-transparent border-0"
+              show={
+                checkClickPath === "/homeTop" ||
+                checkClickPath === "/contact" ||
+                checkClickPath === "/about" ||
+                checkClickPath === "/about/policy"
+              }
+            >
+              <Link
+                id="buttons"
+                href="/homeTop"
+                className={
+                  asPath === "/homeTop"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการหลัก
+              </Link>
+              <Link
+                id="buttons"
+                href="/about"
+                className={
+                  asPath === "/about"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการหน้าเกี่ยวกับเรา
+              </Link>
+              <Link
+                id="buttons"
+                href="/about/policy"
+                className={
+                  asPath === "/about/policy"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการนโยบาย
+              </Link>
+              <Link
+                id="buttons"
+                href="/contact"
+                className={
+                  asPath === "/contact"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการหน้าติดต่อ
+              </Link>
+            </Dropdown.Menu>
 
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/products') }} className={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-            <i className="me-2">
-              <BsFillBagFill />
-            </i>
-            จัดการสินค้า
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/products" || checkClickPath === "/products/type" || checkClickPath === "/products/subType"}>
-            <Link
-              id="buttons"
-              href="/products"
-              className={asPath === "/products" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
-              สินค้า
-              
-            </Link>
-            <Link
-              id="buttons"
-              href="/products/type"
-              className={asPath === "/products/type" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
-              ประเภทสินค้า
-              
-            </Link>
-            <Link
-              id="buttons"
-              href="/products/subType"
-              className={asPath === "/products/subType" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
-              ประเภทย่อยสินค้า
-              
-            </Link>
-          </Dropdown.Menu>
+            <Dropdown.Toggle
+              onClick={() => {
+                setCheckClickPath("/products");
+              }}
+              className={
+                checkClickPath === "/products" ||
+                checkClickPath === "/products/type" ||
+                checkClickPath === "/products/subType"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+              id="dropdown-custom-components"
+            >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการสินค้า
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="bg-transparent border-0"
+              show={
+                checkClickPath === "/products" ||
+                checkClickPath === "/products/type" ||
+                checkClickPath === "/products/subType"
+              }
+            >
+              <Link
+                id="buttons"
+                href="/products"
+                className={
+                  asPath === "/products"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                สินค้า
+              </Link>
+              <Link
+                id="buttons"
+                href="/products/type"
+                className={
+                  asPath === "/products/type"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                ประเภทสินค้า
+              </Link>
+              <Link
+                id="buttons"
+                href="/products/subType"
+                className={
+                  asPath === "/products/subType"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                ประเภทย่อยสินค้า
+              </Link>
+            </Dropdown.Menu>
 
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/orders') }} className={checkClickPath === "/orders" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-            <i className="me-2">
-              <BsFillBagFill />
-            </i>
-            จัดการออเดอร์
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/orders"}>
-            <Link
-              id="buttons"
-              href="/orders"
-              className={asPath === "/orders" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
-              รายการสั่งซื้อ
-              
-            </Link>
-          </Dropdown.Menu>
+            <Dropdown.Toggle
+              onClick={() => {
+                setCheckClickPath("/orders");
+              }}
+              className={
+                checkClickPath === "/orders"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+              id="dropdown-custom-components"
+            >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการออเดอร์
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="bg-transparent border-0"
+              show={checkClickPath === "/orders"}
+            >
+              <Link
+                id="buttons"
+                href="/orders"
+                className={
+                  asPath === "/orders"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                รายการสั่งซื้อ
+              </Link>
+            </Dropdown.Menu>
 
-          
-          <Dropdown.Toggle onClick={() => { setCheckClickPath('/summary') }} className={checkClickPath === "/summary" ? "nav-item nav-link active" : "nav-item nav-link"} id="dropdown-custom-components" >
-            <i className="me-2">
-              <BsFillBagFill />
-            </i>
-            จัดการสรุปรายได้
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="bg-transparent border-0" show={checkClickPath === "/summary"}>
-            <Link
-              id="buttons"
-              href="/summary"
-              className={asPath === "/summary" ? "dropdown-item ps-5 active" : "dropdown-item ps-5"}>
-              
-              สรุปการสั่งซื้อ
-              
-            </Link>
-          </Dropdown.Menu>
-        
+            <Dropdown.Toggle
+              onClick={() => {
+                setCheckClickPath("/report");
+              }}
+              className={
+                checkClickPath === "/report/sumOrders" ||
+                checkClickPath === "/report/sumIncome"
+                  ? "nav-item nav-link active"
+                  : "nav-item nav-link"
+              }
+              id="dropdown-custom-components"
+            >
+              <i className="me-2">
+                <BsFillBagFill />
+              </i>
+              จัดการรายงาน
+            </Dropdown.Toggle>
+            <Dropdown.Menu
+              className="bg-transparent border-0"
+              show={
+                checkClickPath === "/report" ||
+                checkClickPath === "/report/sumOrders" ||
+                checkClickPath === "/report/sumIncome"
+              }
+            >
+              <Link
+                id="buttons"
+                href="/report/sumOrders"
+                className={
+                  asPath === "/report/sumOrders"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการรายงานการสั่งซื้อ
+              </Link>
 
-
-        </div>
-      </nav>
-    </div>
-  </>;
+              <Link
+                id="buttons"
+                href="/report/sumIncome"
+                className={
+                  asPath === "/report/sumIncome"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการรายงานรายได้
+              </Link>
+            </Dropdown.Menu>
+          </div>
+        </nav>
+      </div>
+    </>
+  );
 }
 export function ButtonSlideNav() {
   const [slideOpen, setSlideOpen] = React.useState("");
