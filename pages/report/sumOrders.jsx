@@ -153,6 +153,7 @@ function MyTable(props) {
       <tr>
         <th>ลำดับ</th>
         <th>วันที่</th>
+        <th>ประเภทสินค้าที่สั่ง</th>
         <th>ผู้ซื้อ</th>
         <th>ผู้จำหน่าย</th>
         <th>จำนวนสินค้า</th>
@@ -163,6 +164,7 @@ function MyTable(props) {
       <tr>
         <td>1</td>
         <td>20/01/2565</td>
+        <td>ของตกแต่ง</td>
         <td>สมหมาย</td>
         <td>ช่างพอง</td>
         <td>2000</td>
