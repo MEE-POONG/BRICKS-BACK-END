@@ -8,6 +8,7 @@ import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
+import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function ContactEditModal(props) {
   const [
@@ -85,9 +86,12 @@ export default function ContactEditModal(props) {
     }
   };
 
-  // if (loading || updateContactLoading) return <ModelLoading showCheck={showCheck}/>
-  // if (error || updateContactError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
-
+  if (updateContactLoading)
+  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (updateContactError)
+  return (
+    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  );
   return (
     <>
       <Button

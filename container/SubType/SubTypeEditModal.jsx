@@ -8,6 +8,7 @@ import ModelLoading from "@/components/ModelChange/ModelLoading";
 import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
+import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function SubTypeEditModal(props) {
   const [
@@ -53,11 +54,12 @@ export default function SubTypeEditModal(props) {
     }
   };
 
-  if (updateSubTypeLoading) return <ModelLoading showCheck={showCheck} />;
+  if (updateSubTypeLoading)
+  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
   if (updateSubTypeError)
-    return (
-      <ModelError show={showCheck} fnShow={handleClose} centered size="lg" />
-    );
+  return (
+    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  );
 
   return (
     <>
