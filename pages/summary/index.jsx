@@ -33,13 +33,17 @@ export default function SummaryPage() {
     method: "GET",
   });
 
+  const [{ data: ordersData }, getOrders] = useAxios({
+    url: "../api/orders?",
+  });
+
   // useEffect(() => {
 
   //   if (loading === false) {
-  //       const getOrdersList = async () => {
-  //         await getOrders();
+  //       const getSummaryList = async () => {
+  //         await getSummary();
   //       };
-  //       getOrdersList();
+  //       getSummaryList();
   //   }
   // }, [status]);
 
@@ -56,12 +60,12 @@ export default function SummaryPage() {
   }, [summaryData]);
 
   const handleSelectPage = (pageValue) => {
-    getOrders({
+    getSummary({
       url: `/api/summary?page=${pageValue}&pageSize=${params.pageSize}`,
     });
   };
   const handleSelectPageSize = (sizeValue) => {
-    getOrders({ url: `/api/summary?page=1&pageSize=${sizeValue}` });
+    getSummary({ url: `/api/summary?page=1&pageSize=${sizeValue}` });
   };
 
   if (loading) {
@@ -76,7 +80,7 @@ export default function SummaryPage() {
         <Row>
           <Col>
             <div className="d-flex align-items-center mb-4">
-              <Card.Title className="mb-0">รายการสินค้า</Card.Title>
+              <Card.Title className="mb-0">รายการสรุปการสั่งซื้อ</Card.Title>
             </div>
           </Col>
 
@@ -111,12 +115,12 @@ export default function SummaryPage() {
           </Col>
         </Row>
 
-        {/* <OrdersAddModal getData={getOrders}/> */}
+        {/* <OrdersAddModal getData={getSummary}/> */}
 
         <MyTable
           data={ordersData?.data}
           setNum={ordersData?.page * ordersData?.pageSize - ordersData?.pageSize}
-          getData={getOrders}
+          getData={getSummary}
         />
         <MyPagination
           page={ordersData.page}
@@ -159,7 +163,7 @@ function MyTable(props) {
                   {item.users.fname} {item.users.lname}
                 </td>
                 <td>
-                  <OrdersShowDetailModal value={item} getData={props?.getData} />
+                  {/* <OrdersShowDetailModal value={item} getData={props?.getData} /> */}
                 </td>
                 <td>
                   {format(new Date(item.createdAt), "dd/MM/yyyy HH:mm:ss")}
@@ -180,8 +184,8 @@ function MyTable(props) {
 
                 <td>{item.total} บาท</td>
                 <td>
-                  <OrdersConfirmModal value={item} getData={props?.getData} />
-                  <OrdersDeleteModal value={item} getData={props?.getData} />
+                  {/* <OrdersConfirmModal value={item} getData={props?.getData} />
+                  <OrdersDeleteModal value={item} getData={props?.getData} /> */}
                 </td>
               </tr>
             ))
