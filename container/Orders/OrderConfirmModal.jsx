@@ -27,7 +27,7 @@ export default function OrderEditModal(props) {
 
     if (props?.value?.status == "รอการตรวจสอบ") {
       executeOrderPut({
-        url: "/api/order/" + props?.value?.id,
+        url: "/api/orders/" + props?.value?.id,
         method: "PUT",
         data: {
           status: "กำลังดำเนินการ",
@@ -41,7 +41,7 @@ export default function OrderEditModal(props) {
       });
     } else if (props?.value?.status == "กำลังดำเนินการ") {
       executeOrderPut({
-        url: "/api/order/" + props?.value?.id,
+        url: "/api/orders/" + props?.value?.id,
         method: "PUT",
         data: {
           status: "จัดส่งเสร็จสิ้น",
@@ -82,7 +82,7 @@ export default function OrderEditModal(props) {
             <Col md="12">
             <div className="row">
              <h4 className="p-2 text-start">รายละเอียดข้อมูล </h4>
-            {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users.fname + " " + props?.value?.users.lname)}
+            {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users?.fname + " " + props?.value?.users?.lname)}
             {newFunction("สถานะ", props?.value?.status )}
          </div>
           </Col>

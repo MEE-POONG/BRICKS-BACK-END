@@ -21,13 +21,16 @@ export default function ProductsDeleteModal(props) {
   console.log(props.value);
   return (
     <>
+      {props?.value?.status === "กำลังดำเนินการ" ? (     
       <Button
         bsPrefix="create"
         className={showCheck ? "icon active" : "icon "}
         onClick={handleShow}
       >
-        ดูรายละเอียด
-      </Button>
+        ออกใบเสนอราคา
+      </Button> ) 
+       : ("") }
+
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
