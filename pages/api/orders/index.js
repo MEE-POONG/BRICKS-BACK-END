@@ -9,19 +9,40 @@ export default async function handler(req, res) {
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
         let status = req.query.status;
+        let orderCode = req.query.orderCode;
+        let startDate = req.query.startDate || new Date("01/01/1970");
+        let endDate = req.query.endDate || new Date();
         const data = await prisma.$transaction([
           prisma.orders.count({
-            where :{status:{contains:status}}
+            where: {
+              AND: {
+                status: { contains: status },
+                orderCode:{contains:orderCode},
+                createdAt: {
+                  gte: new Date(startDate).toISOString(),
+                },
+              },
+              createdAt: { lte: new Date(endDate).toISOString() },
+            },
           }),
           prisma.orders.findMany({
-            where :{status:{contains:status}},
-            include: { 
-              orderDetail:{
-                include:{
-                  products: true
-                }
+            where: {
+              AND: {
+                status: { contains: status },
+                orderCode:{contains:orderCode},
+                createdAt: {
+                  gte: new Date(startDate).toISOString(),
+                },
+              },
+              createdAt: { lte: new Date(endDate).toISOString() },
             },
-              users:true
+            include: {
+              orderDetail: {
+                include: {
+                  products: true,
+                },
+              },
+              users: true,
             },
             orderBy: {
               id: "desc",
@@ -43,26 +64,23 @@ export default async function handler(req, res) {
           data: {
             firstname: req.body.firstname,
             lastname: req.body.lastname,
-            tel:req.body.tel,
-            image:req.body.image,
-            email:req.body.email,
-            address:req.body.address,
-            subDistrict:req.body.subDistrict,
-            district:req.body.district,
-            postalCode:req.body.postalCode,
-            province:req.body.province,
-            status:req.body.status,
-            total:parseInt(req.body.total),
+            tel: req.body.tel,
+            image: req.body.image,
+            email: req.body.email,
+            address: req.body.address,
+            subDistrict: req.body.subDistrict,
+            district: req.body.district,
+            postalCode: req.body.postalCode,
+            province: req.body.province,
+            status: req.body.status,
+            total: parseInt(req.body.total),
 
             ordersDetail: {
-              create:
-                req.body.productIdList.map((product) => ({
-                  productId: product.productId,
-                  sumPrice:parseInt(product.sumPrice),
-                  sumQty:parseInt(product.sumQty),
-                })),
-                
-              
+              create: req.body.productIdList.map((product) => ({
+                productId: product.productId,
+                sumPrice: parseInt(product.sumPrice),
+                sumQty: parseInt(product.sumQty),
+              })),
             },
           },
         });

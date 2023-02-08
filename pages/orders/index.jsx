@@ -25,11 +25,22 @@ import OrdersShowDetailModal from "@/container/Orders/OrderShowDetailModal";
 import OrdersConfirmModal from "@/container/Orders/OrderConfirmModal";
 import OrderQuotationModal from "@/container/Orders/OrderQuotationModal";
 import { format } from "date-fns";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import th from "date-fns/locale/th";
+registerLocale("th", th);
 
 export default function Search() {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("");
   const [searchName, setSearchName] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleClearfilter = () => {
+    setStartDate("");
+    setEndDate("");
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -76,29 +87,56 @@ export default function Search() {
               </Form.Group>
             </div>
           </Col>
+          <Col>
+            <DatePicker
+              placeholderText="เลือกวันที่เริ่มต้น"
+              locale="th"
+              dateFormat="dd-MM-yyyy"
+              selected={startDate}
+              onChange={(date) => setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+            />
+            ถึง
+            <DatePicker
+              locale="th"
+              placeholderText="เลือกวันที่สิ้นสุด"
+              dateFormat="dd-MM-yyyy"
+              selected={endDate}
+              onChange={(date) => setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+            />
+            <Button onClick={handleClearfilter}>Clear All</Button>
+          </Col>
 
           <Col>
             <Button
               variant="danger"
-              className=" mx-2 "
+              className=" mx-1 mt-1 w-50 "
               onClick={() => {
                 setStatus("รอการตรวจสอบ");
               }}
             >
               รอการตรวจสอบ
             </Button>
+            <br />
             <Button
               variant="warning"
-              className="mx-2"
+              className="mx-1 mt-1 w-50"
               onClick={() => {
                 setStatus("กำลังดำเนินการ");
               }}
             >
               กำลังดำเนินการ
             </Button>
+            <br />
             <Button
               variant="success"
-              className="mx-2"
+              className="mx-1 mt-1 w-50"
               onClick={() => {
                 setStatus("จัดส่งเสร็จสิ้น");
               }}
@@ -108,25 +146,26 @@ export default function Search() {
           </Col>
         </Row>
       </Card>
-      {OrdersPage(name,status)}
+      {OrdersPage(name, status, startDate, endDate)}
     </Container>
   );
 }
 
-function OrdersPage(name,status) {
+function OrdersPage(name, status, startDate, endDate) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
   });
 
   const [{ data: ordersData, loading, error }, getOrders] = useAxios({
-    url: `/api/orders?page=1&pageSize=10&status=${status}`,
+    url: `/api/orders?page=1&pageSize=10&status=${status}&startDate=${startDate}&endDate=${endDate}`,
     method: "GET",
   });
 
-
   useEffect(() => {
-    getOrders().catch((error) => {console.log(error)});
+    getOrders().catch((error) => {
+      console.log(error);
+    });
   }, [status]);
 
   useEffect(() => {
@@ -137,7 +176,7 @@ function OrdersPage(name,status) {
         pageSize: ordersData.pageSize,
       });
     }
-  }, [ordersData]); 
+  }, [ordersData]);
 
   const handleSelectPage = (pageValue) => {
     getOrders({
@@ -236,10 +275,10 @@ function MyTable(props) {
                 <td>{item?.total} บาท</td>
                 <td>
                   <OrderQuotationModal value={item} getData={props?.getData} />
-                  <br/>
+                  <br />
                   <OrdersConfirmModal value={item} getData={props?.getData} />
                   <OrdersDeleteModal value={item} getData={props?.getData} />
-                 </td>
+                </td>
               </tr>
             ))
           : ""}

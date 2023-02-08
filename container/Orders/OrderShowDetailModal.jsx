@@ -75,7 +75,7 @@ export default function ProductsDeleteModal(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props?.value?.OrderDetail?.map((detail, index) => (
+                  {props?.value?.orderDetail?.map((detail, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{detail.products?.name}</td>
