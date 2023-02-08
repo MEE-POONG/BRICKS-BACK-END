@@ -3,7 +3,7 @@ import IndexPage from "components/layouts/IndexPage";
 import { Card, Table } from 'react-bootstrap';
 import Warn from 'container/home/warn';
 import Widget from '@/container/Dashboard/widget';
-import Calendars from '@/container/Dashboard/Calender';
+// import Calendars from '@/container/Dashboard/Calender';
 export default function HomePage() {
   const contactData = [
     { id: '1', title: 'a', detail: 'แก้ฟิล title จาก มองบน เป็น มองบนฟ้าแก้ฟิล facebook จาก facebook.com/api เป็น facebook.com/ipa', firstname: 'งง', lastname: 'งง', customerId: '1', contactID: '1', audienceRecordID: '', newsId: '', aboutID: '' },
