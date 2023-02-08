@@ -38,7 +38,7 @@ export default function ProductsDeleteModal(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2 className="p-2 text-start">รายละเอียดข้อมูล </h2>
+          <h2 className="p-2 text-start">รายละเอียดข้อมูล</h2>
           <div class="col-12">
             <div className="row">
               {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users?.fname + " " + props?.value?.users?.lname)}
@@ -92,6 +92,12 @@ export default function ProductsDeleteModal(props) {
                 ราคารวมทั้งหมด :{" "}
                 <span className="text-danger "> {props?.value?.total} บาท</span>
               </Modal.Title>
+              <a href="/components/report/quotation">
+               <Button>
+                พิมพ์ใบเสนอราคา
+              </Button> 
+              </a>
+              
             </Col>
           </Row >
         </Modal.Body >
