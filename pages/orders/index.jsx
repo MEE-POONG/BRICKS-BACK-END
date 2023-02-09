@@ -18,7 +18,7 @@ import { format } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import th from "date-fns/locale/th";
-import MyTable from "@/container/Orders/MyTable";
+import MyTable from "@/container/Orders/MyTableOrders";
 import OrdersPage from "@/container/Orders/ordersPage";
 registerLocale("th", th);
 
