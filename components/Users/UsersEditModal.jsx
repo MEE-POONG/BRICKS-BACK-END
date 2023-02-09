@@ -10,10 +10,10 @@ import FormData from "form-data";
 import { CKEditor } from "ckeditor4-react";
 import CardLoading from "@/components/CardChange/CardLoading";
 
-export default function UsersEditModal(props) {
+export default function UserEditModal(props) {
   const [
-    { loading: updateUsersLoading, error: updateUsersError },
-    executeUsersPut,
+    { loading: updateUserLoading, error: updateUserError },
+    executeUserPut,
   ] = useAxios({}, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
@@ -24,24 +24,24 @@ export default function UsersEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  const [fromUsers, setFromUsers] = useState({
+  const [fromUser, setFromUser] = useState({
     fname: "",
     lname: "",
     tel: "",
     email: "",
-    username: "",
+    name: "",
     password: "",
 
   });
 
   useEffect(() => {
     if (props) {
-      setFromUsers({
+      setFromUser({
         fname: props?.value?.fname,
         lname:  props?.value?.lname,
         tel:  props?.value?.tel,
         email:  props?.value?.email,
-        username:  props?.value?.username,
+        name:  props?.value?.name,
         password:  props?.value?.password,
 
       });
@@ -51,28 +51,28 @@ export default function UsersEditModal(props) {
   const handlePutData = async () => {
     setCheckValue(false);
      {
-      await executeUsersPut({
-        url: "/api/users/" + props?.value?.id,
+      await executeUserPut({
+        url: "/api/user/" + props?.value?.id,
         method: "PUT",
         data: {
-            fname: fromUsers?.fname,
-            lname: fromUsers?.lname,
-            tel: fromUsers?.tel,
-            email: fromUsers?.email,
-            username: fromUsers?.username,
-            password: fromUsers?.password,
+            fname: fromUser?.fname,
+            lname: fromUser?.lname,
+            tel: fromUser?.tel,
+            email: fromUser?.email,
+            name: fromUser?.name,
+            password: fromUser?.password,
         },
       }).then(() => {
-        setFromUsers({
+        setFromUser({
             fname: "",
             lname: "",
             tel: "",
             email: "",
-            username: "",
+            name: "",
             password: "",
         }),
-          props?.getUsers().then(() => {
-            if (updateUsersLoading?.success) {
+          props?.getUser().then(() => {
+            if (updateUserLoading?.success) {
               handleClose();
             }
           });
@@ -80,9 +80,9 @@ export default function UsersEditModal(props) {
     }
   };
 
-  if (updateUsersLoading)
+  if (updateUserLoading)
   return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  if (updateUsersError)
+  if (updateUserError)
   return (
     <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
   );
@@ -106,74 +106,14 @@ export default function UsersEditModal(props) {
         <Modal.Body>
         <Row>
                 <Col md='6'>
-                <Form.Group className="mb-3" controlId="fname">
-                                        <Form.Label>ชื่อจริง</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, fname: e.target.value }
-                                         })}}
-                                         value={fromUsers.fname} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.fname !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.fname === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                <Form.Group className="mb-3" controlId="lname">
-                                        <Form.Label>นามสกุล</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, lname: e.target.value }
-                                         })}}
-                                         value={fromUsers.lname} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.lname !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.lname === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="tel">
-                                        <Form.Label>เบอร์โทร</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, tel: e.target.value }
-                                         })}}
-                                         value={fromUsers.tel} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.tel !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.tel === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="email">
-                                        <Form.Label>อีเมล์</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, email: e.target.value }
-                                         })}}
-                                         value={fromUsers.email} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.email !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.email === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                    </Col>
+                  {EditFunction("ชื่อจริง",fromUser?.fname,setFromUser,"fname")}
+                  {EditFunction("นามสกุล",fromUser?.lname,setFromUser,"lname")}
+                  {EditFunction("เบอร์โทร",fromUser?.tel,setFromUser,"tel")}
+                  {EditFunction("อีเมล์",fromUser?.email,setFromUser,"email")}
+                </Col>
                 <Col md='6'>
-                <Form.Group className="mb-3" controlId="username">
-                                        <Form.Label>ชื่อผู้ใช้</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, username: e.target.value }
-                                         })}}
-                                         value={fromUsers.username} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.username !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.username === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group className="mb-3" controlId="password">
-                                        <Form.Label>รหัสผ่าน</Form.Label>
-                                        <Form.Control type="text"
-                                         onChange={(e) => {setFromUsers((oldState)=> {
-                                           return { ...oldState, password: e.target.value }
-                                         })}}
-                                         value={fromUsers.password} autoComplete="off"
-                                         isValid={checkValue === false && fromUsers.password !== '' ? true : false}
-                                         isInvalid={checkValue === false && fromUsers.password === '' ? true : false}
-                                        />
-                                    </Form.Group>
+                  {EditFunction("ชื่อผู้ใช้",fromUser?.name,setFromUser,"name")}
+                  {EditFunction("รหัสผ่าน",fromUser?.password,setFromUser,"password")}
                 </Col>
                 </Row>
       
@@ -187,7 +127,7 @@ export default function UsersEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromUsers)}
+      {console.log(fromUser)}
     </>
   );
 
