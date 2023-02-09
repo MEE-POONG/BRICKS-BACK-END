@@ -5,7 +5,7 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsAddModal from '@/container/products/productsAddModal'
+import ProductsAddModal from '@/components/products/productsAddModal'
 import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
 import ProductsEditModal from '@/components/Products/ProductsEditModal'
 import AddOnRateModal from '@/components/Products/AddOnRateModal'
