@@ -6,9 +6,9 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 import ProductsAddModal from '@/container/products/productsAddModal'
-import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
-import ProductsEditModal from '@/container/Products/ProductsEditModal'
-import AddOnRateModal from '@/container/Products/AddOnRateModal'
+import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
+import ProductsEditModal from '@/components/Products/ProductsEditModal'
+import AddOnRateModal from '@/components/Products/AddOnRateModal'
 
 export default function Search() {
     const [name, setName] = useState("")

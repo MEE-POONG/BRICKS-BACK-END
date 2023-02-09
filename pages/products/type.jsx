@@ -6,9 +6,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import TypeEditModal from '@/container/Type/TypeEditModal'
-import TypeDeleteModal from '@/container/Type/TypeDeleteModal'
-import TypeAddModal from '@/container/Type/TypeAddModal'
+import TypeEditModal from '@/components/Type/TypeEditModal'
+import TypeDeleteModal from '@/components/Type/TypeDeleteModal'
+import TypeAddModal from '@/components/Type/TypeAddModal'
 
 export default function TypePage() {
     const [params, setParams] = useState({

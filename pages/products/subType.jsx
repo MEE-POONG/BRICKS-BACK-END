@@ -6,9 +6,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import SubTypeEditModal from '@/container/SubType/SubTypeEditModal'
-import SubTypeDeleteModal from '@/container/SubType/SubTypeDeleteModal'
-import SubTypeAddModal from '@/container/SubType/SubTypeAddModal'
+import SubTypeEditModal from '@/components/SubType/SubTypeEditModal'
+import SubTypeDeleteModal from '@/components/SubType/SubTypeDeleteModal'
+import SubTypeAddModal from '@/components/SubType/SubTypeAddModal'
 
 export default function subTypePage() {
     const [params, setParams] = useState({
