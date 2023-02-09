@@ -121,7 +121,7 @@ export default function OrderEditModal(props) {
           </Button>
           {props?.value?.status === "รอการตรวจสอบ" ? (
             <Button bg="succeed" className="my-0" onClick={handlePutData}>
-              ยืนยันรายการสินค้า
+              ยืนยันรายการทำรายการ
             </Button>
           ) : props?.value?.status === "กำลังดำเนินการ" ?  (
             <Button bg="succeed" className="my-0" onClick={handlePutData}>

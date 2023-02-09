@@ -1,17 +1,12 @@
-import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import React from "react";
 
 
-Font.register({
-    family: 'Noto Serif Thai',
-    src: 'https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap'
-  });
 const styles = StyleSheet.create({
     body: {
         paddingTop: 35,
         paddingBottom: 65,
         paddingHorizontal: 35,
-        fontFamily:'Noto Serif Thai',
       },
     
       // Head
@@ -102,6 +97,7 @@ const styles = StyleSheet.create({
       },
       tableFLeft: {
         width: "75%",
+        textAlign: "right",
       },
       tableFRight: {
         width: "25%",
@@ -120,7 +116,7 @@ const styles = StyleSheet.create({
       },
 })
 
-export default function MyQuotation (){
+export default function MyQuotation () {
     return (
         <Document>
             <Page size="A4" style={styles.body}>

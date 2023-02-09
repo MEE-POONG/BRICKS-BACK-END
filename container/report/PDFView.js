@@ -1,4 +1,4 @@
-import Quotation from "@/components/report/Quotation";
+import MyQuotation from "@/components/report/pdfQoutitone";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
 import React from "react";
 import { Button } from "react-bootstrap";
@@ -6,14 +6,7 @@ import { Button } from "react-bootstrap";
 const PDFView = () => {
   return (
     <div className="">
-      <PDFViewer document={<Quotation />} fileName="ใบเสนอราคา">
-        {({ loading }) =>
-          loading ? (
-            <Button>Loading...</Button> 
-          ) : ( 
-            <Button>Download</Button>
-          )
-        }
+      <PDFViewer document={<MyQuotation />} fileName="ใบเสนอราคา">
       </PDFViewer>
     </div>
   );
