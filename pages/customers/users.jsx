@@ -10,7 +10,7 @@ import UsersAddModal from '@/container/Users/UsersAddModal'
 import UsersEditModal from '@/container/Users/UsersEditModal'
 import UsersDeleteModal from '@/container/Users/UsersDeleteModal'
 
-export default function usersPage() {
+export default function UsersPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
@@ -107,4 +107,4 @@ function MyTable(props) {
 
 
 
-usersPage.layout = IndexPage
+UsersPage.layout = IndexPage

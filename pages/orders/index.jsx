@@ -31,20 +31,40 @@ import th from "date-fns/locale/th";
 registerLocale("th", th);
 
 export default function Search() {
+
+
+  
   const [name, setName] = useState("");
-  const [status, setStatus] = useState("");
   const [searchName, setSearchName] = useState("");
+
+  const [status, setStatus] = useState("");
+  
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const handleClearfilter = () => {
+  
+  const [{ data: ordersData, loading, error }, getOrders] = useAxios({
+    url: `/api/orders?page=1&pageSize=10&status=${status}&startDate=${startDate}&endDate=${endDate}`,
+    method: "GET",
+  });
+
+const handleClearfilter = () => {
     setStartDate("");
     setEndDate("");
+ 
   };
+
+    useEffect(() => {
+    getOrders().catch((error) => {
+      console.log(error);
+    });
+  }, [status,startDate,endDate]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   };
+
+
   return (
     <Container fluid className="pt-4 px-4">
       <Card className=" text-center rounded shadow p-4">
@@ -146,27 +166,16 @@ export default function Search() {
           </Col>
         </Row>
       </Card>
-      {OrdersPage(name, status, startDate, endDate)}
+      {OrdersPage(ordersData,getOrders,loading,error)}
     </Container>
   );
 }
 
-function OrdersPage(name, status, startDate, endDate) {
+function OrdersPage(ordersData,getOrders,loading,error) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
   });
-
-  const [{ data: ordersData, loading, error }, getOrders] = useAxios({
-    url: `/api/orders?page=1&pageSize=10&status=${status}&startDate=${startDate}&endDate=${endDate}`,
-    method: "GET",
-  });
-
-  useEffect(() => {
-    getOrders().catch((error) => {
-      console.log(error);
-    });
-  }, [status]);
 
   useEffect(() => {
     if (ordersData) {
