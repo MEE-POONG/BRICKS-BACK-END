@@ -5,9 +5,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import PolicyDeleteModal from '@/container/Policy/PolicyDeleteModal'
-import PolicyEditModal from '@/container/Policy/PolicyEditModal'
-import PolicyAddModal from '@/container/Policy/PolicyAddModal'
+import PolicyDeleteModal from '@/components/Policy/PolicyDeleteModal'
+import PolicyEditModal from '@/components/Policy/PolicyEditModal'
+import PolicyAddModal from '@/components/Policy/PolicyAddModal'
 
 export default function PolicyPage() {
     const [params, setParams] = useState({

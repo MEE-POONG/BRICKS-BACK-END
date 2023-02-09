@@ -5,10 +5,10 @@ import {
 } from "react-bootstrap";
 // import OrdersAddModal from '@/container/Orders/OrderAddModal'
 // import OrdersEditModal from '@/container/Orders/OrderEditModal'
-import OrdersDeleteModal from "@/container/Orders/OrderDeleteModal";
-import OrdersShowDetailModal from "@/container/Orders/OrderShowDetailModal";
-import OrdersConfirmModal from "@/container/Orders/OrderConfirmModal";
-import OrderQuotationModal from "@/container/Orders/OrderQuotationModal";
+import OrdersDeleteModal from "@/components/Orders/OrderDeleteModal";
+import OrdersShowDetailModal from "@/components/Orders/OrderShowDetailModal";
+import OrdersConfirmModal from "@/components/Orders/OrderConfirmModal";
+import OrderQuotationModal from "@/components/Orders/OrderQuotationModal";
 import { format } from "date-fns";
 
 export default function MyTable(props) {

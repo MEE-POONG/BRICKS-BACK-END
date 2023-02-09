@@ -6,9 +6,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import UsersAddModal from '@/container/Users/UsersAddModal'
-import UsersEditModal from '@/container/Users/UsersEditModal'
-import UsersDeleteModal from '@/container/Users/UsersDeleteModal'
+import UsersAddModal from '@/components/Users/UsersAddModal'
+import UsersEditModal from '@/components/Users/UsersEditModal'
+import UsersDeleteModal from '@/components/Users/UsersDeleteModal'
 
 export default function UsersPage() {
     const [params, setParams] = useState({

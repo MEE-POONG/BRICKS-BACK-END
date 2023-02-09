@@ -18,8 +18,8 @@ import { format } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import th from "date-fns/locale/th";
-import MyTable from "@/container/Orders/MyTable";
-import OrdersPage from "@/container/Orders/ordersPage";
+import MyTable from "@/components/Orders/MyTableOrders";
+import OrdersPage from "@/components/Orders/ordersPage";
 registerLocale("th", th);
 
 export default function SearchOrders() {

@@ -13,7 +13,7 @@ import { format } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import th from "date-fns/locale/th";
-import MyTable from "@/container/Orders/MyTable";
+import MyTable from "@/components/Orders/MyTableOrders";
 registerLocale("th", th);
 
 export default function OrdersPage(ordersData, getOrders, loading, error,orderCode,status,startDate,endDate) {

@@ -6,9 +6,9 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import TeamTypeAddModal from '@/container/TeamType/TeamTypeAddModal'
-import TeamTypeEditModal from '@/container/TeamType/TeamTypeEditModal'
-import TeamTypeDeleteModal from '@/container/TeamType/TeamTypeDeleteModal'
+import TeamTypeAddModal from '@/components/TeamType/TeamTypeAddModal'
+import TeamTypeEditModal from '@/components/TeamType/TeamTypeEditModal'
+import TeamTypeDeleteModal from '@/components/TeamType/TeamTypeDeleteModal'
 
 export default function teamTypePage() {
     const [params, setParams] = useState({
