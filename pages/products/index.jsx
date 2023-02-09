@@ -82,7 +82,7 @@ export default function Search() {
     }, [productsData]);
 
     const handleSelectPage = (pageValue) => {
-        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
+        getProduct({ url: `/api/products?&name=${name}&page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
     };
     const handleSelectPageSize = (sizeValue) => {
         getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` },{manual: true})
