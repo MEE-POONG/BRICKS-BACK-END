@@ -38,7 +38,7 @@ export default function Search() {
                         <Button type='submit' className="m-2" onClick={() => {setName(searchName)}}>
                             ค้นหาสินค้า
                         </Button>
-                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={() => {setName("")}}>
+                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={() => {setName(""),setSearchName("")}}>
                             ยกเลิก
                         </Button>
                         </form>

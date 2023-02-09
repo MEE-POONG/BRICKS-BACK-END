@@ -9,16 +9,93 @@ import TeamAddModal from '@/components/Team/TeamAddModal'
 import TeamEditModal from '@/components/Team/TeamEditModal'
 import TeamDeleteModal from '@/components/Team/TeamDeleteModal'
 
-export default function TeamPage( ){
+export default function Search() {
+    const [fname, setFName] = useState("")
+    const [searchFName,setSearchFName] = useState("")
+
+    const [lname, setLName] = useState("")
+    const [searchLName,setSearchLName] = useState("")
+
+    const SearchAllData = () => {
+        setFName(searchFName);
+        setLName(searchLName);
+
+      };
+    
+      const handleClearfilter = () => {
+        setFName("");
+        setSearchFName("");
+    
+        setLName("");
+        setSearchLName("");
+    
+      };
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+      };
+    return (
+        <Container fluid className="pt-4 px-4">
+            <Card className=" text-center rounded shadow p-4">
+                <div className=" d-inline  justify-content-center ">
+
+
+                    <Form.Group className="mb-3" onSubmit={handleSubmit}>
+                        <Form.Label>ค้นหาบัญชีผู้ดูแลระบบ</Form.Label>
+                        <form onSubmit={handleSubmit} className=" d-flex">
+                        <input
+                            className="form-control bg-dark border-0"
+                            type="search"
+                            placeholder="ชื่อ"
+                            value={searchFName}
+                            onChange={(e) => {
+                                setSearchFName(e.target.value);
+                                }}
+                        />
+                        <input
+                            className="form-control bg-dark border-0"
+                            type="search"
+                            placeholder="นามสกุล"
+                            value={searchLName}
+                            onChange={(e) => {
+                                setSearchLName(e.target.value);
+                                }}
+                        />
+                        </form>
+                        <Button type='submit' className="m-2" onClick={SearchAllData}>
+                            ค้นหา
+                        </Button>
+                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={handleClearfilter}>
+                            ยกเลิก
+                        </Button>
+                        
+                    </Form.Group>
+
+                </div>
+            </Card >
+           {TeamPage(fname,lname)}
+        </Container >
+        
+    );
+}
+
+ function TeamPage(fname,lname){
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: teamData, loading, error }, getTeam] = useAxios({ url: `/api/team?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: teamData, loading, error }, getTeam] = useAxios({ url: `/api/team?page=1&pageSize=10&fname=${fname}&lname${lname}`, method: 'GET' });
     const [{ data: teamTypeData }, getTeamType] = useAxios({
         url: "../api/teamType?",
       });
+
+      useEffect(() => {
+        getTeam().catch((error) => {
+          console.log(error);
+        });
+      }, [fname, lname]);
+    
     useEffect(() => {
         if (teamData) {
             setParams({
@@ -36,7 +113,7 @@ export default function TeamPage( ){
         return <PageError />;
     }
     return (
-        <Container fluid className="pt-4 px-4">
+        <div  className="pt-4">
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
@@ -46,7 +123,7 @@ export default function TeamPage( ){
                 </div>
                 <MyTable data={teamData?.data} getTeam={getTeam} getTeamType={teamTypeData?.data} />
             </Card >
-        </Container >
+        </div >
     );
 }
 
@@ -111,4 +188,4 @@ function MyTable(props) {
     );
 }
 
-TeamPage.layout = IndexPage
+Search.layout = IndexPage
