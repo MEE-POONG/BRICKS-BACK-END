@@ -1637,19 +1637,19 @@
     "cross-fetch" "^3.1.5"
 
 "@react-pdf/layout@^3.3.0":
-  "integrity" "sha512-IC6xx7alPV7+Wm5LZfThfWVxtQVnVwWb3WAB/iSiq13esYzLW8VnxnHj0K37ST1u56S7OuFqV2HeMOGL6oQvKA=="
-  "resolved" "https://registry.npmjs.org/@react-pdf/layout/-/layout-3.3.0.tgz"
-  "version" "3.3.0"
+  "integrity" "sha512-PLAm8nGD3diqgN6Hfm+Dc518EffZz7YLSlpJqU1qEIJDHYNUDxWQ6qJZIcDI33Dz3PIoXOxiymqtRkqa+exp8A=="
+  "resolved" "https://registry.npmjs.org/@react-pdf/layout/-/layout-3.3.1.tgz"
+  "version" "3.3.1"
   dependencies:
     "@babel/runtime" "^7.16.4"
     "@react-pdf/fns" "2.0.0"
     "@react-pdf/image" "^2.2.0"
     "@react-pdf/pdfkit" "^3.0.0"
     "@react-pdf/primitives" "^3.0.0"
-    "@react-pdf/stylesheet" "^4.1.0"
+    "@react-pdf/stylesheet" "^4.1.1"
     "@react-pdf/textkit" "^4.1.0"
     "@react-pdf/types" "^2.2.0"
-    "@react-pdf/yoga" "^4.0.0"
+    "@react-pdf/yoga" "^4.1.0"
     "cross-fetch" "^3.1.5"
     "emoji-regex" "^8.0.0"
     "queue" "^6.0.1"
@@ -1712,10 +1712,10 @@
     "queue" "^6.0.1"
     "scheduler" "^0.17.0"
 
-"@react-pdf/stylesheet@^4.1.0":
-  "integrity" "sha512-DqFABbyN4VfikeBiXVS4orXrufJ3zevgHeaCE5FeOBuJ6nerEpvQZc4ulozrqG+yBBnxQZI6H5MnmjCfS03T7w=="
-  "resolved" "https://registry.npmjs.org/@react-pdf/stylesheet/-/stylesheet-4.1.0.tgz"
-  "version" "4.1.0"
+"@react-pdf/stylesheet@^4.1.1":
+  "integrity" "sha512-BKEfkg9E7+LUzlrFt+Lfqlq0F5p796OWlJq+5I9iZhg9A/VuNCn5+8MrsmQzBIaICGuTT8/py57ScqP9Kyz7iw=="
+  "resolved" "https://registry.npmjs.org/@react-pdf/stylesheet/-/stylesheet-4.1.1.tgz"
+  "version" "4.1.1"
   dependencies:
     "@babel/runtime" "^7.16.4"
     "@react-pdf/fns" "2.0.0"
@@ -1740,10 +1740,10 @@
   "resolved" "https://registry.npmjs.org/@react-pdf/types/-/types-2.2.0.tgz"
   "version" "2.2.0"
 
-"@react-pdf/yoga@^4.0.0":
-  "integrity" "sha512-T8krZBCbbfnSUhWEJLrX5HoGu982ZiWoyArimFTK4HEO/L+TKVsteJ21UPQr0F6G/8Q/FuwCEyLu0hir1Pr6xQ=="
-  "resolved" "https://registry.npmjs.org/@react-pdf/yoga/-/yoga-4.0.1.tgz"
-  "version" "4.0.1"
+"@react-pdf/yoga@^4.1.0":
+  "integrity" "sha512-eOJOhsP3mZ/RiqHqQ4CFdEPN8+I9q4BBq/3TpNSPOCukPOG/7AuxtESFWeROEiAsnv+yXuyLVgZi+oLhq0QdWQ=="
+  "resolved" "https://registry.npmjs.org/@react-pdf/yoga/-/yoga-4.1.0.tgz"
+  "version" "4.1.0"
   dependencies:
     "@babel/runtime" "^7.16.4"
 
