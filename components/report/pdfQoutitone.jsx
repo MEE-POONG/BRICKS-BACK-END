@@ -1,6 +1,11 @@
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import React from "react";
 
+
+Font.register({
+    family: 'Noto Serif Thai',
+    src: 'https://fonts.googleapis.com/css2?family=Noto+Serif+Thai&display=swap'
+  });
 const styles = StyleSheet.create({
     body: {
         paddingTop: 35,
