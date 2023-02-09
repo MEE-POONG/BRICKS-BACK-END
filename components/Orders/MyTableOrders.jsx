@@ -8,7 +8,7 @@ import {
 import OrdersDeleteModal from "@/components/Orders/OrderDeleteModal";
 import OrdersShowDetailModal from "@/components/Orders/OrderShowDetailModal";
 import OrdersConfirmModal from "@/components/Orders/OrderConfirmModal";
-import OrderQuotationModal from "@/components/Orders/OrderQuotationModal";
+import QuotationReport from "@/components/Orders/QuotationReport";
 import { format } from "date-fns";
 
 export default function MyTable(props) {
@@ -65,7 +65,8 @@ export default function MyTable(props) {
   
                   <td>{item?.total} บาท</td>
                   <td>
-                    <OrderQuotationModal value={item} getData={props?.getData} />
+                    <QuotationReport value={item} getData={props?.getData} />
+                    {/* <PrintReport value={item} getData={props?.getData} /> */}
                     <br />
                     <OrdersConfirmModal value={item} getData={props?.getData} />
                     <OrdersDeleteModal value={item} getData={props?.getData} />
