@@ -5,6 +5,7 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
+import PichowtoplaceOderEditModal from '@/components/PichowtoplaceOder/PichowtoplaceOderEditModal'
 
 
 export default function PichowtoplaceOderPage() {
@@ -13,21 +14,21 @@ export default function PichowtoplaceOderPage() {
         pageSize: '10'
     });
 
-    const [{ data: policyData,loading,error }, getPichowtoplaceOder] = useAxios({
-        url: "/api/howtoplaceOder",
+    const [{ data: pichowtoplaceOderData,loading,error }, getPichowtoplaceOder] = useAxios({
+        url: "/api/pichowtoplaceOder",
       });
-      console.log(policyData);
+      console.log(pichowtoplaceOderData);
 
 
     useEffect(() => {
-        if (policyData) {
+        if (pichowtoplaceOderData) {
             setParams({
                 ...params,
-                page: policyData.page,
-                pageSize: policyData.pageSize
+                page: pichowtoplaceOderData.page,
+                pageSize: pichowtoplaceOderData.pageSize
             });
         }
-    }, [policyData]);
+    }, [pichowtoplaceOderData]);
 
    
     if (loading) {
@@ -43,9 +44,9 @@ export default function PichowtoplaceOderPage() {
                     <Card.Title className="mb-0">
                         รายการนโยบาย
                     </Card.Title>
-                    <PolicyAddModal getData={getPichowtoplaceOder} />
+                    <pichowtoplaceOderAddModal getData={getPichowtoplaceOder} />
                 </div>
-                <MyTable data={policyData}  getPichowtoplaceOder={getPichowtoplaceOder} />
+                <MyTable data={pichowtoplaceOderData}  getPichowtoplaceOder={getPichowtoplaceOder} />
                 
             </Card >
         </Container >
@@ -65,8 +66,7 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ชื่อนโยบาย</th>
-                    <th>รายละเอียดนโยบาย</th>
+                    <th>รูปภาพ</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -75,14 +75,11 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td className="text-center">{index + 1 }</td>
                             <td>
-                                <div> {item?.headpolicy} </div>
+                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
                             </td>
                             <td>
-                                <div dangerouslySetInnerHTML={{ __html: item?.subpolicy}} />
-                            </td>
-                            <td>
-                                <PolicyEditModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
-                                <PolicyDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
+                                <PichowtoplaceOderEditModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
+                                {/* <pichowtoplaceOderDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} /> */}
                             </td>
                         </tr>
                     ))}

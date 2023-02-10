@@ -5,11 +5,12 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
+import HowtoplaceOderEditModal from '@/components/HowtoplaceOder/HowtoplaceOderEditModal'
 
 export default function HowtoplaceOderPage() {
 
-    const [{ data: aboutData,loading,error }, getHowtoplaceOder] = useAxios({
-        url: "/api/about",
+    const [{ data: howtoplaceOderData,loading,error }, getHowtoplaceOder] = useAxios({
+        url: "/api/howtoplaceOder",
       });
 
 
@@ -27,14 +28,14 @@ export default function HowtoplaceOderPage() {
                         รายละเอียดข้อมูลวิธีการสั่งซื้อ
                     </Card.Title>
                 </div>
-                <MyTable aboutData={aboutData} getHowtoplaceOderData={getHowtoplaceOder} />
+                <MyTable howtoplaceOderData={howtoplaceOderData} getHowtoplaceOderData={getHowtoplaceOder} />
             </Card >
         </Container >
     );
 }
 
 function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.aboutData);
+    const [currentItems, setCurrentItems] = useState(props?.howtoplaceOderData);
     console.log(currentItems);
     useEffect(() => {
         setCurrentItems(currentItems);
@@ -50,23 +51,23 @@ function MyTable(props) {
                         <Row>
                             <Col >
                             {newFunction("ชื่อหัวข้อหลัก", item?.headtitle )}
-                            {newFunction("ชื่อหัวข้อหลัก", item?.title )}
-                            {newFunction("ชื่อหัวข้อ1", item?.steps1 )}
+                            {newFunction("ชื่อหัวข้อย่อย", item?.title )}
+                            {newFunction("หัวข้อขั้นตอน1", item?.steps1 )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps1}} />
-                            {newFunction("ชื่อหัวข้อ2", item?.steps1 )}
+                            {newFunction("หัวข้อขั้นตอน2", item?.steps1 )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps2}} />
-                            {newFunction("ชื่อหัวข้อ3", item?.steps1 )}
+                            {newFunction("หัวข้อขั้นตอน3", item?.steps1 )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps3}} />
                             </Col>
                             <Col>
-                            {newFunction("ชื่อหัวข้อ4", item?.steps4 )}
+                            {newFunction("หัวข้อขั้นตอน4", item?.steps4 )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps4}} />
-                            {newFunction("ชื่อหัวข้อ5", item?.steps5 )}
+                            {newFunction("หัวข้อขั้นตอน5", item?.steps5 )}
                             <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps5}} />
                             </Col>
                         </Row>
                         <br/>
-                            <AboutEditModal value={item} getHowtoplaceOderData={props?.getHowtoplaceOderData} />
+                            <HowtoplaceOderEditModal value={item} getHowtoplaceOderData={props?.getHowtoplaceOderData} />
                     </div>
                 ))
             }    
