@@ -39,8 +39,9 @@ model Products {
   deleted_at  DateTime?     @map("deleted_at")
   price       Int?
   subType     SubType?      @relation(fields: [subTypeId], references: [id])
-  OrderDetail OrderDetail[]
-  QtyRate     QtyRate[]
+  crderDetail OrderDetail[]
+  qtyRate     QtyRate[]
+  CartItems   CartItems[]
 }
 
 model QtyRate {
@@ -51,7 +52,7 @@ model QtyRate {
   createdAt  DateTime?   @default(now())
   updatedAt  DateTime?   @updatedAt
   deleted_at DateTime?   @map("deleted_at")
-  AddOnRate  AddOnRate[]
+  addOnRate  AddOnRate[]
 }
 
 model AddOnRate {
@@ -121,14 +122,12 @@ model Orders {
   latitude    Float?
   totalPrice  Int?
   status      String?
+  user        User?         @relation(fields: [userId], references: [id])
   userId      String?       @db.ObjectId
-  // user        User?         @relation(fields: [userId], references: [id])
   createdAt   DateTime?     @default(now())
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt
   orderDetail OrderDetail[]
-  summary     Summary?      @relation(fields: [summaryId], references: [id])
-  summaryId   String?       @db.ObjectId
 }
 
 model OrderDetail {
@@ -139,6 +138,17 @@ model OrderDetail {
   orderId   String?   @db.ObjectId
   orders    Orders?   @relation(fields: [orderId], references: [id])
   products  Products? @relation(fields: [productId], references: [id])
+}
+
+model HowtoplaceOder {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  headtitle String?
+  title     String?
+  steps     String?
+  substeps  String?
+  image     String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
 }
 
 model Team {
@@ -166,38 +176,24 @@ model TeamType {
   Team       Team[]
 }
 
-model Summary {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  createdAt  DateTime? @default(now())
-  updatedAt  DateTime? @updatedAt
-  deleted_at DateTime? @map("deleted_at")
-  orders     Orders[]
+model Cart {
+  id        String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String?     @unique @db.ObjectId
+  user      User?       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  CartItems CartItems[]
 }
 
-model HowtoplaceOder {
+model CartItems {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  headtitle String?
-  title     String?
-  steps1    String?
-  substeps1 String?
-  steps2    String?
-  substeps2 String?
-  steps3    String?
-  substeps3 String?
-  steps4    String?
-  substeps4 String?
-  steps5    String?
-  substeps5 String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-}
-
-model PichowtoplaceOder {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  image     String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
+  qty       Int?
+  price     Float?
+  lat       Float?
+  lng       Float?
+  distance  Float?
+  productId String?   @db.ObjectId
+  cartId    String?   @db.ObjectId
+  products  Products? @relation(fields: [productId], references: [id])
+  cart      Cart?     @relation(fields: [cartId], references: [id])
 }
 
 model Account {
@@ -235,6 +231,7 @@ model User {
   tel           String?
   email         String?   @unique
   emailVerified DateTime?
+  password      String?
   image         String?
   createdAt     DateTime? @default(now())
   deleted_at    DateTime? @map("deleted_at")
@@ -242,6 +239,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   orders        Orders[]
+  cart          Cart[]
 }
 
 model VerificationToken {

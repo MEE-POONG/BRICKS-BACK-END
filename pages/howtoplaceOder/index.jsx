@@ -6,14 +6,33 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 import HowtoplaceOderEditModal from '@/components/HowtoplaceOder/HowtoplaceOderEditModal'
+import HowtoplaceOderAddModal from '@/components/HowtoplaceOder/HowtoplaceOderAddModal'
+import HowtoplaceOderDeleteModal from '@/components/HowtoplaceOder/HowtoplaceOderDeleteModal'
+
 
 export default function HowtoplaceOderPage() {
+    const [params, setParams] = useState({
+        page: '1',
+        pageSize: '10'
+    });
 
     const [{ data: howtoplaceOderData,loading,error }, getHowtoplaceOder] = useAxios({
         url: "/api/howtoplaceOder",
       });
+      console.log(howtoplaceOderData);
 
 
+    useEffect(() => {
+        if (howtoplaceOderData) {
+            setParams({
+                ...params,
+                page: howtoplaceOderData.page,
+                pageSize: howtoplaceOderData.pageSize
+            });
+        }
+    }, [howtoplaceOderData]);
+
+   
     if (loading) {
         return <PageLoading />;
     }
@@ -21,66 +40,66 @@ export default function HowtoplaceOderPage() {
         return <PageError />;
     }
     return (
+        
         <Container fluid className="pt-4 px-4">
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายละเอียดข้อมูลวิธีการสั่งซื้อ
+                        รายการวิธีการสั่งซื้อ
                     </Card.Title>
+                    <HowtoplaceOderAddModal getHowtoplaceOder={getHowtoplaceOder} />
                 </div>
-                <MyTable howtoplaceOderData={howtoplaceOderData} getHowtoplaceOderData={getHowtoplaceOder} />
+                <MyTable data={howtoplaceOderData}  getHowtoplaceOder={getHowtoplaceOder} />
             </Card >
+            
         </Container >
     );
 }
 
 function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.howtoplaceOderData);
-    console.log(currentItems);
+    const [currentItems, setCurrentItems] = useState(props?.data);
+    const [numberSet, setNumberSet] = useState(props?.setNum);
     useEffect(() => {
         setCurrentItems(currentItems);
         console.log(props);
     }, [props]);
 
     return (
-   <>
-               
-            {    currentItems?.map((item, index) => (
-                    <div key={index}>
-
-                        <Row>
-                            <Col >
-                            {newFunction("ชื่อหัวข้อหลัก", item?.headtitle )}
-                            {newFunction("ชื่อหัวข้อย่อย", item?.title )}
-                            {newFunction("หัวข้อขั้นตอน1", item?.steps1 )}
-                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps1}} />
-                            {newFunction("หัวข้อขั้นตอน2", item?.steps1 )}
-                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps2}} />
-                            {newFunction("หัวข้อขั้นตอน3", item?.steps1 )}
-                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps3}} />
-                            </Col>
-                            <Col>
-                            {newFunction("หัวข้อขั้นตอน4", item?.steps4 )}
-                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps4}} />
-                            {newFunction("หัวข้อขั้นตอน5", item?.steps5 )}
-                            <div className="box" dangerouslySetInnerHTML={{ __html: item?.substeps5}} />
-                            </Col>
-                        </Row>
-                        <br/>
-                            <HowtoplaceOderEditModal value={item} getHowtoplaceOderData={props?.getHowtoplaceOderData} />
-                    </div>
-                ))
-            }    
-  
-   </>     
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>รูปภาพ</th>
+                    <th>หัวข้อขั้นตอน</th>
+                    <th>รายละเอียดขั้นตอน</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+         {   currentItems?.map((item, index) => (
+                        <tr key={item.id}>
+                            <td className="text-center">{index + 1 }</td>
+                            <td>
+                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
+                            </td>
+                            <td>
+                            {item.steps}
+                            </td>
+                            <td>
+                                <div dangerouslySetInnerHTML={{ __html: item?.substeps}} />
+                            </td>
+                            <td>
+                                <HowtoplaceOderEditModal value={item} getHowtoplaceOder={props?.getHowtoplaceOder} />
+                                <HowtoplaceOderDeleteModal value={item} getHowtoplaceOder={props?.getHowtoplaceOder} />
+                            </td>
+                        </tr>
+                    ))}
+            </tbody>
+            
+        </Table>   
+        
     );
-
-    function newFunction(label, value) {
-        return <div className="mb-3 mt-2 fonT ">
-         <strong> {label} </strong>
-          <input className="form-control" value={value} readonly />
-        </div>;
-      }
+    
 }
 
 HowtoplaceOderPage.layout = IndexPage

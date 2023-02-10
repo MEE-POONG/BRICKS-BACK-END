@@ -16,10 +16,15 @@ export default async function handler(req, res) {
             try {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
+                let firstName = req.query.firstName;
+                let lastName = req.query.lastName;
+                let name = req.query.name;
                 const data = await prisma.$transaction([
-                    prisma.user.count(),
+                    prisma.user.count({
+                        where: { firstName: { contains: firstName }, lastName: { contains: lastName },name: { contains: name } },
+                      }),
                     prisma.user.findMany({
-                    
+                        where: { firstName: { contains: firstName }, lastName: { contains: lastName },name: { contains: name } },
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
