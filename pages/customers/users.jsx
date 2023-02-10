@@ -1,106 +1,123 @@
 /* eslint-disable react/jsx-key */
-import React, { useEffect, useState } from 'react'
-import IndexPage from "components/layouts/IndexPage"
-import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
-import MyPagination from "@/components/Pagination"
-import useAxios from 'axios-hooks'
-import PageLoading from '@/components/PageChange/pageLoading'
-import PageError from '@/components/PageChange/pageError'
-import UsersAddModal from '@/components/Users/UsersAddModal'
-import UsersEditModal from '@/components/Users/UsersEditModal'
-import UsersDeleteModal from '@/components/Users/UsersDeleteModal'
+import React, { useEffect, useState } from "react";
+import IndexPage from "components/layouts/IndexPage";
+import {
+  Container,
+  Modal,
+  Card,
+  Button,
+  Form,
+  Image,
+  InputGroup,
+  Row,
+  Col,
+  Table,
+  Pagination,
+  Badge,
+} from "react-bootstrap";
+import MyPagination from "@/components/Pagination";
+import useAxios from "axios-hooks";
+import PageLoading from "@/components/PageChange/pageLoading";
+import PageError from "@/components/PageChange/pageError";
+import UsersAddModal from "@/components/Users/UsersAddModal";
+import UsersEditModal from "@/components/Users/UsersEditModal";
+import UsersDeleteModal from "@/components/Users/UsersDeleteModal";
 
 export default function UsersPage() {
-    const [params, setParams] = useState({
-        page: '1',
-        pageSize: '10'
-    });
+  const [params, setParams] = useState({
+    page: "1",
+    pageSize: "10",
+  });
 
-    const [{ data: usersData, loading, error }, getUsers] = useAxios({ url: `/api/user?page=1&pageSize=10`, method: 'GET' });
-    useEffect(() => {
-        if (usersData) {
-            setParams({
-                ...params,
-                page: usersData.page,
-                pageSize: usersData.pageSize
-            });
-        }
-    }, [usersData]);
+  const [{ data: usersData, loading, error }, getUsers] = useAxios({
+    url: `/api/user?page=1&pageSize=10`,
+    method: "GET",
+  });
+  useEffect(() => {
+    if (usersData) {
+      setParams({
+        ...params,
+        page: usersData.page,
+        pageSize: usersData.pageSize,
+      });
+    }
+  }, [usersData]);
 
-    if (loading) {
-        return <PageLoading />;
-    }
-    if (error) {
-        return <PageError />;
-    }
-    return (
-        <Container fluid className="pt-4 px-4">
-            <Card className="text-center rounded shadow p-4">
-                <div className="d-flex align-items-center justify-content-between mb-4">
-                    <Card.Title className="mb-0">
-                        รายการบัญชีสมาชิก
-                    </Card.Title>
-                    <UsersAddModal getData={getUsers} />
-                </div>
-                <MyTable data={usersData?.data} getUsers={getUsers} />
-            </Card >
-        </Container >
-    );
+  const handleSelectPage = (pageValue) => {
+    getTeam({ url: `/api/user?page=${pageValue}&pageSize=${params.pageSize}` });
+  };
+  const handleSelectPageSize = (sizeValue) => {
+    getTeam({ url: `/api/user?page=1&pageSize=${sizeValue}` });
+  };
+
+  if (loading) {
+    return <PageLoading />;
+  }
+  if (error) {
+    return <PageError />;
+  }
+  return (
+    <Container fluid className="pt-4 px-4">
+      <Card className="text-center rounded shadow p-4">
+        <div className="d-flex align-items-center justify-content-between mb-4">
+          <Card.Title className="mb-0">รายการบัญชีสมาชิก</Card.Title>
+          <UsersAddModal getData={getUsers} />
+        </div>
+        <MyTable data={usersData?.data} getUsers={getUsers} />
+
+        <MyPagination
+          page={usersData.page}
+          totalPages={usersData.totalPage}
+          onChangePage={handleSelectPage}
+          pageSize={params.pageSize}
+          onChangePageSize={handleSelectPageSize}
+        />
+      </Card>
+    </Container>
+  );
 }
 
 function MyTable(props) {
-    const [currentItems, setCurrentItems] = useState(props?.data);
-    const [numberSet, setNumberSet] = useState(props?.setNum);
-    useEffect(() => {
-        setCurrentItems(currentItems);
-        console.log(props);
-    }, [props]);
+  const [currentItems, setCurrentItems] = useState(props?.data);
+  const [numberSet, setNumberSet] = useState(props?.setNum);
+  useEffect(() => {
+    setCurrentItems(currentItems);
+    console.log(props);
+  }, [props]);
 
-    return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>ชื่อจริง</th>
-                    <th>นามสกุล</th>
-                    <th>เบอร์โทร</th>
-                    <th>อีเมล์</th>
-                    <th>ชื่อผู้ใช้</th>
-                    <th>จัดการ</th>
-                </tr>
-            </thead>
-            <tbody>
-                {currentItems.length ? (
-                    currentItems?.map((item, index) => (
-                        <tr key={item.id}>
-                            <td>{index + 1 }</td>
-                            <td>
-                                {item.fname}
-                            </td>
-                            <td>
-                                {item.lname}
-                            </td>
-                            <td>
-                                {item.tel}
-                            </td>
-                            <td>
-                                {item.email}
-                            </td>
-                            <td>
-                                {item.name}
-                            </td>
-                            <td>
-                                <UsersEditModal value={item} getUsers={props?.getUsers}  />
-                                <UsersDeleteModal value={item} getUsers={props?.getUsers} />
-                            </td>
-                        </tr>
-                    )))
-                    : ""}
-            </tbody>
-        </Table>
-    );
+  return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>ชื่อจริง</th>
+          <th>นามสกุล</th>
+          <th>เบอร์โทร</th>
+          <th>อีเมล์</th>
+          <th>ชื่อผู้ใช้</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {currentItems.length
+          ? currentItems?.map((item, index) => (
+              <tr key={item.id}>
+                <td>{index + 1}</td>
+                <td>{item.fname}</td>
+                <td>{item.lname}</td>
+                <td>{item.tel}</td>
+                <td>{item.email}</td>
+                <td>{item.name}</td>
+                <td>
+                  <UsersEditModal value={item} getUsers={props?.getUsers} />
+                  <UsersDeleteModal value={item} getUsers={props?.getUsers} />
+                </td>
+              </tr>
+            ))
+          : ""}
+      </tbody>
+    </Table>
+  );
 }
 
-
-
-UsersPage.layout = IndexPage
+UsersPage.layout = IndexPage;
