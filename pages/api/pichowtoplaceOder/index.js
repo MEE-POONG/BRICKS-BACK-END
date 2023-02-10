@@ -17,6 +17,18 @@ export default async function handler(req, res) {
                 res.status(400).json({ success: false })
             }
             break
+            case "POST":
+            try {
+              await prisma.pichowtoplaceOder.create({
+                data: {
+                  image: req.body.image,
+                },
+              });
+              res.status(201).json({ success: true });
+            } catch (error) {
+              res.status(400).json({ success: false });
+            }
+            break;
         default:
             res.setHeader('Allow', ['GET', 'PUT'])
             res.status(405).end(`Method ${method} Not Allowed`)

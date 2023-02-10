@@ -6,6 +6,8 @@ import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
 import PichowtoplaceOderEditModal from '@/components/PichowtoplaceOder/PichowtoplaceOderEditModal'
+import PichowtoplaceOderAddModal from '@/components/PichowtoplaceOder/PichowtoplaceOderAddModal'
+import PichowtoplaceOderDeleteModal from '@/components/PichowtoplaceOder/PichowtoplaceOderDeleteModal'
 
 
 export default function PichowtoplaceOderPage() {
@@ -42,9 +44,9 @@ export default function PichowtoplaceOderPage() {
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการนโยบาย
+                        รายการรูปวิธีการสั่งซื้อ
                     </Card.Title>
-                    <pichowtoplaceOderAddModal getData={getPichowtoplaceOder} />
+                    <PichowtoplaceOderAddModal getPichowtoplaceOder={getPichowtoplaceOder} />
                 </div>
                 <MyTable data={pichowtoplaceOderData}  getPichowtoplaceOder={getPichowtoplaceOder} />
                 
@@ -75,11 +77,11 @@ function MyTable(props) {
                         <tr key={item.id}>
                             <td className="text-center">{index + 1 }</td>
                             <td>
-                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
+                                <Image src={item.image}  width="200px" height="200px" className='object-fit-cover' />
                             </td>
                             <td>
                                 <PichowtoplaceOderEditModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
-                                {/* <pichowtoplaceOderDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} /> */}
+                                <PichowtoplaceOderDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
                             </td>
                         </tr>
                     ))}
