@@ -16,7 +16,6 @@ import CardError from "@/components/CardChange/CardError";
 import { TiDocumentText } from "react-icons/ti";
 import { format } from "date-fns";
 import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
-import MyQuotation from "../report/pdfQoutitone";
 export default function ProductsDeleteModal(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
@@ -116,16 +115,6 @@ export default function ProductsDeleteModal(props) {
                 ราคารวมทั้งหมด :{" "}
                 <span className="text-danger "> {props?.value?.total} บาท</span>
               </Modal.Title>
-
-              <PDFDownloadLink document={<MyQuotation />} fileName="ใบเสนอราคา">
-                {({ loading }) =>
-                  loading ? (
-                    <Button>Loading.....</Button>
-                  ) : (
-                    <Button>Download</Button>
-                  )
-                }
-              </PDFDownloadLink>
             </Col>
           </Row>
         </Modal.Body>
