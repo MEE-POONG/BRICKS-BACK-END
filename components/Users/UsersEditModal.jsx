@@ -25,8 +25,8 @@ export default function UserEditModal(props) {
   const handleShow = () => setShowCheck(true);
 
   const [fromUser, setFromUser] = useState({
-    fname: "",
-    lname: "",
+    firstName: "",
+    lastName: "",
     tel: "",
     email: "",
     name: "",
@@ -37,8 +37,8 @@ export default function UserEditModal(props) {
   useEffect(() => {
     if (props) {
       setFromUser({
-        fname: props?.value?.fname,
-        lname:  props?.value?.lname,
+        firstName: props?.value?.firstName,
+        lastName:  props?.value?.lastName,
         tel:  props?.value?.tel,
         email:  props?.value?.email,
         name:  props?.value?.name,
@@ -55,8 +55,8 @@ export default function UserEditModal(props) {
         url: "/api/user/" + props?.value?.id,
         method: "PUT",
         data: {
-            fname: fromUser?.fname,
-            lname: fromUser?.lname,
+            firstName: fromUser?.firstName,
+            lastName: fromUser?.lastName,
             tel: fromUser?.tel,
             email: fromUser?.email,
             name: fromUser?.name,
@@ -64,8 +64,8 @@ export default function UserEditModal(props) {
         },
       }).then(() => {
         setFromUser({
-            fname: "",
-            lname: "",
+            firstName: "",
+            lastName: "",
             tel: "",
             email: "",
             name: "",
@@ -106,8 +106,8 @@ export default function UserEditModal(props) {
         <Modal.Body>
         <Row>
                 <Col md='6'>
-                  {EditFunction("ชื่อจริง",fromUser?.fname,setFromUser,"fname")}
-                  {EditFunction("นามสกุล",fromUser?.lname,setFromUser,"lname")}
+                  {EditFunction("ชื่อจริง",fromUser?.firstName,setFromUser,"firstName")}
+                  {EditFunction("นามสกุล",fromUser?.lastName,setFromUser,"lastName")}
                   {EditFunction("เบอร์โทร",fromUser?.tel,setFromUser,"tel")}
                   {EditFunction("อีเมล์",fromUser?.email,setFromUser,"email")}
                 </Col>

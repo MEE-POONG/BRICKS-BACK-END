@@ -18,12 +18,13 @@ export default async function handler(req, res) {
         let pageSize = +req.query.pageSize || 10;
         let fname = req.query.fname;
         let lname = req.query.lname;
+        let username = req.query.username;
         const data = await prisma.$transaction([
           prisma.team.count({
-            where: { fname: { contains: fname }, lname: { contains: lname } },
+            where: { fname: { contains: fname }, lname: { contains: lname },username: { contains: username } },
           }),
           prisma.team.findMany({
-            where: { fname: { contains: fname }, lname: { contains: lname } },
+            where: { fname: { contains: fname }, lname: { contains: lname },username: { contains: username } },
             include: { teamType: true },
             skip: (page - 1) * pageSize,
             take: pageSize,

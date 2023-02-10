@@ -16,10 +16,13 @@ export default function Search() {
     const [lname, setLName] = useState("")
     const [searchLName,setSearchLName] = useState("")
 
+    const [username, setUserName] = useState("")
+    const [searchUserName,setSearchUserName] = useState("")
+
     const SearchAllData = () => {
         setFName(searchFName);
         setLName(searchLName);
-
+        setUserName(searchUserName);
       };
     
       const handleClearfilter = () => {
@@ -29,6 +32,8 @@ export default function Search() {
         setLName("");
         setSearchLName("");
     
+        setUserName("");
+        setSearchUserName("");
       };
 
     const handleSubmit = (e) => {
@@ -61,6 +66,16 @@ export default function Search() {
                                 setSearchLName(e.target.value);
                                 }}
                         />
+
+<input
+                            className="form-control bg-dark border-0"
+                            type="search"
+                            placeholder="นามสกุล"
+                            value={searchUserName}
+                            onChange={(e) => {
+                                setSearchUserName(e.target.value);
+                                }}
+                        />
                         </form>
                         <Button type='submit' className="m-2" onClick={SearchAllData}>
                             ค้นหา
@@ -73,19 +88,19 @@ export default function Search() {
 
                 </div>
             </Card >
-           {TeamPage(fname,lname)}
+           {TeamPage(fname,lname,username)}
         </Container >
         
     );
 }
 
- function TeamPage(fname,lname){
+ function TeamPage(fname,lname,username){
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: teamData, loading, error }, getTeam] = useAxios({ url: `/api/team?page=1&pageSize=10&fname=${fname}&lname${lname}`, method: 'GET' });
+    const [{ data: teamData, loading, error }, getTeam] = useAxios({ url: `/api/team?page=1&pageSize=10&fname=${fname}&lname=${lname}&username=${username}`, method: 'GET' });
     const [{ data: teamTypeData }, getTeamType] = useAxios({
         url: "../api/teamType?",
       });
@@ -94,7 +109,7 @@ export default function Search() {
         getTeam().catch((error) => {
           console.log(error);
         });
-      }, [fname, lname]);
+      }, [fname, lname,username]);
     
     useEffect(() => {
         if (teamData) {

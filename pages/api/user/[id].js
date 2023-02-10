@@ -24,8 +24,8 @@ export default async function handler(req, res) {
                         id: req.query.id
                     },
                     data: {
-                        fname: req.body.fname,
-                        lname: req.body.lname,
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
                         name: req.body.name,
                         tel: req.body.tel,
                         email: req.body.email,
