@@ -23,14 +23,101 @@ import UsersAddModal from "@/components/Users/UsersAddModal";
 import UsersEditModal from "@/components/Users/UsersEditModal";
 import UsersDeleteModal from "@/components/Users/UsersDeleteModal";
 
-export default function UsersPage() {
+export default function SearchUser() {
+  const [firstName, setFirstName] = useState("");
+  const [searchFirstName, setSearchFirstName] = useState("");
+
+  const [lastName, setLastName] = useState("");
+  const [searchLastName, setSearchLastName] = useState("");
+
+  const [name, setName] = useState("");
+  const [searchName, setSearchName] = useState("");
+
+  const SearchAllData = () => {
+    setFirstName(searchFirstName);
+    setLastName(searchLastName);
+    setName(searchName);
+  };
+
+  const handleClearfilter = () => {
+    setFirstName("");
+    setSearchFirstName("");
+
+    setLastName("");
+    setSearchLastName("");
+
+    useState("");
+    setSearchName("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+  return (
+    <Container fluid className="pt-4 px-4">
+      <Card className=" text-center rounded shadow p-4">
+        <div className=" d-inline  justify-content-center ">
+          <Form.Group className="mb-3" onSubmit={handleSubmit}>
+            <Form.Label>ค้นหาบัญชีสมาชิก</Form.Label>
+            <form onSubmit={handleSubmit} className=" d-flex">
+              <input
+                className="form-control bg-dark border-0 m-2"
+                type="search"
+                placeholder="ชื่อ"
+                value={searchFirstName}
+                onChange={(e) => {
+                  setSearchFirstName(e.target.value);
+                }}
+              />
+              <input
+                className="form-control bg-dark border-0 m-2"
+                type="search"
+                placeholder="นามสกุล"
+                value={searchLastName}
+                onChange={(e) => {
+                  setSearchLastName(e.target.value);
+                }}
+              />
+
+              <input
+                className="form-control bg-dark border-0 m-2"
+                type="search"
+                placeholder="ชื่อผู้ใช้"
+                value={searchName}
+                onChange={(e) => {
+                  setSearchName(e.target.value);
+                }}
+              />
+            </form> 
+          
+
+            <Button type="submit" className="m-2" onClick={SearchAllData}>
+              ค้นหา
+            </Button>
+            <Button
+              type="submit"
+              bsPrefix="delete"
+              className="icon"
+              onClick={handleClearfilter}
+            >
+              ยกเลิก
+            </Button>
+          </Form.Group>
+        </div>
+      </Card>
+      {UsersPage(firstName, lastName, name)}
+    </Container>
+  );
+}
+
+function UsersPage(firstName, lastName, name) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
   });
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
-    url: `/api/user?page=1&pageSize=10`,
+    url: `/api/user?page=1&pageSize=10&firstName=${firstName}&lastName=${lastName}&name=${name}`,
     method: "GET",
   });
   useEffect(() => {
@@ -57,7 +144,7 @@ export default function UsersPage() {
     return <PageError />;
   }
   return (
-    <Container fluid className="pt-4 px-4">
+    <div  className="pt-4 ">
       <Card className="text-center rounded shadow p-4">
         <div className="d-flex align-items-center justify-content-between mb-4">
           <Card.Title className="mb-0">รายการบัญชีสมาชิก</Card.Title>
@@ -73,7 +160,7 @@ export default function UsersPage() {
           onChangePageSize={handleSelectPageSize}
         />
       </Card>
-    </Container>
+    </div>
   );
 }
 
@@ -103,8 +190,8 @@ function MyTable(props) {
           ? currentItems?.map((item, index) => (
               <tr key={item.id}>
                 <td>{index + 1}</td>
-                <td>{item.fname}</td>
-                <td>{item.lname}</td>
+                <td>{item.firstName}</td>
+                <td>{item.lastName}</td>
                 <td>{item.tel}</td>
                 <td>{item.email}</td>
                 <td>{item.name}</td>
@@ -120,4 +207,4 @@ function MyTable(props) {
   );
 }
 
-UsersPage.layout = IndexPage;
+SearchUser.layout = IndexPage;
