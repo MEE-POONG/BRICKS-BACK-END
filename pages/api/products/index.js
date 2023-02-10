@@ -18,12 +18,13 @@ export default async function handler(req, res) {
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
         let name = req.query.name ;
+        let subTypeId = req.query.subTypeId ;
         const data = await prisma.$transaction([
           prisma.products.count(
-            {where:{name:{contains:name}}}
+            {where:{name:{contains:name},subTypeId:subTypeId}}
           ),
           prisma.products.findMany({
-            where:{name:{contains:name}},
+            where:{name:{contains:name},subTypeId:subTypeId},
             include: { subType: { include: { type: true } } },
             skip: (page - 1) * pageSize,
             take: pageSize,
