@@ -42,7 +42,7 @@ export default async function handler(req, res) {
                   products: true,
                 },
               },
-              users: true,
+              user: true,
             },
             orderBy: {
               id: "desc",

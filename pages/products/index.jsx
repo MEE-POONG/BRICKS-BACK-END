@@ -5,10 +5,10 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import ProductsAddModal from '@/container/products/productsAddModal'
-import ProductsDeleteModal from '@/container/Products/ProductsDeleteModal'
-import ProductsEditModal from '@/container/Products/ProductsEditModal'
-import AddOnRateModal from '@/container/Products/AddOnRateModal'
+import ProductsAddModal from '@/components/products/productsAddModal'
+import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
+import ProductsEditModal from '@/components/Products/ProductsEditModal'
+import AddOnRateModal from '@/components/Products/AddOnRateModal'
 
 export default function Search() {
     const [name, setName] = useState("")
@@ -38,7 +38,7 @@ export default function Search() {
                         <Button type='submit' className="m-2" onClick={() => {setName(searchName)}}>
                             ค้นหาสินค้า
                         </Button>
-                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={() => {setName("")}}>
+                        <Button type='submit'  bsPrefix='delete' className='icon' onClick={() => {setName(""),setSearchName("")}}>
                             ยกเลิก
                         </Button>
                         </form>
@@ -82,7 +82,7 @@ export default function Search() {
     }, [productsData]);
 
     const handleSelectPage = (pageValue) => {
-        getProduct({ url: `/api/products?page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
+        getProduct({ url: `/api/products?&name=${name}&page=${pageValue}&pageSize=${params.pageSize}` },{manual: true})
     };
     const handleSelectPageSize = (sizeValue) => {
         getProduct({ url: `/api/products?page=1&pageSize=${sizeValue}` },{manual: true})

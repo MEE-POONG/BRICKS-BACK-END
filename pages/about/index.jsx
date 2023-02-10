@@ -5,7 +5,7 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import AboutEditModal from '@/container/About/AboutEditModal'
+import AboutEditModal from '@/components/About/AboutEditModal'
 
 export default function AboutPage() {
 

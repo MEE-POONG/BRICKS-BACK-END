@@ -13,7 +13,10 @@ import { FaTrash, FaPlus } from "react-icons/fa";
 import useAxios from "axios-hooks";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
+import { TiDocumentText } from "react-icons/ti";
 import { format } from "date-fns";
+import { PDFDownloadLink, PDFViewer } from "@react-pdf/renderer";
+import MyQuotation from "../report/pdfQoutitone";
 export default function ProductsDeleteModal(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
@@ -21,15 +24,17 @@ export default function ProductsDeleteModal(props) {
   console.log(props.value);
   return (
     <>
-      {props?.value?.status === "กำลังดำเนินการ" ? (     
-      <Button
-        bsPrefix="create"
-        className={showCheck ? "icon active" : "icon "}
-        onClick={handleShow}
-      >
-        ออกใบเสนอราคา
-      </Button> ) 
-       : ("") }
+      {props?.value?.status === "กำลังดำเนินการ" ? (
+        <Button
+          bsPrefix="create"
+          className={showCheck ? "icon active" : "icon "}
+          onClick={handleShow}
+        >
+          <TiDocumentText />
+        </Button>
+      ) : (
+        ""
+      )}
 
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
         <Modal.Header closeButton>
@@ -41,29 +46,48 @@ export default function ProductsDeleteModal(props) {
           <h2 className="p-2 text-start">รายละเอียดข้อมูล</h2>
           <div class="col-12">
             <div className="row">
-              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users?.fname + " " + props?.value?.users?.lname)}
+              {newFunction(
+                "ชื่อผู้สั่งสินค้า",
+                props?.value?.users?.fname + " " + props?.value?.users?.lname
+              )}
               {newFunction("E-mail", props?.value?.users?.email)}
               {newFunction("เบอร์มือถือ", props?.value?.users?.tel)}
             </div>
           </div>
           <Row className="mb-3 ">
             <Col md="6">
-              {newFunction2("วันที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "dd/MM/yyyy"))}
-              {newFunction2("เวลาที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "HH:mm:ss"))}
+              {newFunction2(
+                "วันที่สั่งซื้อ",
+                format(new Date(props?.value?.createdAt), "dd/MM/yyyy")
+              )}
+              {newFunction2(
+                "เวลาที่สั่งซื้อ",
+                format(new Date(props?.value?.createdAt), "HH:mm:ss")
+              )}
               <div class="mb-3">
                 <label for="exampleInputEmail1">เพิ่มเติม</label>
-                <textarea className="form-control" rows="5" readOnly defaultValue={props?.value?.notes ?? '-'} />
+                <textarea
+                  className="form-control"
+                  rows="5"
+                  readOnly
+                  defaultValue={props?.value?.notes ?? "-"}
+                />
               </div>
 
               <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
               <div class="mb-3">
-                <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`} />
+                <textarea
+                  className="form-control"
+                  rows="9"
+                  readOnly
+                  defaultValue={`เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`}
+                />
               </div>
             </Col>
             <Col md="4">
-            <h4 className="mb-3 text-start">รูปสลิป</h4>
+              <h4 className="mb-3 text-start">รูปสลิป</h4>
               <div className="zoom ">
-              <Image src={props?.value?.image} width="400px" height="450px" />
+                <Image src={props?.value?.image} width="400px" height="450px" />
               </div>
             </Col>
             <Col md="12 mt-2">
@@ -92,30 +116,38 @@ export default function ProductsDeleteModal(props) {
                 ราคารวมทั้งหมด :{" "}
                 <span className="text-danger "> {props?.value?.total} บาท</span>
               </Modal.Title>
-              <a href="/components/report/quotation">
-               <Button>
-                พิมพ์ใบเสนอราคา
-              </Button> 
-              </a>
-              
+
+              <PDFDownloadLink document={<MyQuotation />} fileName="ใบเสนอราคา">
+                {({ loading }) =>
+                  loading ? (
+                    <Button>Loading.....</Button>
+                  ) : (
+                    <Button>Download</Button>
+                  )
+                }
+              </PDFDownloadLink>
             </Col>
-          </Row >
-        </Modal.Body >
+          </Row>
+        </Modal.Body>
         <Modal.Footer></Modal.Footer>
-      </Modal >
+      </Modal>
     </>
   );
 
   function newFunction(label, value) {
-    return <div class="col-md-4 mb-3">
-      <label for="exampleInputEmail1">{label}</label>
-      <input class="form-control" value={value} readonly />
-    </div>;
+    return (
+      <div class="col-md-4 mb-3">
+        <label for="exampleInputEmail1">{label}</label>
+        <input class="form-control" value={value} readonly />
+      </div>
+    );
   }
   function newFunction2(label, value) {
-    return <div class="mb-3">
-      <label for="exampleInputEmail1">{label}</label>
-      <input class="form-control" value={value} readonly />
-    </div>;
+    return (
+      <div class="mb-3">
+        <label for="exampleInputEmail1">{label}</label>
+        <input class="form-control" value={value} readonly />
+      </div>
+    );
   }
 }

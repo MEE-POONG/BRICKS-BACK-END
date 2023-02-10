@@ -114,20 +114,6 @@ model HomeTop {
   deleted_at DateTime? @map("deleted_at")
 }
 
-model Users {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  fname      String?
-  lname      String?
-  tel        String?
-  username   String?
-  email      String?
-  password   String?
-  createdAt  DateTime? @default(now())
-  deleted_at DateTime? @map("deleted_at")
-  updatedAt  DateTime? @updatedAt
-  orders     Orders[]
-}
-
 model Orders {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   orderCode   String?
@@ -135,8 +121,8 @@ model Orders {
   latitude    Float?
   totalPrice  Int?
   status      String?
-  usersId     String?       @db.ObjectId
-  users       Users?        @relation(fields: [usersId], references: [id])
+  userId      String?       @db.ObjectId
+  user        User?         @relation(fields: [userId], references: [id])
   createdAt   DateTime?     @default(now())
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt

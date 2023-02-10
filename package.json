@@ -31,6 +31,7 @@
     "react-icons": "^4.7.1",
     "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
+    "react-to-print": "^2.14.11",
     "recoil": "^0.7.6",
     "recoil-persist": "^4.2.0",
     "slick-carousel": "^1.8.1",

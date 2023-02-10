@@ -6,17 +6,17 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import UsersAddModal from '@/container/Users/UsersAddModal'
-import UsersEditModal from '@/container/Users/UsersEditModal'
-import UsersDeleteModal from '@/container/Users/UsersDeleteModal'
+import UsersAddModal from '@/components/Users/UsersAddModal'
+import UsersEditModal from '@/components/Users/UsersEditModal'
+import UsersDeleteModal from '@/components/Users/UsersDeleteModal'
 
-export default function usersPage() {
+export default function UsersPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: usersData, loading, error }, getUsers] = useAxios({ url: `/api/users?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: usersData, loading, error }, getUsers] = useAxios({ url: `/api/user?page=1&pageSize=10`, method: 'GET' });
     useEffect(() => {
         if (usersData) {
             setParams({
@@ -66,7 +66,6 @@ function MyTable(props) {
                     <th>เบอร์โทร</th>
                     <th>อีเมล์</th>
                     <th>ชื่อผู้ใช้</th>
-                    <th>รหัสผ่าน</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
@@ -88,10 +87,7 @@ function MyTable(props) {
                                 {item.email}
                             </td>
                             <td>
-                                {item.username}
-                            </td>
-                            <td>
-                                {item.password}
+                                {item.name}
                             </td>
                             <td>
                                 <UsersEditModal value={item} getUsers={props?.getUsers}  />
@@ -107,4 +103,4 @@ function MyTable(props) {
 
 
 
-usersPage.layout = IndexPage
+UsersPage.layout = IndexPage
