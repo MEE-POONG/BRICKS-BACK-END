@@ -46,7 +46,7 @@ export default function SearchUser() {
     setLastName("");
     setSearchLastName("");
 
-    useState("");
+    setName("");
     setSearchName("");
   };
 
