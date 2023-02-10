@@ -6,37 +6,37 @@ import useAxios from "axios-hooks";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
 
-export default function PichowtoplaceOderDeleteModal(props) {
+export default function HowtoplaceOderDeleteModal(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
   const [
     {
-      loading: deletePichowtoplaceOderLoading,
-      error: deletePichowtoplaceOderError,
+      loading: deleteHowtoplaceOderLoading,
+      error: deleteHowtoplaceOderError,
     },
-    executePichowtoplaceOderDelete,
+    executeHowtoplaceOderDelete,
   ] = useAxios({}, { manual: true });
   const handleDeleteData = () => {
-    executePichowtoplaceOderDelete({
-      url: "/api/pichowtoplaceOder/" + props?.value?.id,
+    executeHowtoplaceOderDelete({
+      url: "/api/howtoplaceOder/" + props?.value?.id,
       method: "DELETE",
     }).then(() => {
-      Promise.all([props.getPichowtoplaceOder()]).then(() => {
-        if (deletePichowtoplaceOderLoading?.success) {
+      Promise.all([props.getHowtoplaceOder()]).then(() => {
+        if (deleteHowtoplaceOderLoading?.success) {
           handleClose();
         }
       });
     });
   };
 
-  if (deletePichowtoplaceOderLoading)
+  if (deleteHowtoplaceOderLoading)
     return (
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <CardLoading />
       </Modal>
     );
-  if (deletePichowtoplaceOderError)
+  if (deleteHowtoplaceOderError)
     return (
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <CardError />
@@ -55,7 +55,7 @@ export default function PichowtoplaceOderDeleteModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">
-            ลบรายการรูปวิธีการสั่งซื้อ
+            ลบรายการวิธีการสั่งซื้อ
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -69,6 +69,9 @@ export default function PichowtoplaceOderDeleteModal(props) {
               />
             </Col>
           </Row>
+          <Modal.Title>ชื่อหัวข้อขั้นตอน <span className='text-danger'> {props?.value?.steps}</span></Modal.Title>
+          <Modal.Title>รายละเอียดขั้นตอน : <span className='text-danger'><div dangerouslySetInnerHTML={{ __html: props?.value?.substeps}} /></span></Modal.Title>
+        
         </Modal.Body>
         <Modal.Footer>
           <Button bg="cancel" className="my-0" onClick={handleClose}>

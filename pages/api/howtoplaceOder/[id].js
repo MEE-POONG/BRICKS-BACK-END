@@ -13,16 +13,10 @@ export default async function handler(req, res) {
                     data: {
                         headtitle: req.body.headtitle,
                         title: req.body.title,
-                        steps1: req.body.steps1,
-                        substeps1: req.body.substeps1,
-                        steps2: req.body.steps2,
-                        substeps2: req.body.substeps2,
-                        steps3: req.body.steps3,
-                        substeps3: req.body.substeps3,
-                        steps4: req.body.steps4,
-                        substeps4: req.body.substeps4,
-                        steps5: req.body.steps5,
-                        substeps5: req.body.substeps5,
+                        steps: req.body.steps,
+                        substeps: req.body.substeps,
+                        image: req.body.image,
+                
                     }
                 })
                 prisma.$disconnect();

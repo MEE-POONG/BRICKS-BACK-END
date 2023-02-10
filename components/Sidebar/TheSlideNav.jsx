@@ -151,8 +151,7 @@ export default function TheSlideNav() {
                 checkClickPath === "/contact" ||
                 checkClickPath === "/about" ||
                 checkClickPath === "/about/policy" ||
-                checkClickPath === "/howtoplaceOder" ||
-                checkClickPath === "/howtoplaceOder/pichowtoplaceOder"
+                checkClickPath === "/howtoplaceOder" 
               }
             >
               <Link
@@ -210,17 +209,7 @@ export default function TheSlideNav() {
               >
                 จัดการหน้าวิธีการสั่งซื้อ
               </Link>
-              <Link
-                id="buttons"
-                href="/howtoplaceOder/pichowtoplaceOder"
-                className={
-                  asPath === "/howtoplaceOder/pichowtoplaceOder"
-                    ? "dropdown-item ps-5 active"
-                    : "dropdown-item ps-5"
-                }
-              >
-                 จัดการรูปวิธีการสั่งซื้อ
-              </Link>
+             
             </Dropdown.Menu>
 
             <Dropdown.Toggle

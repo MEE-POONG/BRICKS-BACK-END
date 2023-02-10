@@ -129,6 +129,7 @@ model Orders {
   orderDetail OrderDetail[]
   summary     Summary?      @relation(fields: [summaryId], references: [id])
   summaryId   String?       @db.ObjectId
+  User        User?         @relation(fields: [userId], references: [id])
 }
 
 model OrderDetail {
@@ -179,22 +180,8 @@ model HowtoplaceOder {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   headtitle String?
   title     String?
-  steps1    String?
-  substeps1 String?
-  steps2    String?
-  substeps2 String?
-  steps3    String?
-  substeps3 String?
-  steps4    String?
-  substeps4 String?
-  steps5    String?
-  substeps5 String?
-  createdAt DateTime? @default(now())
-  updatedAt DateTime? @updatedAt
-}
-
-model PichowtoplaceOder {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  steps     String?
+  substeps  String?
   image     String?
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
