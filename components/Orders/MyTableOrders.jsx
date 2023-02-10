@@ -38,7 +38,7 @@ export default function MyTable(props) {
                 <tr key={item.id}>
                   <td>{item.orderCode}</td>
                   <td>
-                    {item?.users?.fname} {item?.users?.lname}
+                    {item?.user?.firstName} {item?.user?.lastName}
                   </td>
                   <td>
                     <OrdersShowDetailModal

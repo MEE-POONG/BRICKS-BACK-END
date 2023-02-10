@@ -38,9 +38,9 @@ export default function ProductsDeleteModal(props) {
           <h2 className="p-2 text-start">รายละเอียดข้อมูล </h2>
           <div class="col-12">
             <div className="row">
-              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.users?.fname + " " + props?.value?.users?.lname)}
-              {newFunction("E-mail", props?.value?.users?.email)}
-              {newFunction("เบอร์มือถือ", props?.value?.users?.tel)}
+              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.user?.firstName + " " + props?.value?.user?.lastName)}
+              {newFunction("E-mail", props?.value?.user?.email)}
+              {newFunction("เบอร์มือถือ", props?.value?.user?.tel)}
             </div>
           </div>
           <Row className="mb-3 ">

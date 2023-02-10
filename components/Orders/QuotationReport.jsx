@@ -28,10 +28,10 @@ export default function ReceiptPrint(props) {
           <ReceiptPDF
             elementId="iframe"
             data={{
-              customer_name: `${props?.value?.users?.fname} ${props?.value?.users?.lname}`,
+              customer_name: `${props?.value?.user?.firstName} ${props?.value?.user?.lastName}`,
               no: "612/5313",
               // id_number: "0-1055-48111-86-7",
-              Tel: `${props?.value?.users?.tel} ` ,
+              Tel: `${props?.value?.user?.tel} ` ,
               address:
               `เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`,
               date:  `${props?.value?.createdAt}` ,
@@ -39,7 +39,7 @@ export default function ReceiptPrint(props) {
                 {
                   customer_code: "--",
                   po_no: "POL6509029",
-                  buyer_name: `${props?.value?.users?.fname} ${props?.value?.users?.lname}`,
+                  buyer_name: `${props?.value?.user?.firstName} ${props?.value?.user?.lastName}`,
                   terms_of_payment: "--Terms of Payment-- ",
                   due_date: "--DueDate--",
                 },
