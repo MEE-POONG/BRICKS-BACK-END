@@ -42,11 +42,12 @@ model Products {
   OrderDetail  OrderDetail[]
   QtyRate      QtyRate[]
   ImageProduct ImageProduct[]
+  CartItems    CartItems[]
 }
 
 model ImageProduct {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  image        String?
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  image      String?
   Products   Products? @relation(fields: [productsId], references: [id])
   productsId String?   @db.ObjectId
 }
