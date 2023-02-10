@@ -127,31 +127,31 @@ export function ReceiptPDF({ elementId, data }) {
         style: "tableHeader",
       },
     ],
-    ...data?.inv_items.map((product, index) => {
-      let key = index + 1;
-      return [
-        {
-          text: key,
-          style: "tableDetail",
-        },
-        {
-          text: product?.description,
-          style: "tableDetail",
-        },
-        {
-          text: formatCurrency(product?.quantity, { minimumFractionDigits: 0 }),
-          style: "tableDetail",
-        },
-        {
-          text: formatCurrency(product?.unit_price),
-          style: "tableDetail",
-        },
-        {
-          text: formatCurrency(product?.amount),
-          style: "tableDetail",
-        },
-      ];
-    }),
+    // ...data?.inv_items.map((product, index) => {
+    //   let key = index + 1;
+      // return [
+      //   {
+      //     text: 'key',
+      //     style: "tableDetail",
+      //   },
+      //   {
+      //     text: 'description',
+      //     style: "tableDetail",
+      //   },
+      //   {
+      //     text: 'formatCurrency(product?.quantity, { minimumFractionDigits: 0 })',
+      //     style: "tableDetail",
+      //   },
+      //   {
+      //     text: 'formatCurrency(product?.unit_price)',
+      //     style: "tableDetail",
+      //   },
+      //   {
+      //     text: 'formatCurrency(product?.amount)',
+      //     style: "tableDetail",
+      //   },
+      // ];
+    // }),
     [
       {
         text: " ",
@@ -168,7 +168,7 @@ export function ReceiptPDF({ elementId, data }) {
       },
       {},
       {
-        text: formatCurrency(data?.inv_total),
+        text: 'formatCurrency(data?.inv_total)',
         style: "tableDetail",
         alignment: "center",
         fontSize: 8,
@@ -190,7 +190,7 @@ export function ReceiptPDF({ elementId, data }) {
       },
       {},
       {
-        text: formatCurrency(data?.inv_vat),
+        text: 'formatCurrency(data?.inv_vat)',
         style: "tableDetail",
         alignment: "center",
         fontSize: 8,
@@ -212,7 +212,7 @@ export function ReceiptPDF({ elementId, data }) {
       },
       {},
       {
-        text: formatCurrency(data?.inv_total_amount),
+        text: 'formatCurrency(data?.inv_total_amount)',
         style: "tableDetail",
         alignment: "center",
         fontSize: 8,
@@ -263,17 +263,17 @@ export function ReceiptPDF({ elementId, data }) {
               {
                 stack: [
                   {
-                    text: "บริษัท บลูซี เอ็นจิเนียริ่ง จำกัด (สำนักงานใหญ่)",
+                    text: "ร้านช่างพอง อิฐประสาน",
                     style: "headerCompanyName",
                     margin: [0, 10, 0, 0],
                   },
                   {
-                    text: "BlueC Engineering Co.,Ltd.",
+                    text: "Dream Block",
                     style: "headerCompanyName",
                     margin: [0, 0, 0, 0],
                   },
                   {
-                    text: "29/196 หมู่ 3 ตำบลปลายบาง อำเภอบางกรวย จังหวัดนนทบุรี\n29/196 Moo 3 T. Plaibang, A. BangKruy, Nonthaburi 11130\nTEL : 081-6181053\nEmail : marutsuralert@hotmail.com",
+                    text: "บ้านท่าอ่าง ตำบลท่าอ่าง อำเภอโชคชัย จังหวัดนครราชสีมา\n Ban Tha Ang T.Tha Ang , A.Chok Chai, Nakhon Ratchasima 30190\nTEL : 094-3970414\nEmail : apichart.pli@gmail.com",
                     style: "headerCompanyAddress",
                     margin: [0, 0, 0, 0],
                   },
