@@ -9,6 +9,7 @@ import ProductsAddModal from '@/components/products/productsAddModal'
 import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
 import ProductsEditModal from '@/components/Products/ProductsEditModal'
 import AddOnRateModal from '@/components/Products/AddOnRateModal'
+import AddImageProductModal from '@/components/Products/AddImageProduct'
 
 export default function Search() {
     const [name, setName] = useState("")
@@ -126,6 +127,7 @@ function MyTable(props) {
                 <tr>
                     <th>No.</th>
                     <th>ภาพ</th>
+                    <th>ภาพเพิ่มเติม</th>
                     <th>ชื่อสินค้า</th>
                     <th>ประเภทสินค้า</th>
                     <th>ราคา</th>
@@ -140,6 +142,9 @@ function MyTable(props) {
                             <td>{item.productCode}</td>
                             <td>
                                 <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
+                            </td>
+                            <td>
+                            <AddImageProductModal value={item} getData={props?.getData}/>
                             </td>
                             <td>
                                 {item.name}

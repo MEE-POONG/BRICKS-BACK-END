@@ -28,19 +28,27 @@ model SubType {
 }
 
 model Products {
-  id          String        @id @default(auto()) @map("_id") @db.ObjectId
-  productCode String?
-  image       String?
-  name        String?
-  detail      String?
-  subTypeId   String?       @db.ObjectId
-  createdAt   DateTime?     @default(now())
-  updatedAt   DateTime?     @updatedAt
-  deleted_at  DateTime?     @map("deleted_at")
-  price       Int?
-  subType     SubType?      @relation(fields: [subTypeId], references: [id])
-  OrderDetail OrderDetail[]
-  QtyRate     QtyRate[]
+  id           String         @id @default(auto()) @map("_id") @db.ObjectId
+  productCode  String?
+  image        String?
+  name         String?
+  detail       String?
+  subTypeId    String?        @db.ObjectId
+  createdAt    DateTime?      @default(now())
+  updatedAt    DateTime?      @updatedAt
+  deleted_at   DateTime?      @map("deleted_at")
+  price        Int?
+  subType      SubType?       @relation(fields: [subTypeId], references: [id])
+  OrderDetail  OrderDetail[]
+  QtyRate      QtyRate[]
+  ImageProduct ImageProduct[]
+}
+
+model ImageProduct {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  image        String?
+  Products   Products? @relation(fields: [productsId], references: [id])
+  productsId String?   @db.ObjectId
 }
 
 model QtyRate {
