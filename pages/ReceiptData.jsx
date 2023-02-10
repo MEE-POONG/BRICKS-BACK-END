@@ -1,17 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
-import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
-import MyPagination from "@/components/Pagination"
-import useAxios from 'axios-hooks'
-import PageLoading from '@/components/PageChange/pageLoading'
-import PageError from '@/components/PageChange/pageError'
-import HomeTopEditModal from '@/components/HomeTop/HomeTopEditModal'
 import { ReceiptPDF } from '@/components/pdf/RECEIPT'
 
-export default function PDFTest() {
+export default function ReceiptData() {
  return (
     <>
-    <div className="w-full gap-4 flex items-center justify-center">
+<div className="w-full gap-4 flex items-center justify-center">
 
 <iframe id="iframe" width="100%" height="1150px">
   <ReceiptPDF elementId='iframe' data={{
@@ -62,11 +56,9 @@ export default function PDFTest() {
     inv_total_amount_text: 'สี่หมื่นเจ็ดพันสี่ร้อยห้าสิบบาทยี่สิบสองสตางค์',
   }} />
 </iframe>
-
-
 </div>
     </>
  )
 }
 
-PDFTest.layout = IndexPage
+ReceiptData.layout = IndexPage
