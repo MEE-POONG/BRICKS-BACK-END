@@ -1,27 +1,15 @@
-import React, { useEffect, useState } from "react";
-import IndexPage from "components/layouts/IndexPage";
-import {
-  Container,
-  Modal,
-  Card,
-  Button,
-  Form,
-  Image,
-  InputGroup,
-  Row,
-  Col,
-  Table,
-  Pagination,
-  Badge,
-} from "react-bootstrap";
-import MyPagination from "@/components/Pagination";
-import useAxios from "axios-hooks";
-import PageLoading from "@/components/PageChange/pageLoading";
-import PageError from "@/components/PageChange/pageError";
-import ProductsAddModal from "@/components/products/productsAddModal";
-import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
-import ProductsEditModal from "@/components/Products/ProductsEditModal";
-import AddOnRateModal from "@/components/Products/AddOnRateModal";
+import React, { useEffect, useState } from 'react'
+import IndexPage from "components/layouts/IndexPage"
+import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
+import MyPagination from "@/components/Pagination"
+import useAxios from 'axios-hooks'
+import PageLoading from '@/components/PageChange/pageLoading'
+import PageError from '@/components/PageChange/pageError'
+import ProductsAddModal from '@/components/products/productsAddModal'
+import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
+import ProductsEditModal from '@/components/Products/ProductsEditModal'
+import AddOnRateModal from '@/components/Products/AddOnRateModal'
+import AddImageProductModal from '@/components/Products/AddImageProduct'
 
 export default function Search() {
 
@@ -192,58 +180,61 @@ function MyTable(props) {
     console.log(props);
   }, [props]);
 
-  return (
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>No.</th>
-          <th>ภาพ</th>
-          <th>ชื่อสินค้า</th>
-          <th>ประเภทสินค้า</th>
-          <th>ราคา</th>
-          <th>รายละเอียด</th>
-          <th>เรทราคา</th>
-          <th>จัดการ</th>
-        </tr>
-      </thead>
-      <tbody>
-        {currentItems?.map((item, index) => (
-          <tr key={item.id}>
-            <td>{item.productCode}</td>
-            <td>
-              <Image
-                src={item.image}
-                width="150px"
-                height="150px"
-                className="object-fit-cover"
-              />
-            </td>
-            <td>{item.name}</td>
-            <td>
-              <Badge bg="primary">{item.subType.type.name}</Badge>
-              <br />
-              <Badge bg="primary">{item.subType.name}</Badge>
-            </td>
-            <td>{item.price} บาท</td>
-            <td>
-              <div dangerouslySetInnerHTML={{ __html: item?.detail }} />
-            </td>
-            <td>
-              <AddOnRateModal value={item} getData={props?.getData} />
-            </td>
-            <td>
-              <ProductsEditModal
-                value={item}
-                getData={props?.getData}
-                getSubTypeData={props.getSubTypeData}
-              />
-              <ProductsDeleteModal value={item} getData={props?.getData} />
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </Table>
-  );
+    return (
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>ภาพ</th>
+                    <th>ภาพเพิ่มเติม</th>
+                    <th>ชื่อสินค้า</th>
+                    <th>ประเภทสินค้า</th>
+                    <th>ราคา</th>
+                    <th>รายละเอียด</th>
+                    <th>เรทราคา</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+           { currentItems?.map((item, index) => (
+                        <tr key={item.id}>
+                            <td>{item.productCode}</td>
+                            <td>
+                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
+                            </td>
+                            <td>
+                            <AddImageProductModal value={item} getData={props?.getData}/>
+                            </td>
+                            <td>
+                                {item.name}
+                            </td>
+                            <td>
+                                <Badge bg="primary">
+                                    {item.subType.type.name}
+                                </Badge>
+                                <br/>
+                                <Badge bg="primary">
+                                    {item.subType.name}
+                                </Badge>
+                            </td>
+                            <td>
+                                {item.price}{' '}บาท
+                            </td>
+                            <td>
+                                <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
+                            </td>
+                            <td>
+                            <AddOnRateModal value={item} getData={props?.getData}/>
+                            </td>
+                            <td>
+                                <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
+                                <ProductsDeleteModal value={item} getData={props?.getData} />
+                            </td>
+                        </tr>
+                    ))}
+            </tbody>
+        </Table>
+    );
 }
 
 Search.layout = IndexPage;
