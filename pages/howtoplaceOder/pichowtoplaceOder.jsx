@@ -1,0 +1,94 @@
+import React, { useEffect, useState } from 'react'
+import IndexPage from "components/layouts/IndexPage"
+import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
+import MyPagination from "@/components/Pagination"
+import useAxios from 'axios-hooks'
+import PageLoading from '@/components/PageChange/pageLoading'
+import PageError from '@/components/PageChange/pageError'
+
+
+export default function PichowtoplaceOderPage() {
+    const [params, setParams] = useState({
+        page: '1',
+        pageSize: '10'
+    });
+
+    const [{ data: policyData,loading,error }, getPichowtoplaceOder] = useAxios({
+        url: "/api/howtoplaceOder",
+      });
+      console.log(policyData);
+
+
+    useEffect(() => {
+        if (policyData) {
+            setParams({
+                ...params,
+                page: policyData.page,
+                pageSize: policyData.pageSize
+            });
+        }
+    }, [policyData]);
+
+   
+    if (loading) {
+        return <PageLoading />;
+    }
+    if (error) {
+        return <PageError />;
+    }
+    return (
+        <Container fluid className="pt-4 px-4">
+            <Card className="text-center rounded shadow p-4">
+                <div className="d-flex align-items-center justify-content-between mb-4">
+                    <Card.Title className="mb-0">
+                        รายการนโยบาย
+                    </Card.Title>
+                    <PolicyAddModal getData={getPichowtoplaceOder} />
+                </div>
+                <MyTable data={policyData}  getPichowtoplaceOder={getPichowtoplaceOder} />
+                
+            </Card >
+        </Container >
+    );
+}
+
+function MyTable(props) {
+    const [currentItems, setCurrentItems] = useState(props?.data);
+    const [numberSet, setNumberSet] = useState(props?.setNum);
+    useEffect(() => {
+        setCurrentItems(currentItems);
+        console.log(props);
+    }, [props]);
+
+    return (
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>ชื่อนโยบาย</th>
+                    <th>รายละเอียดนโยบาย</th>
+                    <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+         {   currentItems?.map((item, index) => (
+                        <tr key={item.id}>
+                            <td className="text-center">{index + 1 }</td>
+                            <td>
+                                <div> {item?.headpolicy} </div>
+                            </td>
+                            <td>
+                                <div dangerouslySetInnerHTML={{ __html: item?.subpolicy}} />
+                            </td>
+                            <td>
+                                <PolicyEditModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
+                                <PolicyDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
+                            </td>
+                        </tr>
+                    ))}
+            </tbody>
+        </Table>
+    );
+}
+
+PichowtoplaceOderPage.layout = IndexPage

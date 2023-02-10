@@ -150,7 +150,9 @@ export default function TheSlideNav() {
                 checkClickPath === "/homeTop" ||
                 checkClickPath === "/contact" ||
                 checkClickPath === "/about" ||
-                checkClickPath === "/about/policy"
+                checkClickPath === "/about/policy" ||
+                checkClickPath === "/howtoplaceOder" ||
+                checkClickPath === "/howtoplaceOder/pichowtoplaceOder"
               }
             >
               <Link
@@ -196,6 +198,28 @@ export default function TheSlideNav() {
                 }
               >
                 จัดการหน้าติดต่อ
+              </Link>
+              <Link
+                id="buttons"
+                href="/howtoplaceOder"
+                className={
+                  asPath === "/howtoplaceOder"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                จัดการหน้าวิธีการสั่งซื้อ
+              </Link>
+              <Link
+                id="buttons"
+                href="/howtoplaceOder/pichowtoplaceOder"
+                className={
+                  asPath === "/howtoplaceOder/pichowtoplaceOder"
+                    ? "dropdown-item ps-5 active"
+                    : "dropdown-item ps-5"
+                }
+              >
+                 จัดการรูปวิธีการสั่งซื้อ
               </Link>
             </Dropdown.Menu>
 
