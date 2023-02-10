@@ -4,32 +4,25 @@ const prisma = new PrismaClient()
 export default async function handler(req, res) {
     const { method } = req
     switch (method) {
-        case 'GET':
-            try {
-                const data = await prisma.users.findFirst({
-                    where: {
-                        id: req.query.id
-                    }
-                });
-                prisma.$disconnect();
-                res.status(200).json(data)
-            } catch (error) {
-                res.status(400).json({ success: false })
-            }
-            break
         case 'PUT':
             try {
-                await prisma.users.update({
+                await prisma.howtoplaceOder.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        fname: req.body.fname,
-                        lname: req.body.lname,
-                        tel: req.body.username,
-                        username: req.body.tel,
-                        email: req.body.email,
-                        password: req.body.password,
+                        headtitle: req.body.headtitle,
+                        title: req.body.title,
+                        steps1: req.body.steps1,
+                        substeps1: req.body.substeps1,
+                        steps2: req.body.steps2,
+                        substeps2: req.body.substeps2,
+                        steps3: req.body.steps3,
+                        substeps3: req.body.substeps3,
+                        steps4: req.body.steps4,
+                        substeps4: req.body.substeps4,
+                        steps5: req.body.steps5,
+                        substeps5: req.body.substeps5,
                     }
                 })
                 prisma.$disconnect();
@@ -40,7 +33,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.users.delete({
+                await prisma.howtoplaceOder.delete({
                     where: {
                         id: req.query.id
                     }

@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
 import IndexPage from "components/layouts/IndexPage"
 import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
@@ -6,27 +5,31 @@ import MyPagination from "@/components/Pagination"
 import useAxios from 'axios-hooks'
 import PageLoading from '@/components/PageChange/pageLoading'
 import PageError from '@/components/PageChange/pageError'
-import UsersAddModal from '@/components/Users/UsersAddModal'
-import UsersEditModal from '@/components/Users/UsersEditModal'
-import UsersDeleteModal from '@/components/Users/UsersDeleteModal'
 
-export default function UsersPage() {
+
+export default function PichowtoplaceOderPage() {
     const [params, setParams] = useState({
         page: '1',
         pageSize: '10'
     });
 
-    const [{ data: usersData, loading, error }, getUsers] = useAxios({ url: `/api/user?page=1&pageSize=10`, method: 'GET' });
+    const [{ data: policyData,loading,error }, getPichowtoplaceOder] = useAxios({
+        url: "/api/howtoplaceOder",
+      });
+      console.log(policyData);
+
+
     useEffect(() => {
-        if (usersData) {
+        if (policyData) {
             setParams({
                 ...params,
-                page: usersData.page,
-                pageSize: usersData.pageSize
+                page: policyData.page,
+                pageSize: policyData.pageSize
             });
         }
-    }, [usersData]);
+    }, [policyData]);
 
+   
     if (loading) {
         return <PageLoading />;
     }
@@ -38,11 +41,12 @@ export default function UsersPage() {
             <Card className="text-center rounded shadow p-4">
                 <div className="d-flex align-items-center justify-content-between mb-4">
                     <Card.Title className="mb-0">
-                        รายการบัญชีสมาชิก
+                        รายการนโยบาย
                     </Card.Title>
-                    <UsersAddModal getData={getUsers} />
+                    <PolicyAddModal getData={getPichowtoplaceOder} />
                 </div>
-                <MyTable data={usersData?.data} getUsers={getUsers} />
+                <MyTable data={policyData}  getPichowtoplaceOder={getPichowtoplaceOder} />
+                
             </Card >
         </Container >
     );
@@ -61,46 +65,30 @@ function MyTable(props) {
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ชื่อจริง</th>
-                    <th>นามสกุล</th>
-                    <th>เบอร์โทร</th>
-                    <th>อีเมล์</th>
-                    <th>ชื่อผู้ใช้</th>
+                    <th>ชื่อนโยบาย</th>
+                    <th>รายละเอียดนโยบาย</th>
                     <th>จัดการ</th>
                 </tr>
             </thead>
             <tbody>
-                {currentItems.length ? (
-                    currentItems?.map((item, index) => (
+         {   currentItems?.map((item, index) => (
                         <tr key={item.id}>
-                            <td>{index + 1 }</td>
+                            <td className="text-center">{index + 1 }</td>
                             <td>
-                                {item.fname}
+                                <div> {item?.headpolicy} </div>
                             </td>
                             <td>
-                                {item.lname}
+                                <div dangerouslySetInnerHTML={{ __html: item?.subpolicy}} />
                             </td>
                             <td>
-                                {item.tel}
-                            </td>
-                            <td>
-                                {item.email}
-                            </td>
-                            <td>
-                                {item.name}
-                            </td>
-                            <td>
-                                <UsersEditModal value={item} getUsers={props?.getUsers}  />
-                                <UsersDeleteModal value={item} getUsers={props?.getUsers} />
+                                <PolicyEditModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
+                                <PolicyDeleteModal value={item} getPichowtoplaceOder={props?.getPichowtoplaceOder} />
                             </td>
                         </tr>
-                    )))
-                    : ""}
+                    ))}
             </tbody>
         </Table>
     );
 }
 
-
-
-UsersPage.layout = IndexPage
+PichowtoplaceOderPage.layout = IndexPage

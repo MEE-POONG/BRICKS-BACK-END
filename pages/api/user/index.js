@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         // case 'GET':
         //     try {
-        //         const data = await prisma.users.findMany({});
+        //         const data = await prisma.user.findMany({});
         //         res.status(200).json(data)
         //     } catch (error) {
         //         res.status(400).json({ success: false })
@@ -17,8 +17,8 @@ export default async function handler(req, res) {
                 let page = +req.query.page || 1;
                 let pageSize = +req.query.pageSize || 10;
                 const data = await prisma.$transaction([
-                    prisma.users.count(),
-                    prisma.users.findMany({
+                    prisma.user.count(),
+                    prisma.user.findMany({
                     
                         skip: (page - 1) * pageSize,
                         take: pageSize,
@@ -32,12 +32,12 @@ export default async function handler(req, res) {
             break
         case 'POST':
             try {
-                await prisma.users.create({
+                await prisma.user.create({
                     data: {
                         fname: req.body.fname,
                         lname: req.body.lname,
-                        tel: req.body.username,
-                        username: req.body.tel,
+                        name: req.body.name,
+                        tel: req.body.tel,
                         email: req.body.email,
                         password: req.body.password,
                     }
