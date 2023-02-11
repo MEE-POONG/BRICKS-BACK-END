@@ -16,6 +16,11 @@ export default function HomeTopEditModal(props) {
     executeHomeTopPut,
   ] = useAxios({}, { manual: true });
 
+  const [{ loading: imgLoading, error: imgError }, uploadImage] = useAxios(
+    { url: "/api/upload", method: "POST" },
+    { manual: true }
+  );
+
   const [img, setImg] = useState([]);
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
@@ -35,16 +40,28 @@ export default function HomeTopEditModal(props) {
 
   useEffect(() => {
     if (props) {
+      setImg(props?.value?.image);
       setFromHomeTop({
         title: props?.value?.title,
         subTitle: props?.value?.subTitle,
       });
     }
-  }, [props]);
+
+    if (image.length < 1) return;
+    const newImageUrl = [];
+    image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
+    setImageURL(newImageUrl);
+
+  }, [props, image]);
+
+  const onImageSrcHomePageChange = (e) => {
+    setImage([...e.target.files]);
+  };
+
 
   const handlePutData = async () => {
     setCheckValue(false);
-    if (fromHomeTop?.address !== "") {
+    if (image[0] === undefined) {
       await executeHomeTopPut({
         url: "/api/homeTop/" + props?.value?.id,
         method: "PUT",
@@ -53,6 +70,33 @@ export default function HomeTopEditModal(props) {
           subTitle: fromHomeTop?.subTitle,
         },
       }).then(() => {
+        setFromHomeTop({
+          title: "",
+          subTitle: "",
+        }),
+          props.getHomeTopData().then(() => {
+            if (updateHomeTopLoading?.success) {
+              handleClose();
+            }
+          });
+      });
+    } else{
+
+      let data = new FormData();
+      data.append("file", image[0]);
+      const imageData = await uploadImage({ data: data });
+      const id = imageData.data.result.id;
+
+      await executeHomeTopPut({
+        url: "/api/homeTop/" + props?.value?.id,
+        method: "PUT",
+        data: {
+          title: fromHomeTop?.title,
+          subTitle: fromHomeTop?.subTitle,
+          image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+        },
+      }).then(() => {
+        setImage(""),
         setFromHomeTop({
           title: "",
           subTitle: "",
@@ -117,7 +161,7 @@ export default function HomeTopEditModal(props) {
                 <Form.Control
                   type="file"
                   accept="image/*"
-                  // onChange={onImageSrcHomePageChange}
+                  onChange={onImageSrcHomePageChange}
                 />
               </Form.Group>
     
