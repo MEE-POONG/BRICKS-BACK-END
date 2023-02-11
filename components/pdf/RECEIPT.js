@@ -57,53 +57,53 @@ export function ReceiptPDF({ elementId, data }) {
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
-  const table_customer_detail = [[
-    {
-      text: "รหัสลูกค้า\nCustomer Code",
-      style: "tableHeader",
-    },
-    {
-      text: "เลขที่ใบสั่งซื้อ\nP/O No.",
-      style: "tableHeader",
-    },
-    {
-      text: "ชื่อผู้สั่งซื้อ\nBuyer Name",
-      style: "tableHeader",
-    },
-    {
-      text: "เงื่อนไขการชำระเงิน\nTerms of Payment",
-      style: "tableHeader",
-    },
-    {
-      text: "วันครบกำหนดชำระ\nDueDate",
-      style: "tableHeader",
-    },
-  ],
-  ...data?.inv_data.map((user) => {
-    return [
-      {
-        text: user?.customer_code,
-        style: "tableDetail",
-      },
-      {
-        text: user?.po_no,
-        style: "tableDetail",
-      },
-      {
-        text: user?.buyer_name,
-        style: "tableDetail",
-      },
-      {
-        text: user?.terms_of_payment,
-        style: "tableDetail",
-      },
-      {
-        text: user?.due_date,
-        style: "tableDetail",
-      },
-    ];
-  })
-  ]
+  // const table_customer_detail = [[
+  //   {
+  //     text: "รหัสลูกค้า\nCustomer Code",
+  //     style: "tableHeader",
+  //   },
+  //   {
+  //     text: "เลขที่ใบสั่งซื้อ\nP/O No.",
+  //     style: "tableHeader",
+  //   },
+  //   {
+  //     text: "ชื่อผู้สั่งซื้อ\nBuyer Name",
+  //     style: "tableHeader",
+  //   },
+  //   {
+  //     text: "เงื่อนไขการชำระเงิน\nTerms of Payment",
+  //     style: "tableHeader",
+  //   },
+  //   // {
+  //   //   text: "วันครบกำหนดชำระ\nDueDate",
+  //   //   style: "tableHeader",
+  //   // },
+  // ],
+  // ...data?.inv_data.map((user) => {
+  //   return [
+  //     {
+  //       text: user?.customer_code,
+  //       style: "tableDetail",
+  //     },
+  //     {
+  //       text: user?.po_no,
+  //       style: "tableDetail",
+  //     },
+  //     {
+  //       text: user?.buyer_name,
+  //       style: "tableDetail",
+  //     },
+  //     {
+  //       text: user?.terms_of_payment,
+  //       style: "tableDetail",
+  //     },
+  //     {
+  //       text: user?.due_date,
+  //       style: "tableDetail",
+  //     },
+  //   ];
+  // })
+  // ]
   const table_customer_product = [
     [
       {
@@ -127,11 +127,11 @@ export function ReceiptPDF({ elementId, data }) {
         style: "tableHeader",
       },
     ],
-    ...data?.inv_items.map((product, index) => {
+    ...data?.inv_data.map((product, index) => {
       let key = index + 1;
       return [
         {
-          text: 'key',
+          text: key,
           style: "tableDetail",
         },
         {
@@ -139,15 +139,15 @@ export function ReceiptPDF({ elementId, data }) {
           style: "tableDetail",
         },
         {
-          text: (product?.quantity, { minimumFractionDigits: 0 }),
+          text: product?.quantity,
           style: "tableDetail",
         },
         {
-          text: (product?.unit_price),
+          text: product?.unit_price,
           style: "tableDetail",
-        },
+        },   
         {
-          text: (product?.amount),
+          text: product?.amount,
           style: "tableDetail",
         },
       ];
@@ -340,6 +340,28 @@ export function ReceiptPDF({ elementId, data }) {
                       {
                         stack: [
                           {
+                            text: "เลขที่ใบสั่งซื้อ",
+                            style: "columnsHeader",
+                          },
+                          {
+                            text: "P/O No.",
+                            style: "columnsDetail",
+                          },
+                        ],
+                      },
+                      {
+                        text: data?.po_no,
+                        style: "columnsHeader",
+                      },
+                    ],
+                    columnGap: -230,
+                  }, //END OF COLUMS CUSTOMER
+                  {
+                    //COLUMNS CUSTOMER
+                    columns: [
+                      {
+                        stack: [
+                          {
                             text: "ชื่อลูกค้า",
                             style: "columnsHeader",
                           },
@@ -354,7 +376,7 @@ export function ReceiptPDF({ elementId, data }) {
                         style: "columnsDetail",
                       },
                     ],
-                    columnGap: -250,
+                    columnGap: -230,
                   }, //END OF COLUMS CUSTOMER
                   {
                     //COLUMNS NUMBER OF TAXER
@@ -368,7 +390,7 @@ export function ReceiptPDF({ elementId, data }) {
                         style: "columnsDetail",
                       },
                     ],
-                    columnGap: -250,
+                    columnGap: -230,
                   }, //END OF COLUMNS NUMBER OF TAXER
                   {
                     //COLUMNS ADDRESS
@@ -390,7 +412,7 @@ export function ReceiptPDF({ elementId, data }) {
                         style: "columnsDetail",
                       },
                     ],
-                    columnGap: -250,
+                    columnGap: -230,
                   }, //END OF COLUMNS COLUMNS ADDRESS
                 ],
               },
@@ -415,8 +437,9 @@ export function ReceiptPDF({ elementId, data }) {
                         text: data?.no,
                         style: "columnsHeader",
                       },
-                    ],
+                    ],columnGap: -50,
                   }, //END OF COLUMS NUMBER
+                 
                   {
                     //COLUMNS DATE
                     columns: [
@@ -437,6 +460,7 @@ export function ReceiptPDF({ elementId, data }) {
                         style: "columnsHeader",
                       },
                     ],
+                    columnGap: -50,
                   }, //END OF COLUMNS DATE
                 ],
               },
@@ -447,11 +471,11 @@ export function ReceiptPDF({ elementId, data }) {
       //END OF INVOICE DETAILS
       //TABLE OF CUSTOMER DETAILS
       {
-        layout: "exampleLayout",
-        table: {
-          widths: ["*", "*", "*", "*", "*"],
-          body: table_customer_detail
-        },
+        // layout: "exampleLayout",
+        // table: {
+        //   widths: ["*", "*", "*", "*", "*"],
+        //   body: table_customer_detail
+        // },
       }, //END TABLE OF CUSTOMER DETAILS
       {
         text: " ",
@@ -553,6 +577,7 @@ export function ReceiptPDF({ elementId, data }) {
       columnsHeader: {
         fontSize: 8,
         bold: true,
+        marginLeft: 0,
       },
       columnsDetail: {
         fontSize: 8,
@@ -574,12 +599,12 @@ export function ReceiptPDF({ elementId, data }) {
     },
   };
   
-  return  pdfMake.createPdf(docDefinition).print({}, window);
+  // return  pdfMake.createPdf(docDefinition).print({}, window);
   
-  // return pdfMake.createPdf(docDefinition).getDataUrl((dataUrl) => {
-  //   const iframe = document.getElementById(elementId);
-  //   iframe.src = dataUrl + '#zoom=100&toolbar=0';
-  // });
+  return pdfMake.createPdf(docDefinition).getDataUrl((dataUrl) => {
+    const iframe = document.getElementById(elementId);
+    iframe.src = dataUrl + '#zoom=100&toolbar=0';
+  });
 
  
 

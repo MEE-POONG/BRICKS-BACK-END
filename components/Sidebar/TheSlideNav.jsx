@@ -163,7 +163,7 @@ export default function TheSlideNav() {
                     : "dropdown-item ps-5"
                 }
               >
-                จัดการหลัก
+                จัดการหน้าหลัก
               </Link>
               <Link
                 id="buttons"

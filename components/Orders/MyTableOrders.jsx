@@ -38,7 +38,7 @@ export default function MyTable(props) {
                 <tr key={item.id}>
                   <td>{item.orderCode}</td>
                   <td>
-                    {item?.user?.firstName} {item?.user?.lastName}
+                    {item?.user?.name}
                   </td>
                   <td>
                     <OrdersShowDetailModal
@@ -63,10 +63,9 @@ export default function MyTable(props) {
                     </td>
                   )}
   
-                  <td>{item?.total} บาท</td>
+                  <td>{item?.totalPrice} บาท</td>
                   <td>
                     <QuotationReport value={item} getData={props?.getData} />
-                    {/* <PrintReport value={item} getData={props?.getData} /> */}
                     <br />
                     <OrdersConfirmModal value={item} getData={props?.getData} />
                     <OrdersDeleteModal value={item} getData={props?.getData} />

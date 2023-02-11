@@ -4,16 +4,29 @@ const prisma = new PrismaClient()
 export default async function handler(req, res) {
     const { method } = req
     switch (method) {
+        case 'GET':
+            try {
+                const data = await prisma.pichomeTop.findFirst({
+                    where: {
+                        id: req.query.id
+                    }
+                });
+                prisma.$disconnect();
+                res.status(200).json(data)
+            } catch (error) {
+                res.status(400).json({ success: false })
+            }
+            break
         case 'PUT':
             try {
-                await prisma.homeTop.update({
+                await prisma.pichomeTop.update({
                     where: {
                         id: req.query.id
                     },
                     data: {
-                        title: req.body.title,
-                        subTitle: req.body.subTitle,
                         image: req.body.image,
+                        name: req.body.name,
+                        links: req.body.links,
                     }
                 })
                 prisma.$disconnect();
@@ -24,7 +37,7 @@ export default async function handler(req, res) {
             break
         case 'DELETE':
             try {
-                await prisma.homeTop.delete({
+                await prisma.pichomeTop.delete({
                     where: {
                         id: req.query.id
                     }
@@ -40,3 +53,4 @@ export default async function handler(req, res) {
             res.status(405).end(`Method ${method} Not Allowed`)
     }
 }
+

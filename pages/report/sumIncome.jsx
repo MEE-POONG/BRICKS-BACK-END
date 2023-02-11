@@ -152,7 +152,7 @@ function MyTable(props) {
         <th>ลำดับ</th>
         <th>วันที่</th>
         <th>ผู้ซื้อ</th>
-        <th>ผู้จำหน่าย</th>
+        {/* <th>ผู้จำหน่าย</th> */}
         <th>จำนวนสินค้า</th>
         <th>ราคารวม</th>
       </tr>
@@ -162,7 +162,7 @@ function MyTable(props) {
         <td>1</td>
         <td>20/01/2565</td>
         <td>สมหมาย</td>
-        <td>ช่างพอง</td>
+        {/* <td>ช่างพอง</td> */}
         <td>2000</td>
         <td>40,000</td>
       </tr>
