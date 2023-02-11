@@ -27,7 +27,7 @@ export default function AddOnRateModal(props) {
     const [length, setLength] = useState('');
     const [addOn, setAddOn] = useState('');
 
-    const [formValues, setFormValues] = useState([{ name: "", email : ""}])
+    const [formValues, setFormValues] = useState([{ length: "", addOn : ""}])
 
 
     const handleSubmit = async ()  => { 
@@ -66,7 +66,7 @@ export default function AddOnRateModal(props) {
         }
             
         const addFormFields = () => {
-            setFormValues([...formValues, { length: "", email: "" }])
+            setFormValues([...formValues, { length: "", addOn : "" }])
         }
 
         const removeFormFields = (i) => {
@@ -102,7 +102,7 @@ export default function AddOnRateModal(props) {
                                     
                                     <Form.Group className="mb-3 " controlId="length">
                                         <Form.Control type="number" placeholder="เพิ่ม ระยะทาง กม."
-                                         onChange={(e) => { setLength(e.target.value) }}
+                                         onChange={(e) => { handleChange(e.target.value) }}
                                          value={length} autoComplete="off"
                                          isValid={checkValue === false && length !== '' ? true : false}
                                          isInvalid={checkValue === false && length === '' ? true : false}
@@ -115,7 +115,7 @@ export default function AddOnRateModal(props) {
                                        
                                     <Form.Group className="mb-3" controlId="addOn">   
                                         <Form.Control type="number" placeholder="เพิ่ม เรทราคาของสินค้า"
-                                         onChange={(e) => { setAddOn(e.target.value) }}
+                                         onChange={(e) => { handleChange(e.target.value) }}
                                          value={addOn} autoComplete="off"
                                          isValid={checkValue === false && addOn !== '' ? true : false}
                                          isInvalid={checkValue === false && addOn === '' ? true : false}

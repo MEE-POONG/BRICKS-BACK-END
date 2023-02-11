@@ -1,28 +1,73 @@
-import React, { useEffect, useState } from 'react'
-import IndexPage from "components/layouts/IndexPage"
-import { Container, Modal, Card, Button, Form, Image, InputGroup, Row, Col, Table, Pagination, Badge } from 'react-bootstrap'
-import MyPagination from "@/components/Pagination"
-import useAxios from 'axios-hooks'
-import PageLoading from '@/components/PageChange/pageLoading'
-import PageError from '@/components/PageChange/pageError'
-import ProductsAddModal from '@/components/products/productsAddModal'
-import ProductsDeleteModal from '@/components/Products/ProductsDeleteModal'
-import ProductsEditModal from '@/components/Products/ProductsEditModal'
-import AddOnRateModal from '@/components/Products/AddOnRateModal'
-import AddImageProductModal from '@/components/Products/AddImageProduct'
+import React, { useEffect, useState } from "react";
+import IndexPage from "components/layouts/IndexPage";
+import {
+  Container,
+  Modal,
+  Card,
+  Button,
+  Form,
+  Image,
+  InputGroup,
+  Row,
+  Col,
+  Table,
+  Pagination,
+  Badge,
+} from "react-bootstrap";
+import MyPagination from "@/components/Pagination";
+import useAxios from "axios-hooks";
+import PageLoading from "@/components/PageChange/pageLoading";
+import PageError from "@/components/PageChange/pageError";
+import ProductsAddModal from "@/components/products/productsAddModal";
+import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
+import ProductsEditModal from "@/components/Products/ProductsEditModal";
+import AddOnRateModal from "@/components/Products/AddOnRateModal";
+import AddImageProductModal from "@/components/Products/AddImageProduct";
 
 export default function Search() {
-
-    const [{ data: subTypeData }, getSubType] = useAxios({
-        url: "../api/subType?",
-      });
-    
-
   const [name, setName] = useState("");
   const [searchName, setSearchName] = useState("");
 
   const [subTypeId, setSubTypeId] = useState("");
   const [searchSubTypeId, setSearchSubTypeId] = useState("");
+
+  const [typeId, setTypeId] = useState("");
+
+  const [{ data: typeData }, getType] = useAxios({
+    url: "/api/type?",
+  });
+
+  const [{ data: subTypeData }, getSubType] = useAxios({
+    url: `/api/subType?TypeId=${typeId}`
+  });
+
+  console.log(subTypeData)
+
+  useEffect(() => {
+    getSubType().catch((error) => {
+      console.log(error);
+    });
+  }, [typeData]);
+
+  const SearchAllData = () => {
+    setName(searchName);
+
+    if (searchSubTypeId === "") {
+      setSubTypeId("");
+    } else {
+      setSubTypeId("subTypeId=" + searchSubTypeId);
+    }
+  };
+
+  const handleClearfilter = () => {
+    setName("");
+    setSearchName("");
+
+    setSubTypeId("");
+    setSearchSubTypeId("");
+
+    setTypeId("")
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,11 +93,27 @@ export default function Search() {
                 <Form.Label>ประเภทสินค้า</Form.Label>
                 <Form.Select
                   onChange={(e) => {
-                    setSubTypeId(e.target.value);
+                    setTypeId(e.target.value);
                   }}
-                  value={subTypeId}
+                  value={typeId}
                 >
                   <option value="">ประเภทสินค้า</option>
+                  {typeData?.data?.map((typeData, index) => (
+                    <option key={index} value={typeData.id}>
+                      {typeData.name}
+                    </option>
+                  ))}
+                </Form.Select>
+              </Form.Group>
+
+              <Form.Group className="mb-3" controlId="price">
+                <Form.Select
+                  onChange={(e) => {
+                    setSearchSubTypeId(e.target.value);
+                  }}
+                  value={searchSubTypeId}
+                >
+                  <option value="">ประเภทย่อยสินค้า</option>
                   {subTypeData?.data?.map((subTypeData, index) => (
                     <option key={index} value={subTypeData.id}>
                       {subTypeData.name}
@@ -61,22 +122,14 @@ export default function Search() {
                 </Form.Select>
               </Form.Group>
 
-              <Button
-                type="submit"
-                className="m-2"
-                onClick={() => {
-                  setName(searchName);
-                }}
-              >
+              <Button type="submit" className="m-2" onClick={SearchAllData}>
                 ค้นหาสินค้า
               </Button>
               <Button
                 type="submit"
                 bsPrefix="delete"
                 className="icon"
-                onClick={() => {
-                  setName(""), setSearchName("");
-                }}
+                onClick={handleClearfilter}
               >
                 ยกเลิก
               </Button>
@@ -85,12 +138,12 @@ export default function Search() {
         </div>
       </Card>
 
-      {ProductPage(name,subTypeData,subTypeId)}
+      {ProductPage(name, subTypeData, subTypeId)}
     </Container>
   );
 }
 
-function ProductPage(name,subTypeData,subTypeId) {
+function ProductPage(name, subTypeData, subTypeId) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
@@ -100,7 +153,7 @@ function ProductPage(name,subTypeData,subTypeId) {
     { data: productsData, loading: productLoading, error: productError },
     getProduct,
   ] = useAxios({
-    url: `/api/products?page=1&pageSize=10&name=${name}`,
+    url: `/api/products?page=1&pageSize=10&name=${name}&${subTypeId}`,
     method: "GET",
   });
 
@@ -108,7 +161,7 @@ function ProductPage(name,subTypeData,subTypeId) {
     getProduct().catch((error) => {
       console.log(error);
     });
-  }, [name]);
+  }, [name, subTypeId]);
 
   useEffect(() => {
     if (productsData) {
@@ -180,61 +233,62 @@ function MyTable(props) {
     console.log(props);
   }, [props]);
 
-    return (
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>ภาพ</th>
-                    <th>ภาพเพิ่มเติม</th>
-                    <th>ชื่อสินค้า</th>
-                    <th>ประเภทสินค้า</th>
-                    <th>ราคา</th>
-                    <th>รายละเอียด</th>
-                    <th>เรทราคา</th>
-                    <th>จัดการ</th>
-                </tr>
-            </thead>
-            <tbody>
-           { currentItems?.map((item, index) => (
-                        <tr key={item.id}>
-                            <td>{item.productCode}</td>
-                            <td>
-                                <Image src={item.image}  width="150px" height="150px" className='object-fit-cover' />
-                            </td>
-                            <td>
-                            <AddImageProductModal value={item} getData={props?.getData}/>
-                            </td>
-                            <td>
-                                {item.name}
-                            </td>
-                            <td>
-                                <Badge bg="primary">
-                                    {item.subType.type.name}
-                                </Badge>
-                                <br/>
-                                <Badge bg="primary">
-                                    {item.subType.name}
-                                </Badge>
-                            </td>
-                            <td>
-                                {item.price}{' '}บาท
-                            </td>
-                            <td>
-                                <div dangerouslySetInnerHTML={{ __html: item?.detail}} />
-                            </td>
-                            <td>
-                            <AddOnRateModal value={item} getData={props?.getData}/>
-                            </td>
-                            <td>
-                                <ProductsEditModal value={item} getData={props?.getData} getSubTypeData={props.getSubTypeData} />
-                                <ProductsDeleteModal value={item} getData={props?.getData} />
-                            </td>
-                        </tr>
-                    ))}
-            </tbody>
-        </Table>
-    );
+  return (
+    <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>ภาพ</th>
+          <th>ภาพเพิ่มเติม</th>
+          <th>ชื่อสินค้า</th>
+          <th>ประเภทสินค้า</th>
+          <th>ราคา</th>
+          <th>รายละเอียด</th>
+          <th>เรทราคา</th>
+          <th>จัดการ</th>
+        </tr>
+      </thead>
+      <tbody>
+        {currentItems?.map((item, index) => (
+          <tr key={item.id}>
+            <td>{item.productCode}</td>
+            <td>
+              <Image
+                src={item.image}
+                width="150px"
+                height="150px"
+                className="object-fit-cover"
+              />
+            </td>
+            <td>
+              <AddImageProductModal value={item} getData={props?.getData} />
+            </td>
+            <td>{item.name}</td>
+            <td>
+              <Badge bg="primary">{item.subType.type.name}</Badge>
+              <br />
+              <Badge bg="primary">{item.subType.name}</Badge>
+            </td>
+            <td>{item.price} บาท</td>
+            <td>
+              <div dangerouslySetInnerHTML={{ __html: item?.detail }} />
+            </td>
+            <td>
+              <AddOnRateModal value={item} getData={props?.getData} />
+            </td>
+            <td>
+              <ProductsEditModal
+                value={item}
+                getData={props?.getData}
+                getSubTypeData={props.getSubTypeData}
+              />
+              <ProductsDeleteModal value={item} getData={props?.getData} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+  );
 }
 
 Search.layout = IndexPage;

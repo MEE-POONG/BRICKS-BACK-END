@@ -2,29 +2,29 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
-   var pad = (function (num) {
-        return function () {
-          var str = String(num++);
-          while (str.length < 6) str = "0" + str;
-          return "PD" + str;
-        };
-      })(await prisma.products.count()+1);
+  var pad = (function (num) {
+    return function () {
+      var str = String(num++);
+      while (str.length < 6) str = "0" + str;
+      return "PD" + str;
+    };
+  })((await prisma.products.count()) + 1);
 
   const { method } = req;
   switch (method) {
-
     case "GET":
       try {
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
-        let name = req.query.name ;
-        let subTypeId = req.query.subTypeId ;
+        let name = req.query.name;
+        let subTypeId = req.query.subTypeId;
+        let TypeId = req.query.TypeId;
         const data = await prisma.$transaction([
-          prisma.products.count(
-            {where:{name:{contains:name},subTypeId:subTypeId}}
-          ),
+          prisma.products.count({
+            where: { name: { contains: name }, subTypeId: subTypeId },
+          }),
           prisma.products.findMany({
-            where:{name:{contains:name},subTypeId:subTypeId},
+            where: { name: { contains: name }, subTypeId: subTypeId },
             include: { subType: { include: { type: true } } },
             skip: (page - 1) * pageSize,
             take: pageSize,
@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       break;
     case "POST":
       try {
-        const productCode = pad()
+        const productCode = pad();
         await prisma.products.create({
           data: {
             productCode: productCode,
