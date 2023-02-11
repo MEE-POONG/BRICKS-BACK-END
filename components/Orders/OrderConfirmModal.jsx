@@ -98,19 +98,19 @@ export default function OrderEditModal(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props?.value?.OrderDetail?.map((product, index) => (
+                  {props?.value?.OrderDetail?.map((detail, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{product.products?.name}</td>
-                      <td>{product.sumQty}</td>
-                      <td>{product.sumPrice} บาท</td>
+                      <td>{detail.products?.name}</td>
+                      <td>{detail.sumQty}</td>
+                      <td>{detail.sumPrice} บาท</td>
                     </tr>
                   ))}
                 </tbody>
               </Table>
               <Modal.Title className="mb-3 ">
                 ราคารวมทั้งหมด :{" "}
-                <span className="text-danger "> {props?.value?.total} บาท</span>
+                <span className="text-danger "> {props?.value?.totalPrice} บาท</span>
               </Modal.Title>
             </Col>
           </Row>

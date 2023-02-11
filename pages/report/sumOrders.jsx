@@ -28,9 +28,7 @@ export default function Search() {
   return (
     <Container fluid className="pt-4 px-4">
       <Card className=" text-center rounded shadow p-4">
-        <div className="d-flex align-items-center mb-4">
-          <Card.Title className="mb-0">จัดการรายงานจำนวนการสั่งซื้อ</Card.Title>
-        </div>
+        
         <Row>
           <Col>
           </Col>
@@ -130,8 +128,9 @@ function SumOrderPage(name) {
   return (
     <div fluid className="pt-4 ">
       <Card className="text-center rounded shadow p-4">
-        
-
+      <div className="d-flex align-items-center mb-4">
+          <Card.Title className="mb-0">จัดการรายงานจำนวนการสั่งซื้อ</Card.Title>
+        </div>
         <MyTable/>
         <MyPagination/>
       </Card>
