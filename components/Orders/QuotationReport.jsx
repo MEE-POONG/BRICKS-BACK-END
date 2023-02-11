@@ -16,7 +16,7 @@ export default function ReceiptPrint(props) {
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
 
-  // console.log(props.value);
+  console.log(props.value);  
   return (
     <>
       {props?.value?.status === "กำลังดำเนินการ" ? (
@@ -56,14 +56,7 @@ export default function ReceiptPrint(props) {
               //     due_date: "--DueDate--",
               //   },
               // ],
-              inv_data: [ 
-                {
-                  description: `${props?.value?.orderDetail?.name}`,
-                  quantity: `${props?.value?.product?.sumQty}`,
-                  unit_price: `${props?.value?.product?.name}`,
-                  amount: `${props?.value?.orderDetail?.sumPrice}`,
-                },
-              ],
+              inv_items: props?.value?.orderDetail||[],
               inv_total: `${props?.value?.totalPrice}`,
               // inv_vat: 3104.22,
               inv_total_amount: `${props?.value?.totalPrice}`,
@@ -80,6 +73,7 @@ export default function ReceiptPrint(props) {
 
     </>
   );
+  
 
   function newFunction(label, value) {
     return (

@@ -65,10 +65,9 @@ export default function MyTable(props) {
   
                   <td>{item?.totalPrice} บาท</td>
                   <td>
-                    <QuotationReport value={item} getData={props?.getData} />
-                    <br />
                     <OrdersConfirmModal value={item} getData={props?.getData} />
                     <OrdersDeleteModal value={item} getData={props?.getData} />
+                    <QuotationReport value={item} getData={props?.getData} />
                   </td>
                 </tr>
               ))
@@ -76,4 +75,5 @@ export default function MyTable(props) {
         </tbody>
       </Table>
     );
+    
   }

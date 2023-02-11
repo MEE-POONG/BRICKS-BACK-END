@@ -98,12 +98,12 @@ export default function OrderEditModal(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props?.value?.OrderDetail?.map((detail, index) => (
+                  {props?.value?.OrderDetail?.map((product, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
-                      <td>{detail.products?.name}</td>
-                      <td>{detail.sumQty}</td>
-                      <td>{detail.sumPrice} บาท</td>
+                      <td>{product.products?.name}</td>
+                      <td>{product.sumQty}</td>
+                      <td>{product.sumPrice} บาท</td>
                     </tr>
                   ))}
                 </tbody>
