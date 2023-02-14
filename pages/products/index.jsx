@@ -41,7 +41,6 @@ export default function Search() {
     url: `/api/subType?TypeId=${typeId}`
   });
 
-  console.log(subTypeData)
 
   useEffect(() => {
     getSubType().catch((error) => {
