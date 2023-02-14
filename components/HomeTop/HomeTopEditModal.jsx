@@ -177,7 +177,7 @@ export default function HomeTopEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromHomeTop)}
+
     </>
   );
 

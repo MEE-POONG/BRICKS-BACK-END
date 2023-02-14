@@ -18,7 +18,6 @@ export default function ProductsDeleteModal(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
-  console.log(props.value);
   return (
     <>
       <Button

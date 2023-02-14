@@ -6,18 +6,17 @@ import AutoComplete from "@/components/AutoComplete";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
 import FormData from "form-data";
-import { CKEditor } from "ckeditor4-react";
 
 export default function AddImageProductModal(props) {
-  console.log(props.subTypeData);
-
   const [
     { error: errorMessage, loading: AddImageProductLoading },
     executeAddImageProduct,
   ] = useAxios(
-    { url: "/api/addImageProduct", method: "POST" },
+    { url: "/api/imageProduct", method: "POST" },
     { manual: true }
   );
+
+  const[{loading: imgLoading, error: imgError}, uploadImage]= useAxios({url: '/api/upload', method: 'POST'},{manual: true});
 
   const [checkValue, setCheckValue] = useState(true);
 
@@ -44,15 +43,21 @@ export default function AddImageProductModal(props) {
   const onImageProductChange = (e) => {
     setImage([...e.target.files]);
   };
+  
 
-  const handleSubmit = async () => {
+  const handleSubmit = async event  => { 
+
     setCheckValue(false);
-    {
-      handleClose();
-      executeAddImageProduct({
+    handleClose();
+    let data =new FormData()
+    data.append('file', image[0])
+    const imageData = await uploadImage({data: data})
+    const id =imageData.data.result.id
+      
+    await  executeAddImageProduct({
         data: {
           productId: productId,
-          image: image,
+          image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {
         Promise.all([setProductId(""), setImage(""), props.getData()]).then(
@@ -63,7 +68,6 @@ export default function AddImageProductModal(props) {
           }
         );
       });
-    }
   };
   const handleChange = (i, e) => {
     const newFormValues = [...formValues];

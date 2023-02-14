@@ -133,7 +133,6 @@ export default function ContactEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromContact)}
     </>
   );
 

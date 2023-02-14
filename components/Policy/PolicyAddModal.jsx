@@ -10,7 +10,6 @@ import { CKEditor } from 'ckeditor4-react'
 
 export default function PolicyAddModal(props) {
     
-    console.log(props.subTypeData);
     
     
     const [{ error: errorMessage, loading: PolicyLoading }, executePolicy] = useAxios({ url: '/api/policy', method: 'POST' }, { manual: true });

@@ -211,7 +211,6 @@ export default function TeamEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromTeam)}
     </>
   );
 

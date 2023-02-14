@@ -127,7 +127,6 @@ export default function UserEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromUser)}
     </>
   );
 

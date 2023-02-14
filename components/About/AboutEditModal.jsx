@@ -219,7 +219,7 @@ export default function AboutEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromAbout)}
+    
     </>
   );
 

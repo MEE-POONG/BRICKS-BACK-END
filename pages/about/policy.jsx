@@ -18,7 +18,6 @@ export default function PolicyPage() {
     const [{ data: policyData,loading,error }, getPolicy] = useAxios({
         url: "/api/policy",
       });
-      console.log(policyData);
 
 
     useEffect(() => {

@@ -10,7 +10,6 @@ import { CKEditor } from 'ckeditor4-react'
 
 export default function ProductsAddModal(props) {
     
-    console.log(props.subTypeData);
     
     
     const [{ error: errorMessage, loading: ProductsLoading }, executeProducts] = useAxios({ url: '/api/products', method: 'POST' }, { manual: true });

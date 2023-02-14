@@ -37,7 +37,6 @@ export default function PichomeTopEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  console.log(image);
 
   useEffect(() => {
     if (props) {

@@ -6,11 +6,9 @@ import AutoComplete from '@/components/AutoComplete'
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from '@/components/CardChange/CardError'
 import FormData from 'form-data';
-import { CKEditor } from 'ckeditor4-react'
 
 export default function AddOnRateModal(props) {
     
-    console.log(props.subTypeData);
     
     
     const [{ error: errorMessage, loading: AddOnRateLoading }, executeAddOnRate] = useAxios({ url: '/api/addOnRate', method: 'POST' }, { manual: true });

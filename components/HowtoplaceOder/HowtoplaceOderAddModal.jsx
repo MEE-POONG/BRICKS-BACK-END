@@ -10,8 +10,7 @@ import { CKEditor } from 'ckeditor4-react'
 
 export default function HowtoplaceOderAddModal(props) {
     
-    console.log(props.subTypeData);
-    
+   
     
     const [{ error: errorMessage, loading: HowtoplaceOderLoading }, executeHowtoplaceOder] = useAxios({ url: '/api/howtoplaceOder', method: 'POST' }, { manual: true });
     

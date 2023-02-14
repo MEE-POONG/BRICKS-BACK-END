@@ -48,8 +48,8 @@ model Products {
 model ImageProduct {
   id         String    @id @default(auto()) @map("_id") @db.ObjectId
   image      String?
-  Products   Products? @relation(fields: [productsId], references: [id])
-  productsId String?   @db.ObjectId
+  products   Products? @relation(fields: [productId], references: [id])
+  productId String?   @db.ObjectId
 }
 
 model QtyRate {

@@ -19,7 +19,6 @@ export default function HowtoplaceOderPage() {
     const [{ data: howtoplaceOderData,loading,error }, getHowtoplaceOder] = useAxios({
         url: "/api/howtoplaceOder",
       });
-      console.log(howtoplaceOderData);
 
 
     useEffect(() => {

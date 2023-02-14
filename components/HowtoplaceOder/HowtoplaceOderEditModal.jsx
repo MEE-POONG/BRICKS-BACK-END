@@ -39,7 +39,6 @@ export default function HowtoplaceOderEditModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  console.log(image);
 
   useEffect(() => {
     if (props) {

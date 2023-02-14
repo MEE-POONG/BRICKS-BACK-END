@@ -58,7 +58,6 @@ export default async function handler(req, res) {
       }
       break;
     case "POST":
-      console.log("req.body", req.body);
       try {
         await prisma.orders.create({
           data: {
@@ -86,7 +85,6 @@ export default async function handler(req, res) {
         });
         res.status(201).json({ success: true });
       } catch (error) {
-        console.log(error);
         res.status(400).json({ success: false });
       }
       break;

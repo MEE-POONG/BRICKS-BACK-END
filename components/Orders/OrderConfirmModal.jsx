@@ -23,7 +23,6 @@ export default function OrderEditModal(props) {
   const handleClose = () => { setShowCheck(false), setCheckValue(true); };
   const handleShow = () => setShowCheck(true);
   const handlePutData = () => { setCheckValue(false);
-  console.log(props.value);
 
     if (props?.value?.status == "รอการตรวจสอบ") {
       executeOrderPut({

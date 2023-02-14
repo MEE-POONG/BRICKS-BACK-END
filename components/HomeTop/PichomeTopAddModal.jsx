@@ -9,10 +9,7 @@ import FormData from 'form-data';
 import { CKEditor } from 'ckeditor4-react'
 
 export default function PichomeTopAddModal(props) {
-    
-    console.log(props.subTypeData);
-    
-    
+
     const [{ error: errorMessage, loading: PichomeTopLoading }, executePichomeTop] = useAxios({ url: '/api/pichomeTop', method: 'POST' }, { manual: true });
     
     const [checkValue, setCheckValue] = useState(true);

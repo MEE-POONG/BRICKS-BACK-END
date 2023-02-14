@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
         try {
-            const data = await prisma.addImageProduct.findMany({
+            const data = await prisma.imageProduct.findMany({
                 include: { products: true },
                 where: {
                     id: req.query.id
@@ -20,10 +20,13 @@ export default async function handler(req, res) {
         break
         case 'POST':
             try {
-                await prisma.addImageProduct.create({
+                await prisma.imageProduct.create({
                     data: {
-                        image: req.body.image,
+                        // create: req.body.image.map((image) => ({
+                        
+                        // })),
                         productId: req.body.productId,
+                        image:req.body.image,
                     }
                 })
                 res.status(201).json({ success: true })

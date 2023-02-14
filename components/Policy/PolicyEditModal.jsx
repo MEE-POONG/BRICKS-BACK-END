@@ -130,7 +130,6 @@ export default function PolicyEditModal(props) {
           </Button>
         </Modal.Footer>
       </Modal>
-      {console.log(fromPolicy)}
     </>
   );
 }

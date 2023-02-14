@@ -33,8 +33,7 @@ export default async function handler(req, res) {
         const totalPage = Math.ceil(data[0] / pageSize);
         res.status(200).json({ data: data[1], page, pageSize, totalPage });
       } catch (error) {
-        console.log(error);
-        // res.status(400).json({ success: false });
+        res.status(400).json({ success: false });
       }
       break;
     case "POST":
@@ -58,7 +57,6 @@ export default async function handler(req, res) {
         });
         res.status(201).json({ success: true });
       } catch (error) {
-        console.log(error);
         res.status(400).json({ success: false });
       }
       break;
