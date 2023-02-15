@@ -18,7 +18,7 @@ import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
 import ProductsEditModal from "@/components/Products/ProductsEditModal";
 import AddOnRateModal from "@/components/Products/AddOnRateModal";
 import AddImageProductModal from "@/components/Products/AddImageProduct";
-import DeleteImageProduct from "@/components/Products/DeleteImageProduct"
+import ShowImageProduct from "@/components/Products/ShowImageProduct"
 
 export default function Search() {
   const [name, setName] = useState("");
@@ -260,7 +260,7 @@ function MyTable(props) {
               />
             </td>
             <td>
-              <DeleteImageProduct value={item} getData={props?.getData} />
+              <ShowImageProduct value={item} getData={props?.getData} />
               <AddImageProductModal value={item} getData={props?.getData} />
             </td>
             <td>{item.name}</td>

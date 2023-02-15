@@ -5,8 +5,8 @@ import { FaTrash } from "react-icons/fa";
 import useAxios from "axios-hooks";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
-export default function DeleteImageProduct(props) {
-  console.log(props);
+import DeleteImageProduct from "./DeleteImageProduct";
+export default function ShowImageProduct(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
@@ -16,12 +16,14 @@ export default function DeleteImageProduct(props) {
   ] = useAxios({}, { manual: true });
   const handleDeleteData = () => {
     executeProductsDelete({
-      url: "/api/imageProduct/" + props.imageId,
+      url: "/api/products/" + props?.value?.id,
       method: "DELETE",
     }).then(() => {
+      Promise.all([props.getData()]).then(() => {
         if (deleteProductsLoading?.success) {
           handleClose();
         }
+      });
     });
   };
 
@@ -41,11 +43,11 @@ export default function DeleteImageProduct(props) {
   return (
     <>
       <Button
-        bsPrefix="delete"
-        className={showCheck ? "icon active" : "icon"}
+        bsPrefix="create"
+        className={showCheck ? "icon active " : "icon "}
         onClick={handleShow}
       >
-        <FaTrash />
+        จัดการรูปสินค้า
       </Button>
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
@@ -58,16 +60,26 @@ export default function DeleteImageProduct(props) {
               <tr>
                 <th>No.</th>
                 <th>ชื่อสินค้า</th>
-                <th>จำนวนสินค้า</th>
-                <th>ราคารวม</th>
+                <th>จัดการ</th>
               </tr>
             </thead>
             <tbody>
-                <tr >
+              {props?.value?.imageProduct?.map((image, index) => (
+                <tr key={index}>
+                  <td>{index + 1}</td>
                   <td>
-                    {props.imageId}
+                    <Image
+                      src={image.image}
+                      width="150px"
+                      height="150px"
+                      className="object-fit-cover"
+                    />
+                  </td>
+                  <td>
+                  <DeleteImageProduct  imageId={image.id} />
                   </td>
                 </tr>
+              ))}
             </tbody>
           </Table>
         </Modal.Body>
