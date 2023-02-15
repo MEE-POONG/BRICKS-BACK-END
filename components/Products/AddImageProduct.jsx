@@ -33,6 +33,9 @@ export default function AddImageProductModal(props) {
   const [formValues, setFormValues] = useState([{ image: "" }]);
   const [imageURL, setImageURL] = useState([]);
 
+  console.log(image);
+
+
   useEffect(() => {
     if (image.length < 1) return;
     const newImageUrl = [];
@@ -44,48 +47,38 @@ export default function AddImageProductModal(props) {
     setImage([...e.target.files]);
   };
   
-
-  const handleSubmit = async event  => { 
-
+  
+  const handleSubmit = async () => { 
     setCheckValue(false);
     handleClose();
+    for (var i = 0; i < image.length; i++) { 
+
     let data =new FormData()
-    data.append('file', image[0])
+    data.append('file', image[i])
     const imageData = await uploadImage({data: data})
     const id =imageData.data.result.id
-      
-    await  executeAddImageProduct({
+
+   await  executeAddImageProduct({
         data: {
           productId: productId,
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
-      }).then(() => {
-        Promise.all([setProductId(""), setImage(""), props.getData()]).then(
+      })
+      .then(
           () => {
             if (AddImageProductLoading?.success) {
               handleClose();
             }
           }
         );
-      });
-  };
-  const handleChange = (i, e) => {
-    const newFormValues = [...formValues];
-    newFormValues[i][e.target.length] = e.target.value;
-    setFormValues(newFormValues);
+    }
+    Promise.all([setProductId(""), setImage(""), props.getData()])
+      
+
   };
 
-  const addFormFields = () => {
-    setFormValues([...formValues, { image: "" }]);
-  };
-
-  const removeFormFields = (i) => {
-    const newFormValues = [...formValues];
-    newFormValues.splice(i, 1);
-    setFormValues(newFormValues);
-  };
-  // if (imgLoading || AddImageProductLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  // if (imgError || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+  if (imgLoading || AddImageProductLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (imgError || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
 
   return (
     <>
@@ -107,7 +100,7 @@ export default function AddImageProductModal(props) {
           <Modal.Title className="text-center">เพิ่มรูปสินค้า</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {formValues.map((element, index) => (
+          
             <Row>
               <Col xs={{ span: 10 }}>
                 <Form.Group className="mb-3" controlId="formFile">
@@ -129,34 +122,13 @@ export default function AddImageProductModal(props) {
                   <Form.Control
                     type="file"
                     accept="image/*"
+                    multiple
                     onChange={onImageProductChange}
                   />
                 </Form.Group>
               </Col>
-              <Col xs={{ span: 2 }}>
-                <div className=" justify-content-center">
-                  {index ? (
-                    <Button
-                      type="button"
-                      bg="danger"
-                      className="  btn-danger"
-                      onClick={() => removeFormFields(index)}
-                    >
-                      ลบ
-                    </Button>
-                  ) : null}
-                </div>
-              </Col>
-            </Row>
-          ))}
 
-          <Button
-            className="button add"
-            type="button"
-            onClick={() => addFormFields()}
-          >
-            เพิ่ม
-          </Button>
+            </Row>
         </Modal.Body>
         <Modal.Footer>
           <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>

@@ -22,9 +22,6 @@ export default async function handler(req, res) {
             try {
                 await prisma.imageProduct.create({
                     data: {
-                        // create: req.body.image.map((image) => ({
-                        
-                        // })),
                         productId: req.body.productId,
                         image:req.body.image,
                     }

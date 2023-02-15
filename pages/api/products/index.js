@@ -25,7 +25,7 @@ export default async function handler(req, res) {
           }),
           prisma.products.findMany({
             where: { name: { contains: name }, subTypeId: subTypeId },
-            include: { subType: { include: { type: true } } },
+            include: { subType: { include: { type: true } },imageProduct:true },
             skip: (page - 1) * pageSize,
             take: pageSize,
           }),
