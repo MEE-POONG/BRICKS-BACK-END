@@ -49,8 +49,6 @@ export default function HowtoplaceOderAddModal(props) {
     const handleSubmit = async event  => { 
         setCheckValue(false)
         {   
-            handleClose()
-            
             let data =new FormData()
             data.append('file', image[0])
             const imageData = await uploadImage({data: data})

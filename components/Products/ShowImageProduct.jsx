@@ -10,35 +10,6 @@ export default function ShowImageProduct(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
-  const [
-    { loading: deleteProductsLoading, error: deleteProductsError },
-    executeProductsDelete,
-  ] = useAxios({}, { manual: true });
-  const handleDeleteData = () => {
-    executeProductsDelete({
-      url: "/api/products/" + props?.value?.id,
-      method: "DELETE",
-    }).then(() => {
-      Promise.all([props.getData()]).then(() => {
-        if (deleteProductsLoading?.success) {
-          handleClose();
-        }
-      });
-    });
-  };
-
-  if (deleteProductsLoading)
-    return (
-      <Modal show={showCheck} onHide={handleClose} centered size="lg">
-        <CardLoading />
-      </Modal>
-    );
-  if (deleteProductsError)
-    return (
-      <Modal show={showCheck} onHide={handleClose} centered size="lg">
-        <CardError />
-      </Modal>
-    );
 
   return (
     <>
@@ -51,7 +22,7 @@ export default function ShowImageProduct(props) {
       </Button>
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">ลบรายการสินค้า</Modal.Title>
+          <Modal.Title className="text-center">ภาพเพิ่มเติมทั่งหมด</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>ภาพเพิ่มเติม</h4>
@@ -85,25 +56,11 @@ export default function ShowImageProduct(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button bg="cancel" className="my-0" onClick={handleClose}>
-            ยกเลิก
-          </Button>
-          <Button
-            bg="danger"
-            className="my-0 btn-danger"
-            onClick={handleDeleteData}
-          >
-            ยืนยันการลบ
+            ปิด
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
-  function DeleteFunction(label, value) {
-    return (
-      <div class="">
-        <label>{label}</label>
-        <input class="form-control" value={value} readonly />
-      </div>
-    );
-  }
+
 }

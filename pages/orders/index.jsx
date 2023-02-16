@@ -8,17 +8,13 @@ import {
   Row,
   Col,
 } from "react-bootstrap";
-import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
-import PageLoading from "@/components/PageChange/pageLoading";
-import PageError from "@/components/PageChange/pageError";
 // import OrdersAddModal from '@/container/Orders/OrderAddModal'
 // import OrdersEditModal from '@/container/Orders/OrderEditModal'
 import { format } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import th from "date-fns/locale/th";
-import MyTable from "@/components/Orders/MyTableOrders";
 import OrdersPage from "@/components/Orders/ordersPage";
 registerLocale("th", th);
 

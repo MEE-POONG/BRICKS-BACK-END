@@ -47,30 +47,10 @@ export default function DeleteImageProduct(props) {
       >
         <FaTrash />
       </Button>
-      <Modal show={showCheck} onHide={handleClose} centered size="lg">
+      <Modal show={showCheck} onHide={handleClose} centered size="sm">
         <Modal.Header closeButton>
           <Modal.Title className="text-center">ลบรายการสินค้า</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <h4>ภาพเพิ่มเติม</h4>
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>ชื่อสินค้า</th>
-                <th>จำนวนสินค้า</th>
-                <th>ราคารวม</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr >
-                  <td>
-                    {props.imageId}
-                  </td>
-                </tr>
-            </tbody>
-          </Table>
-        </Modal.Body>
         <Modal.Footer>
           <Button bg="cancel" className="my-0" onClick={handleClose}>
             ยกเลิก

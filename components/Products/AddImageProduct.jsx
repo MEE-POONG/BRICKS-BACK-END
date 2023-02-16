@@ -50,7 +50,6 @@ export default function AddImageProductModal(props) {
   
   const handleSubmit = async () => { 
     setCheckValue(false);
-    handleClose();
     for (var i = 0; i < image.length; i++) { 
 
     let data =new FormData()
@@ -77,8 +76,13 @@ export default function AddImageProductModal(props) {
 
   };
 
-  if (imgLoading || AddImageProductLoading) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  if (imgError || errorMessage) return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+
+  if (imgLoading || AddImageProductLoading)
+    return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
+  if (imgError || errorMessage)
+    return (
+      <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
+    );
 
   return (
     <>
