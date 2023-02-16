@@ -16,19 +16,23 @@ export default function TableTotalSales(props) {
         <thead>
           <tr>
             <th>ลำดับ</th>
-            <th>ประเภทสินค้า</th>
-            <th>ประเภทย่อย</th>
-            <th>จำนวน&nbsp; (ชิ้น)</th>
-            <th>ราคารวม</th>
+            <th>กลุ่มสินค้า</th>
+            <th>เป้าหมาย</th>
+            <th>ที่ขายได้</th>
+            <th>ผลต่าง</th>
+            <th>จัดการ</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td>1</td>
             <td>ของตกแต่ง</td>
-            <td>อิฐช่องลม</td>
+            <td>2000</td>
             <td>2000</td>
             <td>40,000</td>
+            <th></th>
+            <th></th>
+
           </tr>
         </tbody>
       </Table>
