@@ -41,7 +41,7 @@ model Products {
   subType      SubType?       @relation(fields: [subTypeId], references: [id])
   OrderDetail  OrderDetail[]
   QtyRate      QtyRate[]
-  ImageProduct ImageProduct[]
+  imageProduct ImageProduct[]
   CartItems    CartItems[]
 }
 

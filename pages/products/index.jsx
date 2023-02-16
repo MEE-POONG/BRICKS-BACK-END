@@ -2,16 +2,11 @@ import React, { useEffect, useState } from "react";
 import IndexPage from "components/layouts/IndexPage";
 import {
   Container,
-  Modal,
   Card,
   Button,
   Form,
   Image,
-  InputGroup,
-  Row,
-  Col,
   Table,
-  Pagination,
   Badge,
 } from "react-bootstrap";
 import MyPagination from "@/components/Pagination";
@@ -23,6 +18,7 @@ import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
 import ProductsEditModal from "@/components/Products/ProductsEditModal";
 import AddOnRateModal from "@/components/Products/AddOnRateModal";
 import AddImageProductModal from "@/components/Products/AddImageProduct";
+import ShowImageProduct from "@/components/Products/ShowImageProduct"
 
 export default function Search() {
   const [name, setName] = useState("");
@@ -137,12 +133,12 @@ export default function Search() {
         </div>
       </Card>
 
-      {ProductPage(name, subTypeData, subTypeId)}
+      {ProductPage(name, subTypeId)}
     </Container>
   );
 }
 
-function ProductPage(name, subTypeData, subTypeId) {
+function ProductPage(name, subTypeId) {
   const [params, setParams] = useState({
     page: "1",
     pageSize: "10",
@@ -154,6 +150,10 @@ function ProductPage(name, subTypeData, subTypeId) {
   ] = useAxios({
     url: `/api/products?page=1&pageSize=10&name=${name}&${subTypeId}`,
     method: "GET",
+  });
+
+  const [{ data: subTypeData }, getSubType] = useAxios({
+    url: `/api/subType`
   });
 
   useEffect(() => {
@@ -260,6 +260,7 @@ function MyTable(props) {
               />
             </td>
             <td>
+              <ShowImageProduct value={item} getData={props?.getData} />
               <AddImageProductModal value={item} getData={props?.getData} />
             </td>
             <td>{item.name}</td>

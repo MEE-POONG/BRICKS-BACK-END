@@ -2,17 +2,10 @@ import React, { useEffect, useState } from "react";
 import IndexPage from "components/layouts/IndexPage";
 import {
   Container,
-  Modal,
   Card,
   Button,
   Form,
-  Image,
-  InputGroup,
-  Row,
-  Col,
   Table,
-  Pagination,
-  Badge,
 } from "react-bootstrap";
 import MyPagination from "@/components/Pagination";
 import useAxios from "axios-hooks";
