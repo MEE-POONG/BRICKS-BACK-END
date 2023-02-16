@@ -327,15 +327,15 @@ export default function TheSlideNav() {
               className="bg-transparent border-0"
               show={
                 checkClickPath === "/report" ||
-                checkClickPath === "/report/sumOrders" ||
+                checkClickPath === "/report/totalSales" ||
                 checkClickPath === "/report/sumIncome"
               }
             >
               <Link
                 id="buttons"
-                href="/report/sumOrders"
+                href="/report/totalSales"
                 className={
-                  asPath === "/report/sumOrders"
+                  asPath === "/report/totalSales"
                     ? "dropdown-item ps-5 active"
                     : "dropdown-item ps-5"
                 }

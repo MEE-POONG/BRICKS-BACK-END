@@ -50,11 +50,11 @@ export default function ReceiptPrint(props) {
               //   {
               //     customer_code: "--",
               //     buyer_name: `${props?.value?.user?.name}`,
-              //     // terms_of_payment: "--Terms of Payment-- ",
+                  // terms_of_payment: "--Terms of Payment-- ",
               //     due_date: "--DueDate--",
               //   },
               // ],
-              inv_items: props?.value?.orderDetail||[],
+              inv_items: props?.value?.orderDetail || [],
               inv_total: `${props?.value?.totalPrice}`,
               // inv_vat: 3104.22,
               inv_total_amount: `${props?.value?.totalPrice}`,

@@ -72,12 +72,12 @@ export default function Search() {
         </Row>
         
       </Card>
-      {SumOrderPage(name)}
+      {TotalSalesPage(name)}
     </Container>
   );
 }
 
-function SumOrderPage(name) {
+function TotalSalesPage(name) {
   // const [params, setParams] = useState({
   //   page: "1",
   //   pageSize: "10",
