@@ -31,7 +31,7 @@ export default function ReceiptPrint(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
       <Modal.Header closeButton>
           <Modal.Title>
-            ดูรายการสินค้า คุณ : {props?.value?.user?.name}
+            ดูรายการสั่งซื้อของ คุณ : {props?.value?.user?.name}
           </Modal.Title>
         </Modal.Header>
           <iframe id="iframe" width="100%" height="1150px">
