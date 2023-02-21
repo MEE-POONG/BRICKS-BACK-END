@@ -6,11 +6,12 @@ export default async function handler(req, res) {
     switch (method) {
         case 'GET':
         try {
+            let productId = req.query.productId;
             const data = await prisma.imageProduct.findMany({
                 include: { products: true },
                 where: {
-                    id: req.query.id
-                }
+                    productId:productId
+                },
             });
 
             res.status(200).json(data)

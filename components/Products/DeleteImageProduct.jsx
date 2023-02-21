@@ -6,12 +6,11 @@ import useAxios from "axios-hooks";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
 export default function DeleteImageProduct(props) {
-  console.log(props);
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
   const [
-    { loading: deleteProductsLoading, error: deleteProductsError },
+    { loading: deleteImageProductsLoading, error: deleteImageProductsError },
     executeProductsDelete,
   ] = useAxios({}, { manual: true });
   const handleDeleteData = () => {
@@ -19,19 +18,21 @@ export default function DeleteImageProduct(props) {
       url: "/api/imageProduct/" + props.imageId,
       method: "DELETE",
     }).then(() => {
-        if (deleteProductsLoading?.success) {
+      Promise.all([props.getImageProduct()]).then(() => {
+        if (deleteImageProductsLoading?.success) {
           handleClose();
         }
+      });
     });
   };
 
-  if (deleteProductsLoading)
+  if (deleteImageProductsLoading)
     return (
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <CardLoading />
       </Modal>
     );
-  if (deleteProductsError)
+  if (deleteImageProductsError)
     return (
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <CardError />

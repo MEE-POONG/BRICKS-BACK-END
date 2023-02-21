@@ -7,6 +7,10 @@ import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
 import DeleteImageProduct from "./DeleteImageProduct";
 export default function ShowImageProduct(props) {
+  const [{ data: imageProduct, loading, error }, getImageProduct] = useAxios({
+    url:` /api/imageProduct?productId=${props.value.id}`,
+  });
+
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
@@ -35,7 +39,7 @@ export default function ShowImageProduct(props) {
               </tr>
             </thead>
             <tbody>
-              {props?.value?.imageProduct?.map((image, index) => (
+              {imageProduct?.map((image, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>
@@ -47,7 +51,7 @@ export default function ShowImageProduct(props) {
                     />
                   </td>
                   <td>
-                  <DeleteImageProduct  imageId={image.id} />
+                  <DeleteImageProduct  imageId={image.id} getImageProduct={getImageProduct}/>
                   </td>
                 </tr>
               ))}
