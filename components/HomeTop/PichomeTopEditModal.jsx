@@ -2,14 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { FaEdit } from "react-icons/fa";
 import useAxios from "axios-hooks";
-import AutoComplete from "@/components/AutoComplete";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
-import ModelLoading from "@/components/ModelChange/ModelLoading";
-import ModelError from "@/components/ModelChange/ModelError";
-
 import FormData from "form-data";
-import { CKEditor } from "ckeditor4-react";
+
 
 export default function PichomeTopEditModal(props) {
   const [
@@ -49,7 +45,7 @@ export default function PichomeTopEditModal(props) {
     const newImageUrl = [];
     image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
     setImageURL(newImageUrl);
-  }, [props, image]);
+  }, [props, image]);``
 
   const onImagePichomeTopChange = (e) => {
     setImage([...e.target.files]);
@@ -181,9 +177,6 @@ export default function PichomeTopEditModal(props) {
                     setName(e.target.value);
                   }}
                   value={name}
-                  autoComplete="off"
-                  isValid={checkValue === false && name !== "" ? true : false}
-                  isInvalid={checkValue === false && name === "" ? true : false}
                 />
               </Form.Group>
             </Col>
@@ -197,11 +190,6 @@ export default function PichomeTopEditModal(props) {
                     setLinks(e.target.value);
                   }}
                   value={links}
-                  autoComplete="off"
-                  isValid={checkValue === false && links !== "" ? true : false}
-                  isInvalid={
-                    checkValue === false && links === "" ? true : false
-                  }
                 />
               </Form.Group>
             </Col>

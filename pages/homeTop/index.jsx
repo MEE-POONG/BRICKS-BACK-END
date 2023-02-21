@@ -38,7 +38,7 @@ export default function HomeTopPage() {
         <div className="d-flex align-items-center justify-content-between mb-4">
           <Card.Title className="mb-0 ">ข้อมูลหน้าหลัก</Card.Title>
         </div>
-        <MyTable homeTopData={homeTopData} getHomeTopData={getHomeTop} />
+        <MyTable homeTopData={homeTopData} getHomeTop={getHomeTop} />
       </Card>
 
       <Card className=" mt-4 text-center rounded shadow p-4">
@@ -56,36 +56,36 @@ export default function HomeTopPage() {
 }
 
 function MyTable(props) {
-  const [currentItems, setCurrentItems] = useState(props?.homeTopData);
-  console.log(currentItems);
-  useEffect(() => {
-    setCurrentItems(currentItems);
-    console.log(props);
-  }, [props]);
+  const [homeData , SetHomeData] = useState(props?.homeTopData);
 
   return (
     <>
-      {currentItems?.map((item, index) => (
+      {homeData.map((item, index) => (
         <div key={index}>
           <Row>
+          <Row>
             <Col>
+            <strong>รูปปก</strong>
+            <br/><br/>
               <Image
                 src={item.image}
                 width="350px"
                 height="150px"
-                className="object-fit-cover"
+                className="object-fit-cover rounded-5"
               />
+              <br/><br/>
             </Col>
+            </Row>
             <Col>{newFunction("ชื่อร้าน", item?.title)}</Col>
 
             <Col>
               {newFunction("คำอธิบาย", item?.subTitle)}
-              <HomeTopEditModal
-                value={item}
-                getHomeTopData={props?.getHomeTopData}
-              />
             </Col>
           </Row>
+          <HomeTopEditModal
+                value={item}
+                getHomeTop={props?.getHomeTop}
+              />
           <br />
           <br />
         </div>
@@ -105,10 +105,8 @@ function MyTable(props) {
 
 function MyTablePic(props) {
   const [currentItems, setCurrentItems] = useState(props?.pichomeTopData);
-  console.log(currentItems);
   useEffect(() => {
     setCurrentItems(currentItems);
-    console.log(props);
   }, [props]);
 
   return (
@@ -156,14 +154,6 @@ function MyTablePic(props) {
     </>
   );
 
-  function newFunction(label, value) {
-    return (
-      <div className="mb-3 fonT ">
-        <strong> {label} </strong>
-        <input className="form-control" value={value} readonly />
-      </div>
-    );
-  }
 }
 
 HomeTopPage.layout = IndexPage;

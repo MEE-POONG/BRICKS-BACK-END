@@ -30,7 +30,7 @@ export default function ShowImageProduct(props) {
             <thead>
               <tr>
                 <th>No.</th>
-                <th>ชื่อสินค้า</th>
+                <th>ภาพเพิ่มเติม</th>
                 <th>จัดการ</th>
               </tr>
             </thead>

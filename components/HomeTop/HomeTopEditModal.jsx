@@ -1,13 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
-import { FaEdit } from "react-icons/fa";
 import useAxios from "axios-hooks";
-import AutoComplete from "@/components/AutoComplete";
 import CardError from "@/components/CardChange/CardError";
-import ModelLoading from "@/components/ModelChange/ModelLoading";
-import ModelError from "@/components/ModelChange/ModelError";
 import FormData from "form-data";
-import { CKEditor } from "ckeditor4-react";
 import CardLoading from "@/components/CardChange/CardLoading";
 
 export default function HomeTopEditModal(props) {
@@ -25,7 +20,6 @@ export default function HomeTopEditModal(props) {
   const [image, setImage] = useState([]);
   const [imageURL, setImageURL] = useState([]);
 
-  const [checkValue, setCheckValue] = useState(true);
 
   const [showCheck, setShowCheck] = useState(false);
   const handleClose = () => {
@@ -51,16 +45,14 @@ export default function HomeTopEditModal(props) {
     const newImageUrl = [];
     image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
     setImageURL(newImageUrl);
-
   }, [props, image]);
 
   const onImageSrcHomePageChange = (e) => {
     setImage([...e.target.files]);
   };
 
-
   const handlePutData = async () => {
-    setCheckValue(false);
+
     if (image[0] === undefined) {
       await executeHomeTopPut({
         url: "/api/homeTop/" + props?.value?.id,
@@ -70,18 +62,19 @@ export default function HomeTopEditModal(props) {
           subTitle: fromHomeTop?.subTitle,
         },
       }).then(() => {
-        setFromHomeTop({
-          title: "",
-          subTitle: "",
-        }),
-          props.getHomeTopData().then(() => {
-            if (updateHomeTopLoading?.success) {
-              handleClose();
-            }
-          });
+        Promise.all([
+          setFromHomeTop({
+            title: "",
+            subTitle: "",
+          }),
+          props.getHomeTop(),
+        ]).then(() => {
+          if (updateHomeTopLoading?.success) {
+            handleClose();
+          }
+        });
       });
-    } else{
-
+    } else {
       let data = new FormData();
       data.append("file", image[0]);
       const imageData = await uploadImage({ data: data });
@@ -96,26 +89,34 @@ export default function HomeTopEditModal(props) {
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {
-        setImage(""),
-        setFromHomeTop({
-          title: "",
-          subTitle: "",
-        }),
-          props.getHomeTopData().then(() => {
-            if (updateHomeTopLoading?.success) {
-              handleClose();
-            }
-          });
+        Promise.all([
+          setImage(""),
+          setFromHomeTop({
+            title: "",
+            subTitle: "",
+          }),
+          props.getHomeTop(),
+        ]).then(() => {
+          if (updateHomeTopLoading?.success) {
+            handleClose();
+          }
+        });
       });
     }
   };
 
-  if (updateHomeTopLoading)
-  return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  if (updateHomeTopError)
-  return (
-    <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
-  );
+  if ((updateHomeTopLoading, imgLoading))
+    return (
+      <Modal show={showCheck} onHide={handleClose} centered size="lg">
+        <CardLoading />
+      </Modal>
+    );
+  if ((updateHomeTopError, imgError))
+    return (
+      <Modal show={showCheck} onHide={handleClose} centered size="lg">
+        <CardError />
+      </Modal>
+    );
 
   return (
     <>
@@ -124,60 +125,67 @@ export default function HomeTopEditModal(props) {
         className={showCheck ? "icon active" : "icon"}
         onClick={handleShow}
       >
-         แก้ไข
+        แก้ไข
       </Button>
 
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">
-            แก้ไขหน้าบ้าน
-          </Modal.Title>
+          <Modal.Title className="text-center">แก้ไขหน้าบ้าน</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-              <Form.Group className="mb-3" controlId="formFile">
-                <Form.Label className="text-center">เลือกรูปปก</Form.Label>
+          <Form.Group className="mb-3" controlId="formFile">
+            <Form.Label className="text-center">เลือกรูปปก</Form.Label>
+            <br />
+            {imageURL?.length === 0 && (
+              <Image
+                className="mb-2"
+                style={{ height: 200 }}
+                src={img}
+                alt="home_img"
+                fluid
+                rounded
+              />
+            )}
+            {imageURL?.map((imageSrcHomePage, index) => (
+              <Image
+                key={index}
+                className="mb-2"
+                style={{ height: 200 }}
+                src={imageSrcHomePage}
+                alt="home_img"
+                fluid
+                rounded
+              />
+            ))}
+            <Form.Control
+              type="file"
+              accept="image/*"
+              onChange={onImageSrcHomePageChange}
+            />
+          </Form.Group>
 
-                {imageURL?.length === 0 && (
-                  <Image
-                    className="mb-2"
-                    style={{ height: 200 }}
-                    src={img}
-                    alt="home_img"
-                    fluid
-                    rounded
-                  />
-                )}
-                {imageURL?.map((imageSrcHomePage, index) => (
-                  <Image
-                    key={index}
-                    className="mb-2"
-                    style={{ height: 200 }}
-                    src={imageSrcHomePage}
-                    alt="home_img"
-                    fluid
-                    rounded
-                  />
-                ))}
-                <Form.Control
-                  type="file"
-                  accept="image/*"
-                  onChange={onImageSrcHomePageChange}
-                />
-              </Form.Group>
-    
-              {EditFunction("ชื่อร้าน",fromHomeTop?.title,setFromHomeTop,"title")}
-              {EditFunction("คำอธิบาย",fromHomeTop?.subTitle, setFromHomeTop, "subTitle")}
+          {EditFunction(
+            "ชื่อร้าน",
+            fromHomeTop?.title,
+            setFromHomeTop,
+            "title"
+          )}
+          {EditFunction(
+            "คำอธิบาย",
+            fromHomeTop?.subTitle,
+            setFromHomeTop,
+            "subTitle"
+          )}
         </Modal.Body>
         <Modal.Footer>
-        <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
+          <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
             ยกเลิก
           </Button>
-          <Button bg="succeed" className="my-0"  onClick={handlePutData}>
+          <Button bg="succeed" className="my-0" onClick={handlePutData}>
             ยืนยันการแก้ไข
           </Button>
         </Modal.Footer>
       </Modal>
-
     </>
   );
 
@@ -194,9 +202,6 @@ export default function HomeTopEditModal(props) {
             });
           }}
           value={value}
-          autoComplete="off"
-          isValid={checkValue === false && { value } !== "" ? true : false}
-          isInvalid={checkValue === false && { value } === "" ? true : false}
         />
       </>
     );
