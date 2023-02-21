@@ -30,7 +30,7 @@ export default function ProductsDeleteModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
-            ดูรายการสินค้า คุณ : {props?.value?.user?.name}
+            ดูรายการสั่งซื้อของ คุณ : {props?.value?.user?.name}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

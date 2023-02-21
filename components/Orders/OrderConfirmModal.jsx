@@ -73,7 +73,7 @@ export default function OrderEditModal(props) {
 
       <Modal show={showCheck} onHide={handleClose} centered size="lg">
         <Modal.Header closeButton>
-          <Modal.Title className="text-center ">ยืนยันรายการสินค้า :
+          <Modal.Title className="text-center ">ยืนยันรายการสั่งซื้อ : รหัส
           <span className="text-danger "> {props?.value?.orderCode}</span> </Modal.Title>
         </Modal.Header>
         <Modal.Body>

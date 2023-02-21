@@ -311,8 +311,7 @@ export default function TheSlideNav() {
                 setCheckClickPath("/report");
               }}
               className={
-                checkClickPath === "/report/sumOrders" ||
-                checkClickPath === "/report/sumIncome"
+                checkClickPath === "/report/totalSales"
                   ? "nav-item nav-link active"
                   : "nav-item nav-link"
               }
@@ -327,32 +326,19 @@ export default function TheSlideNav() {
               className="bg-transparent border-0"
               show={
                 checkClickPath === "/report" ||
-                checkClickPath === "/report/sumOrders" ||
-                checkClickPath === "/report/sumIncome"
+                checkClickPath === "/report/totalSales"
               }
             >
               <Link
                 id="buttons"
-                href="/report/sumOrders"
+                href="/report/totalSales"
                 className={
-                  asPath === "/report/sumOrders"
+                  asPath === "/report/totalSales"
                     ? "dropdown-item ps-5 active"
                     : "dropdown-item ps-5"
                 }
               >
                 จัดการรายงานการสั่งซื้อ
-              </Link>
-
-              <Link
-                id="buttons"
-                href="/report/sumIncome"
-                className={
-                  asPath === "/report/sumIncome"
-                    ? "dropdown-item ps-5 active"
-                    : "dropdown-item ps-5"
-                }
-              >
-                จัดการรายงานรายได้
               </Link>
             </Dropdown.Menu>
           </div>

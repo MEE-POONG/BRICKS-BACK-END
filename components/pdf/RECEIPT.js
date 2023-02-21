@@ -599,7 +599,7 @@ export function ReceiptPDF({ elementId, data }) {
     },
   };
   
-  // return  pdfMake.createPdf(docDefinition).print({}, window);
+  // return  pdfMake.createPdf(docDefinition).open({}, window);
   
   return pdfMake.createPdf(docDefinition).getDataUrl((dataUrl) => {
     const iframe = document.getElementById(elementId);
