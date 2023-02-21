@@ -46,9 +46,9 @@ model Products {
 }
 
 model ImageProduct {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  image      String?
-  products   Products? @relation(fields: [productId], references: [id])
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  image     String?
+  products  Products? @relation(fields: [productId], references: [id])
   productId String?   @db.ObjectId
 }
 
@@ -259,6 +259,7 @@ model User {
   sessions      Session[]
   orders        Orders[]
   cart          Cart[]
+  address       Address[]
 }
 
 model VerificationToken {
@@ -269,3 +270,18 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Address {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  firstname   String?
+  lastname    String?
+  tel         String?
+  address     String?
+  district    String?
+  subDistrict String?
+  province    String?
+  postalCode  String?
+  userId      String? @db.ObjectId
+  user        User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
