@@ -30,13 +30,12 @@ export default function Search() {
   const [typeId, setTypeId] = useState("");
 
   const [{ data: typeData }, getType] = useAxios({
-    url: "/api/type?",
+    url: "api/searchType",
   });
 
   const [{ data: subTypeData }, getSubType] = useAxios({
-    url: `/api/subType?TypeId=${typeId}`
+    url: `/api/searchSubType?TypeId=${typeId}`
   });
-
 
   useEffect(() => {
     getSubType().catch((error) => {
@@ -93,7 +92,7 @@ export default function Search() {
                   value={typeId}
                 >
                   <option value="">ประเภทสินค้า</option>
-                  {typeData?.data?.map((typeData, index) => (
+                  {typeData?.map((typeData, index) => (
                     <option key={index} value={typeData.id}>
                       {typeData.name}
                     </option>
@@ -109,7 +108,7 @@ export default function Search() {
                   value={searchSubTypeId}
                 >
                   <option value="">ประเภทย่อยสินค้า</option>
-                  {subTypeData?.data?.map((subTypeData, index) => (
+                  {subTypeData?.map((subTypeData, index) => (
                     <option key={index} value={subTypeData.id}>
                       {subTypeData.name}
                     </option>
@@ -153,7 +152,7 @@ function ProductPage(name, subTypeId) {
   });
 
   const [{ data: subTypeData }, getSubType] = useAxios({
-    url: `/api/subType`
+    url: `/api/searchSubType`
   });
 
   useEffect(() => {
@@ -201,7 +200,7 @@ function ProductPage(name, subTypeId) {
 
           <ProductsAddModal
             getData={getProduct}
-            getSubTypeData={subTypeData?.data}
+            getSubTypeData={subTypeData}
           />
         </div>
         <MyTable
@@ -210,7 +209,7 @@ function ProductPage(name, subTypeId) {
             productsData?.page * productsData?.pageSize - productsData?.pageSize
           }
           getData={getProduct}
-          getSubTypeData={subTypeData?.data}
+          getSubTypeData={subTypeData}
         />
         <MyPagination
           page={productsData.page}

@@ -33,7 +33,6 @@ export default function AddImageProductModal(props) {
   const [formValues, setFormValues] = useState([{ image: "" }]);
   const [imageURL, setImageURL] = useState([]);
 
-  console.log(image);
 
 
   useEffect(() => {
