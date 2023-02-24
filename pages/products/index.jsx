@@ -18,7 +18,8 @@ import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
 import ProductsEditModal from "@/components/Products/ProductsEditModal";
 import AddOnRateModal from "@/components/Products/AddOnRateModal";
 import AddImageProductModal from "@/components/Products/AddImageProduct";
-import ShowImageProduct from "@/components/Products/ShowImageProduct"
+import ShowImageProduct from "@/components/Products/ShowImageProduct";
+import AddOnRateModaEdit from "@/components/Products/AddOnRateModalEdit";
 
 export default function Search() {
   const [name, setName] = useState("");
@@ -34,7 +35,7 @@ export default function Search() {
   });
 
   const [{ data: subTypeData }, getSubType] = useAxios({
-    url: `/api/searchSubType?TypeId=${typeId}`
+    url: `/api/searchSubType?TypeId=${typeId}`,
   });
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export default function Search() {
     setSubTypeId("");
     setSearchSubTypeId("");
 
-    setTypeId("")
+    setTypeId("");
   };
 
   const handleSubmit = (e) => {
@@ -152,7 +153,7 @@ function ProductPage(name, subTypeId) {
   });
 
   const [{ data: subTypeData }, getSubType] = useAxios({
-    url: `/api/searchSubType`
+    url: `/api/searchSubType`,
   });
 
   useEffect(() => {
@@ -198,10 +199,7 @@ function ProductPage(name, subTypeId) {
         <div className="d-flex align-items-center justify-content-between mb-4">
           <Card.Title className="mb-0">รายการสินค้า</Card.Title>
 
-          <ProductsAddModal
-            getData={getProduct}
-            getSubTypeData={subTypeData}
-          />
+          <ProductsAddModal getData={getProduct} getSubTypeData={subTypeData} />
         </div>
         <MyTable
           data={productsData?.data}
@@ -241,7 +239,6 @@ function MyTable(props) {
           <th>ชื่อสินค้า</th>
           <th>ประเภทสินค้า</th>
           <th>ราคา</th>
-          <th>รายละเอียด</th>
           <th>เรทราคา</th>
           <th>จัดการ</th>
         </tr>
@@ -270,10 +267,8 @@ function MyTable(props) {
             </td>
             <td>{item.price} บาท</td>
             <td>
-              <div dangerouslySetInnerHTML={{ __html: item?.detail }} />
-            </td>
-            <td>
               <AddOnRateModal value={item} getData={props?.getData} />
+              <AddOnRateModaEdit value={item} getData={props?.getData} />
             </td>
             <td>
               <ProductsEditModal
