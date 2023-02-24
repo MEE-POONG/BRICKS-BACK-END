@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import useAxios from "axios-hooks";
 
-
 export default function AddOnRateModal(props) {
-  const [{ error: errorMessage, loading: AddOnRateLoading }, executeAddOnRate] =
-    useAxios({ url: "/api/addOnRate", method: "POST" }, { manual: true });
+  const [
+    { error: AddOnRateError, loading: AddOnRateLoading },
+    executeAddOnRate,
+  ] = useAxios({ url: "/api/addOnRate", method: "POST" }, { manual: true });
 
   const [checkValue, setCheckValue] = useState(true);
 
@@ -194,7 +195,7 @@ export default function AddOnRateModal(props) {
           </Row>
           <Row>
             <span className="text-danger">
-              หมายเหตุ 1 ช่องเพิ่มจำนวนก้อน ถ้าใส่ 100 คือ ( 1-100 ) ก้อน
+              หมายเหตุ 1 ช่องเพิ่มจำนวนก้อน ถ้าใส่ 100 คือ 100 ก้อนขึ้นไป
             </span>
           </Row>
           <Row>

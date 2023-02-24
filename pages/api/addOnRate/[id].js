@@ -20,26 +20,6 @@ export default async function handler(req, res) {
         res.status(400).json({ success: false });
       }
       break;
-    case "PUT":
-      try {
-        console.log(req.body);
-        await prisma.qtyRate.create({
-          data: {
-            qtyCheck: parseInt(req.body.qtyCheck),
-            productId: req.body.productId,
-            addOnRate: {
-              create: req.body.addOnRate.map((rate) => ({
-                length: parseFloat(rate.distance),
-                addOn: parseFloat(rate.addOn),
-              })),
-            },
-          },
-        });
-        res.status(201).json({ success: true });
-      } catch (error) {
-        res.status(400).json({ success: false });
-      }
-      break;
     case "DELETE":
       try {
         await prisma.addOnRate.delete({

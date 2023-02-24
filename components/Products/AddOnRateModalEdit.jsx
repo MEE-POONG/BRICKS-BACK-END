@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
 import useAxios from "axios-hooks";
 
-export default function AddOnRateModaEdit(props) {
-  const [{ error: errorMessage, loading: AddOnRateLoading }, executeAddOnRate] =
-    useAxios({ url: "/api/addOnRate", method: "POST" }, { manual: true });
+export default function AddOnRateModalEdit(props) {
+  const [{ error: AddOnRateError, loading: AddOnRateLoading }, excAddOnRate] =
+    useAxios({ url: "/api/addOnRate/addOn", method: "POST" }, { manual: true });
+
+  const [
+    { error: AddOnRatePutError, loading: AddOnRatePutLoading },
+    putAddOnRate,
+  ] = useAxios(
+    { url: "/api/addOnRate/addOn", method: "PUT" },
+    { manual: true }
+  );
+
+  const [
+    { error: delAddOnRateError, loading: delAddOnRateLoading },
+    delAddOnRate,
+  ] = useAxios({ manual: true });
 
   const [
     { data: addOnData, error: addOnError, loading: addOnLoading },
@@ -14,7 +27,13 @@ export default function AddOnRateModaEdit(props) {
     method: "GET",
   });
 
+  useEffect(() => {
+    setAddonDataNew(addOnData);
+  }, [addOnData]);
+
   console.log("addOnData", addOnData);
+  const [addOnDataNew, setAddonDataNew] = useState(addOnData);
+  console.log("addOnDataNew", addOnDataNew);
   const [checkValue, setCheckValue] = useState(true);
 
   const [showCheck, setShowCheck] = useState(false);
@@ -24,41 +43,55 @@ export default function AddOnRateModaEdit(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-  const [productId, setProductId] = useState(props?.value?.id);
-  const [qtyRate, setQtyRate] = useState(null);
-  const [formValues, setFormValues] = useState([
-    { qtyRateId: "", distance: "", addOn: "" },
-  ]);
-
+  const [formValues, setFormValues] = useState([]);
+  console.log("formValues", formValues);
   const handleSubmit = async () => {
     setCheckValue(false);
-    {
+    try {
       handleClose();
-      executeAddOnRate({
-        data: {
-          productId: productId,
-          qtyCheck: qtyRate,
-          addOnRate: formValues,
-        },
-      }).then(() => {
-        Promise.all([
-          setProductId(""),
-          setQtyRate(null),
-          setFormValues([{ distance: "", addOn: "" }]),
-          props.getData(),
-        ]).then(() => {
-          if (AddOnRateLoading?.success) {
-            handleClose();
-          }
+
+      const formFilterEmpty = formValues.filter(
+        (value) => value.distance !== "" || value.addOn !== ""
+      );
+      if (formFilterEmpty.length !== 0) {
+        excAddOnRate({
+          data: {
+            value: formFilterEmpty,
+          },
+        }).then(() => {
+          Promise.all([setFormValues([]), props.getData()]).then(() => {
+            if (AddOnRateLoading?.success) {
+              handleClose();
+            }
+          });
         });
-      });
+      } else {
+        setFormValues([]);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
+  //แก้ อาเรย์ ที่ เพิ่มมาใหม่
   const handleChange = (i, e) => {
     const newFormValues = [...formValues];
     newFormValues[i][e.name] = e.value;
     setFormValues(newFormValues);
+  };
+
+  //แก้ อาเรย์ อันเก่า qtyRate
+  const handleChangeOld = (i, e) => {
+    const newFormValues = [...addOnDataNew];
+    newFormValues[i][e.name] = parseFloat(e.value);
+    setAddonDataNew(newFormValues);
+  };
+
+  //แก้ อาเรย์ อันเก่า addOn
+  const handleChangeOldAddOn = (i, ic, e) => {
+    const newFormValues = [...addOnDataNew];
+    newFormValues[i].addOnRate[ic][e.name] = parseFloat(e.value);
+    setAddonDataNew(newFormValues);
   };
 
   const addFormFields = (qtyRateId) => {
@@ -68,6 +101,16 @@ export default function AddOnRateModaEdit(props) {
     ]);
   };
 
+  const handleDelAddOnRate = (id) => {
+    try {
+      delAddOnRate({
+        url: "/api/addOnRate/" + id,
+        method: "DELETE",
+      }).then(() => getAddOnRate());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const removeFormFields = (i) => {
     const newFormValues = [...formValues];
     newFormValues.splice(i, 1);
@@ -96,33 +139,18 @@ export default function AddOnRateModaEdit(props) {
           <Modal.Title className="text-center">เพิ่มเรทราคา</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {/* <Row xs="12">
-            <Col xs={{ span: 3 }}>
-              <Form.Label>จำนวนก้อน ( เช่น 100 คือ 0-100 ก้อน)</Form.Label>
-            </Col>
-            <Col xs={{ span: 4 }}>
-              <Form.Label>ระยะทาง ( เช่น 100 คือ 0-100 กิโลเมตร )</Form.Label>
-            </Col>
-            <Col xs={{ span: 4 }}>
-              <Form.Label>
-                ราคาที่บวกเพิ่ม ( เช่น 2 คือ บวกเพิ่ม 2 บาทจากราคาต้นทุน)
-              </Form.Label>
-            </Col>
-            <Col xs={{ span: 1 }}></Col>
-          </Row> */}
-
           {addOnData?.map((qtyRate, index) => (
             <Row key={index} xs="12">
               <Col xs={{ span: 3 }}>
                 <Form.Group className="mb-3 " controlId="qty">
                   <Form.Control
                     type="number"
-                    name="qty"
+                    name="qtyCheck"
                     placeholder="เพิ่ม จำนวนก้อน"
                     onChange={(event) => {
-                      setQtyRate(event.target.value);
+                      handleChangeOld(index, event.target);
                     }}
-                    value={qtyRate.qtyCheck}
+                    value={qtyRate?.qtyCheck}
                     autoComplete="off"
                     isValid={
                       checkValue === false && length !== "" ? true : false
@@ -134,16 +162,20 @@ export default function AddOnRateModaEdit(props) {
                 </Form.Group>
               </Col>
               <Col xs={{ span: 9 }}>
-                {qtyRate?.addOnRate?.map((element, index) => (
-                  <Row key={index}>
+                {qtyRate?.addOnRate?.map((element, indexChild) => (
+                  <Row key={indexChild}>
                     <Col xs={{ span: 5 }}>
                       <Form.Group className="mb-3" controlId="distance">
                         <Form.Control
                           type="number"
-                          name="distance"
+                          name="length"
                           placeholder="เพิ่ม ระยะทาง"
                           onChange={(event) => {
-                            handleChange(index, event.target);
+                            handleChangeOldAddOn(
+                              index,
+                              indexChild,
+                              event.target
+                            );
                           }}
                           value={element.length}
                           autoComplete="off"
@@ -167,7 +199,11 @@ export default function AddOnRateModaEdit(props) {
                           name="addOn"
                           placeholder="ราคาบวกเพิ่ม"
                           onChange={(event) => {
-                            handleChange(index, event.target);
+                            handleChangeOldAddOn(
+                              index,
+                              indexChild,
+                              event.target
+                            );
                           }}
                           value={element.addOn}
                           autoComplete="off"
@@ -193,79 +229,77 @@ export default function AddOnRateModaEdit(props) {
                       >
                         เพิ่ม
                       </Button>
-                      {index ? (
-                        <Button
-                          type="button"
-                          bg="danger"
-                          className="  btn-danger"
-                          onClick={() => removeFormFields(index)}
-                        >
-                          ลบ
-                        </Button>
-                      ) : null}
-                    </Col>
-                  </Row>
-                ))}
-                {formValues.map((element, index) => (
-                  <Row key={index}>
-                    <Col xs={{ span: 5 }}>
-                      <Form.Group className="mb-3" controlId="distance">
-                        <Form.Control
-                          type="number"
-                          name="distance"
-                          placeholder="เพิ่ม ระยะทาง"
-                          onChange={(event) => {
-                            handleChange(index, event.target);
-                          }}
-                          value={element.length}
-                          autoComplete="off"
-                          isValid={
-                            checkValue === false && element.length !== ""
-                              ? true
-                              : false
-                          }
-                          isInvalid={
-                            checkValue === false && element.length === ""
-                              ? true
-                              : false
-                          }
-                        />
-                      </Form.Group>
-                    </Col>
-                    <Col xs={{ span: 5 }}>
-                      <Form.Group className="mb-3 " controlId="addOn">
-                        <Form.Control
-                          type="number"
-                          name="addOn"
-                          placeholder="ราคาบวกเพิ่ม"
-                          onChange={(event) => {
-                            handleChange(index, event.target);
-                          }}
-                          value={element.addOn}
-                          autoComplete="off"
-                          isValid={
-                            checkValue === false && element.addOn !== ""
-                              ? true
-                              : false
-                          }
-                          isInvalid={
-                            checkValue === false && element.addOn === ""
-                              ? true
-                              : false
-                          }
-                        />
-                      </Form.Group>
-                    </Col>
-
-                    <Col xs={{ span: 2 }}>
                       <Button
                         type="button"
-                        className="me-2"
-                        onClick={() => addFormFields(qtyRate.id)}
+                        bg="danger"
+                        className="btn-danger"
+                        onClick={() => handleDelAddOnRate(element.id)}
                       >
-                        เพิ่ม
+                        ลบ
                       </Button>
-                      {index ? (
+                    </Col>
+                  </Row>
+                ))}
+                {formValues?.map((element, index) =>
+                  element.qtyRateId === qtyRate.id ? (
+                    <Row key={index}>
+                      <Col xs={{ span: 5 }}>
+                        <Form.Group className="mb-3" controlId="distance">
+                          <Form.Control
+                            type="number"
+                            name="distance"
+                            placeholder="เพิ่ม ระยะทาง"
+                            onChange={(event) => {
+                              handleChange(index, event.target);
+                            }}
+                            value={element.length}
+                            autoComplete="off"
+                            isValid={
+                              checkValue === false && element.length !== ""
+                                ? true
+                                : false
+                            }
+                            isInvalid={
+                              checkValue === false && element.length === ""
+                                ? true
+                                : false
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+                      <Col xs={{ span: 5 }}>
+                        <Form.Group className="mb-3 " controlId="addOn">
+                          <Form.Control
+                            type="number"
+                            name="addOn"
+                            placeholder="ราคาบวกเพิ่ม"
+                            onChange={(event) => {
+                              handleChange(index, event.target);
+                            }}
+                            value={element.addOn}
+                            autoComplete="off"
+                            isValid={
+                              checkValue === false && element.addOn !== ""
+                                ? true
+                                : false
+                            }
+                            isInvalid={
+                              checkValue === false && element.addOn === ""
+                                ? true
+                                : false
+                            }
+                          />
+                        </Form.Group>
+                      </Col>
+
+                      <Col xs={{ span: 2 }}>
+                        <Button
+                          type="button"
+                          className="me-2"
+                          onClick={() => addFormFields(qtyRate.id)}
+                        >
+                          เพิ่ม
+                        </Button>
                         <Button
                           type="button"
                           bg="danger"
@@ -274,17 +308,18 @@ export default function AddOnRateModaEdit(props) {
                         >
                           ลบ
                         </Button>
-                      ) : null}
-                    </Col>
-                  </Row>
-                ))}
+                      </Col>
+                    </Row>
+                  ) : null
+                )}
               </Col>
+              <div className="border-bottom border-1 mb-3"></div>
             </Row>
           ))}
 
           <Row>
             <span className="text-danger">
-              หมายเหตุ 1 ช่องเพิ่มจำนวนก้อน ถ้าใส่ 100 คือ ( 1-100 ) ก้อน
+              หมายเหตุ 1 ช่องเพิ่มจำนวนก้อน ถ้าใส่ 100 คือ 100 ก้อนขึ้นไป
             </span>
           </Row>
           <Row>

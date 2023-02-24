@@ -19,7 +19,7 @@ import ProductsEditModal from "@/components/Products/ProductsEditModal";
 import AddOnRateModal from "@/components/Products/AddOnRateModal";
 import AddImageProductModal from "@/components/Products/AddImageProduct";
 import ShowImageProduct from "@/components/Products/ShowImageProduct";
-import AddOnRateModaEdit from "@/components/Products/AddOnRateModalEdit";
+import AddOnRateModalEdit from "@/components/Products/AddOnRateModalEdit";
 
 export default function Search() {
   const [name, setName] = useState("");
@@ -268,7 +268,7 @@ function MyTable(props) {
             <td>{item.price} บาท</td>
             <td>
               <AddOnRateModal value={item} getData={props?.getData} />
-              <AddOnRateModaEdit value={item} getData={props?.getData} />
+              <AddOnRateModalEdit value={item} getData={props?.getData} />
             </td>
             <td>
               <ProductsEditModal

@@ -4,24 +4,27 @@ const prisma = new PrismaClient();
 export default async function handler(req, res) {
   const { method } = req;
   switch (method) {
-    case "GET":
+    case "POST":
       try {
-        const data = await prisma.addOnRate.findMany({
-          include: { products: true },
-          where: {
-            id: req.query.id,
-          },
+        await prisma.addOnRate.createMany({
+          data: req.body.value.map((item) => ({
+            length: parseFloat(item.distance),
+            addOn: parseFloat(item.addOn),
+            qtyRateId: item.qtyRateId,
+          })),
         });
-
-        res.status(200).json(data);
+        res.status(201).json({ success: true });
       } catch (error) {
         res.status(400).json({ success: false });
       }
       break;
-    case "POST":
+    case "PUT":
       try {
         await prisma.qtyRate.create({
           data: {
+            where: {
+              id: req.query.qtyRateId,
+            },
             qtyCheck: parseInt(req.body.qtyCheck),
             productId: req.body.productId,
             addOnRate: {
