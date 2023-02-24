@@ -9,6 +9,7 @@ import {
   Table,
 } from "react-bootstrap";
 import { TiDocumentText } from "react-icons/ti";
+import { format } from "date-fns";
 // import ReceiptData from "@/pages/ReceiptData";
 import { ReceiptPDF } from "../pdf/RECEIPT";
 export default function ReceiptPrint(props) {
@@ -31,7 +32,7 @@ export default function ReceiptPrint(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
       <Modal.Header closeButton>
           <Modal.Title>
-            ดูรายการสั่งซื้อของ คุณ : {props?.value?.user?.name}
+            ดูรายการสั่งซื้อของ คุณ : {props?.value?.address?.firstname}
           </Modal.Title>
         </Modal.Header>
           <iframe id="iframe" width="100%" height="1150px">
@@ -39,13 +40,13 @@ export default function ReceiptPrint(props) {
             elementId="iframe"
             data={{
               po_no: `${props?.value?.orderCode}`,
-              customer_name: `${props?.value?.user?.name}`,
+              customer_name: `${props?.value?.address?.firstname + " " + props?.value?.address?.lastname}` ,
               no: "612/5313",
               // id_number: "0-1055-48111-86-7",
-              Tel: `${props?.value?.user?.tel} ` ,
+              Tel: `${props?.value?.address?.tel} ` ,
               address:
-              `เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`,
-              date:  `${props?.value?.createdAt}` ,
+              `เลขที่ ${props?.value?.address?.address} ตำบล${props?.value?.address?.subDistrict} อำเภอ${props?.value?.address?.district} จังหวัด${props?.value?.address?.province} ${props?.value?.address?.postalCode}`,
+              date:  `${(format(new Date(props?.value?.createdAt), "dd/MM/yyyy"))}` ,
               // inv_data: [
               //   {
               //     customer_code: "--",
