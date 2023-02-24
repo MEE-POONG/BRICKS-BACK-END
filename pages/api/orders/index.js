@@ -42,7 +42,8 @@ export default async function handler(req, res) {
                   products: true,
                 },
               },
-              user:{include: { address: true}},
+              user:true,
+              address:true,
             },
             orderBy: {
               id: "desc",

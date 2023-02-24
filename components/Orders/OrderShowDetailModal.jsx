@@ -37,9 +37,9 @@ export default function ProductsDeleteModal(props) {
           <h2 className="p-2 text-start">รายละเอียดข้อมูล </h2>
           <div class="col-12">
             <div className="row">
-              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.user?.firstName + " " + props?.value?.user?.lastName)}
+              {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.address?.firstname + " " + props?.value?.address?.lastname)}
               {newFunction("E-mail", props?.value?.user?.email)}
-              {newFunction("เบอร์มือถือ", props?.value?.user?.tel)}
+              {newFunction("เบอร์มือถือ", props?.value?.address?.tel)}
             </div>
           </div>
           <Row className="mb-3 ">
@@ -53,7 +53,7 @@ export default function ProductsDeleteModal(props) {
 
               <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
               <div class="mb-3">
-                <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address} ตำบล${props?.value?.subDistrict} อำเภอ${props?.value?.district} จังหวัด${props?.value?.province} ${props?.value?.postalCode}`} />
+                <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address?.address} ตำบล${props?.value?.address?.subDistrict} อำเภอ${props?.value?.address?.district} จังหวัด${props?.value?.address?.province} ${props?.value?.address?.postalCode}`} />
               </div>
             </Col>
             <Col md="4">

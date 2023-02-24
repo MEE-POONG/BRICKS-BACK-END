@@ -134,15 +134,17 @@ model PichomeTop {
   deleted_at DateTime? @map("deleted_at")
 }
 
+
 model Orders {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   orderCode   String?
-  longitude   Float?
-  latitude    Float?
-  totalPrice  Int?
+  totalPrice  Float?
+  image       String?
   status      String?
   user        User?         @relation(fields: [userId], references: [id])
   userId      String?       @db.ObjectId
+  address     Address?      @relation(fields: [addressId], references: [id])
+  addressId   String?       @db.ObjectId
   createdAt   DateTime?     @default(now())
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt
@@ -151,13 +153,17 @@ model Orders {
 
 model OrderDetail {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
-  sumPrice  Int?
+  sumPrice  Float?
   sumQty    Int?
+  lat       Float?
+  lng       Float?
+  distance  Float?
   productId String?   @db.ObjectId
   orderId   String?   @db.ObjectId
   orders    Orders?   @relation(fields: [orderId], references: [id])
   products  Products? @relation(fields: [productId], references: [id])
 }
+
 
 model HowtoplaceOder {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
@@ -272,7 +278,7 @@ model VerificationToken {
 }
 
 model Address {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
   firstname   String?
   lastname    String?
   tel         String?
@@ -281,6 +287,7 @@ model Address {
   subDistrict String?
   province    String?
   postalCode  String?
-  userId      String? @db.ObjectId
-  user        User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      String?  @db.ObjectId
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Orders[]
 }
