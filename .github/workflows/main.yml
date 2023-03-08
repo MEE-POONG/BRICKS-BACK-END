@@ -42,4 +42,4 @@ jobs:
         host: ${{ secrets.SERVER_HOST }}
         user: ${{ secrets.SERVER_USER }}
         private_key: ${{ secrets.SSH_KEY }}
-        command: docker pull chunwarayut/${{ steps.string.outputs.lowercase }}:latest && docker stop ${{ steps.string.outputs.lowercase }} && docker rm ${{ steps.string.outputs.lowercase }} && docker run --name ${{ steps.string.outputs.lowercase }} --restart=always -d -p 6090:3000 chunwarayut/${{ steps.string.outputs.lowercase }} 
+        command: docker pull chunwarayut/${{ steps.string.outputs.lowercase }}:latest && docker stop ${{ steps.string.outputs.lowercase }} && docker rm ${{ steps.string.outputs.lowercase }} && docker run --name ${{ steps.string.outputs.lowercase }} --restart=always -d -p 6091:3000 chunwarayut/${{ steps.string.outputs.lowercase }} 
