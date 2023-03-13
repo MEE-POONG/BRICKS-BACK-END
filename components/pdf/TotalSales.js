@@ -436,6 +436,6 @@ export function TotalSalesPDF({ elementId, data }) {
   };
   return pdfMake.createPdf(docDefinition).getDataUrl((dataUrl) => {
     const iframe = document.getElementById(elementId);
-    iframe.src = dataUrl + '#zoom=100&toolbar=0';
+    iframe.src = dataUrl + '#zoom=100';
   });
 }
