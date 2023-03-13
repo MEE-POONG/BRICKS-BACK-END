@@ -101,7 +101,7 @@ export default function TheSlideNav() {
               >
                 สมาชิก
               </Link>
-              <Link
+              {/* <Link
                 id="buttons"
                 href="/team"
                 className={
@@ -122,7 +122,7 @@ export default function TheSlideNav() {
                 }
               >
                 ระดับสิทธิ์ผู้ใช้
-              </Link>
+              </Link> */}
             </Dropdown.Menu>
 
             <Dropdown.Toggle
