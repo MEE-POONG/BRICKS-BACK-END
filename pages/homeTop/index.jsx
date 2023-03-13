@@ -22,14 +22,14 @@ export default function HomeTopPage() {
     url: "/api/homeTop",
   });
 
-  const [{ data: pichomeTopData , loading: picHomeLoading, error:picHomeError  }, getPichomeTop] = useAxios({
+  const [{ data: pichomeTopData, loading: picHomeLoading, error: picHomeError }, getPichomeTop] = useAxios({
     url: "../api/pichomeTop?",
   });
 
-  if (loading,picHomeLoading) {
+  if (loading, picHomeLoading) {
     return <PageLoading />;
   }
-  if (error,picHomeError) {
+  if (error, picHomeError) {
     return <PageError />;
   }
   return (
@@ -56,25 +56,37 @@ export default function HomeTopPage() {
 }
 
 function MyTable(props) {
-  const [homeData , SetHomeData] = useState(props?.homeTopData);
+  const [homeData, setHomeData] = useState(props?.homeTopData);
 
   return (
     <>
-      {homeData.map((item, index) => (
+      {homeData?.map((item, index) => (
         <div key={index}>
           <Row>
-          <Row>
-            <Col>
-            <strong>รูปปก</strong>
-            <br/><br/>
-              <Image
-                src={item.image}
-                width="350px"
-                height="150px"
-                className="object-fit-cover rounded-5"
-              />
-              <br/><br/>
-            </Col>
+            <Row>
+              {/* รออัพเดท Logo */}
+              {/* <Col>
+                <strong>โลโก้</strong>
+                <br /><br />
+                <Image
+                  src={item?.logo}
+                  width="350px"
+                  height="150px"
+                  className="object-fit-cover rounded-5"
+                />
+                <br /><br />
+              </Col> */}
+              <Col>
+                <strong>รูปปก</strong>
+                <br /><br />
+                <Image
+                  src={item.image}
+                  width="350px"
+                  height="150px"
+                  className="object-fit-cover rounded-5"
+                />
+                <br /><br />
+              </Col>
             </Row>
             <Col>{newFunction("ชื่อร้าน", item?.title)}</Col>
 
@@ -83,9 +95,9 @@ function MyTable(props) {
             </Col>
           </Row>
           <HomeTopEditModal
-                value={item}
-                getHomeTop={props?.getHomeTop}
-              />
+            value={item}
+            getHomeTop={props?.getHomeTop}
+          />
           <br />
           <br />
         </div>
