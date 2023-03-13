@@ -3,6 +3,7 @@ import IndexPage from "components/layouts/IndexPage";
 import { Card, Table } from 'react-bootstrap';
 import Warn from 'container/home/warn';
 import Widget from '@/container/Dashboard/widget';
+import SearchOrders from './orders';
 // import Calendars from '@/container/Dashboard/Calender';
 export default function HomePage() {
   const contactData = [
@@ -30,8 +31,9 @@ export default function HomePage() {
         <meta name="description" content="I2AROBOT 2" />
         <link rel="icon" href="" />
       </Head>
+      <SearchOrders />
       <div>
-        <Widget/>
+        {/* <Widget/> */}
       </div>
       <div>
         {/* <Calendars/> */}
