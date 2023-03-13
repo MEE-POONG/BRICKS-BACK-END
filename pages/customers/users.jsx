@@ -110,7 +110,7 @@ function UsersPage(firstName, lastName, name) {
   });
 
   const [{ data: usersData, loading, error }, getUsers] = useAxios({
-    url: `/api/user?page=1&pageSize=10&firstName=${firstName}&lastName=${lastName}&name=${name}`,
+    url: `/api/user?page=1&pageSize=${params.pageSize}&firstName=${firstName}&lastName=${lastName}`,
     method: "GET",
   });
   useEffect(() => {
@@ -124,10 +124,10 @@ function UsersPage(firstName, lastName, name) {
   }, [usersData]);
 
   const handleSelectPage = (pageValue) => {
-    getTeam({ url: `/api/user?page=${pageValue}&pageSize=${params.pageSize}` });
+    getUsers({ url: `/api/user?page=${pageValue}&pageSize=${params.pageSize}` });
   };
   const handleSelectPageSize = (sizeValue) => {
-    getTeam({ url: `/api/user?page=1&pageSize=${sizeValue}` });
+    getUsers({ url: `/api/user?page=1&pageSize=${sizeValue}` });
   };
 
   if (loading) {
@@ -146,12 +146,12 @@ function UsersPage(firstName, lastName, name) {
         <MyTable data={usersData?.data} getUsers={getUsers} />
 
         <MyPagination
-          page={usersData.page}
-          totalPages={usersData.totalPage}
-          onChangePage={handleSelectPage}
-          pageSize={params.pageSize}
-          onChangePageSize={handleSelectPageSize}
-        />
+            page={usersData.page}
+            totalPages={usersData.totalPage}
+            onChangePage={handleSelectPage}
+            pageSize={params.pageSize}
+            onChangePageSize={handleSelectPageSize}
+          />
       </Card>
     </div>
   );
@@ -187,7 +187,7 @@ function MyTable(props) {
                 <td>{item.lastName}</td>
                 <td>{item.tel}</td>
                 <td>{item.email}</td>
-                <td>{item.name}</td>
+                <td>{item.username}</td>
                 <td>
                   <UsersEditModal value={item} getUsers={props?.getUsers} />
                   <UsersDeleteModal value={item} getUsers={props?.getUsers} />

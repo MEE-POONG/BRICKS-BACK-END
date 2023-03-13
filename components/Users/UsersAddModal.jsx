@@ -67,9 +67,9 @@ export default function UsersAddModal(props) {
 
     return (
         <>
-            <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
+            {/* <Button bsPrefix="create" className={showCheck ? 'icon active d-flex' : 'icon d-flex'} onClick={handleShow}>
                 <FaPlus />{" "}เพิ่มบัญชีสมาชิก
-            </Button>
+            </Button> */}
             <Modal show={showCheck} onHide={handleClose} centered size='lg' className='form-Products'>
                 <Modal.Header closeButton>
                     <Modal.Title className='text-center'>เพิ่มบัญชีสมาชิก</Modal.Title>

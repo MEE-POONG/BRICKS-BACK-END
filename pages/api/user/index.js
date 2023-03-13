@@ -18,13 +18,12 @@ export default async function handler(req, res) {
                 let pageSize = +req.query.pageSize || 10;
                 let firstName = req.query.firstName;
                 let lastName = req.query.lastName;
-                let name = req.query.name;
                 const data = await prisma.$transaction([
                     prisma.user.count({
-                        where: { firstName: { contains: firstName }, lastName: { contains: lastName },name: { contains: name } },
-                      }),
+                        where: { firstName: { contains: firstName }, lastName: { contains: lastName } },
+                    }),
                     prisma.user.findMany({
-                        where: { firstName: { contains: firstName }, lastName: { contains: lastName },name: { contains: name } },
+                        where: { firstName: { contains: firstName }, lastName: { contains: lastName } },
                         skip: (page - 1) * pageSize,
                         take: pageSize,
                     })
@@ -41,7 +40,7 @@ export default async function handler(req, res) {
                     data: {
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
-                        name: req.body.name,
+                        username: req.body.username,
                         tel: req.body.tel,
                         email: req.body.email,
                         password: req.body.password,

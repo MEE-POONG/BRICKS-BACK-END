@@ -256,6 +256,7 @@ model User {
   tel           String?
   email         String?   @unique
   emailVerified DateTime?
+  username      String?   @unique
   password      String?
   image         String?
   createdAt     DateTime? @default(now())

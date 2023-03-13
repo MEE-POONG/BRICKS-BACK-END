@@ -12,7 +12,7 @@ export default function OrdersDeleteModal(props) {
     const [{ loading: deleteOrdersLoading, error: deleteOrdersError }, executeOrdersDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
         executeOrdersDelete({
-            url: '/api/order/' + props?.value?.id,
+            url: '/api/orders/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([

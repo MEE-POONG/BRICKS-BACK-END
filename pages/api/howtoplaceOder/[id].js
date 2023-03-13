@@ -19,7 +19,7 @@ export default async function handler(req, res) {
                 
                     }
                 })
-                prisma.$disconnect();
+                
                 res.status(201).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     }
                 });
-                prisma.$disconnect();
+                
                 res.status(204).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })

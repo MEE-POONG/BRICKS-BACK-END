@@ -11,7 +11,7 @@ export default function UsersDeleteModal(props) {
     const [{ loading: deleteUsersLoading, error: deleteUsersError }, executeUsersDelete] = useAxios({}, { manual: true })
     const handleDeleteData = () => {
         executeUsersDelete({
-            url: '/api/users/' + props?.value?.id,
+            url: '/api/user/' + props?.value?.id,
             method: 'DELETE',
         }).then(() => {
             Promise.all([

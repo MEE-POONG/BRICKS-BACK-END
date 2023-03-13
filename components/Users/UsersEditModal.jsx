@@ -29,7 +29,7 @@ export default function UserEditModal(props) {
     lastName: "",
     tel: "",
     email: "",
-    name: "",
+    username: "",
     password: "",
 
   });
@@ -41,7 +41,7 @@ export default function UserEditModal(props) {
         lastName:  props?.value?.lastName,
         tel:  props?.value?.tel,
         email:  props?.value?.email,
-        name:  props?.value?.name,
+        username:  props?.value?.username,
         password:  props?.value?.password,
 
       });
@@ -59,7 +59,7 @@ export default function UserEditModal(props) {
             lastName: fromUser?.lastName,
             tel: fromUser?.tel,
             email: fromUser?.email,
-            name: fromUser?.name,
+            username: fromUser?.username,
             password: fromUser?.password,
         },
       }).then(() => {
@@ -68,7 +68,7 @@ export default function UserEditModal(props) {
             lastName: "",
             tel: "",
             email: "",
-            name: "",
+            username: "",
             password: "",
         }),
           props?.getUser().then(() => {
@@ -105,16 +105,16 @@ export default function UserEditModal(props) {
         </Modal.Header>
         <Modal.Body>
         <Row>
-                <Col md='6'>
+                <Col md='12'>
                   {EditFunction("ชื่อจริง",fromUser?.firstName,setFromUser,"firstName")}
                   {EditFunction("นามสกุล",fromUser?.lastName,setFromUser,"lastName")}
                   {EditFunction("เบอร์โทร",fromUser?.tel,setFromUser,"tel")}
                   {EditFunction("อีเมล์",fromUser?.email,setFromUser,"email")}
                 </Col>
-                <Col md='6'>
-                  {EditFunction("ชื่อผู้ใช้",fromUser?.name,setFromUser,"name")}
-                  {EditFunction("รหัสผ่าน",fromUser?.password,setFromUser,"password")}
-                </Col>
+                {/* <Col md='6'> */}
+                  {/* {EditFunction("ชื่อผู้ใช้",fromUser?.username,setFromUser,"username")} */}
+                  {/* {EditFunction("รหัสผ่าน",fromUser?.password,setFromUser,"password")} */}
+                {/* </Col> */}
                 </Row>
       
         </Modal.Body>
