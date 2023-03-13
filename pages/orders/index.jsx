@@ -15,7 +15,7 @@ import { format } from "date-fns";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import th from "date-fns/locale/th";
-import OrdersPage from "@/components/Orders/ordersPage";
+import OrdersPage from "@/components/Orders/OrdersPage";
 registerLocale("th", th);
 
 export default function SearchOrders() {
