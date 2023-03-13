@@ -305,7 +305,7 @@ export default function TheSlideNav() {
                 รายการสั่งซื้อ
               </Link>
             </Dropdown.Menu>
-
+{/* 
             <Dropdown.Toggle
               onClick={() => {
                 setCheckClickPath("/report");
@@ -340,7 +340,7 @@ export default function TheSlideNav() {
               >
                 จัดการรายงานการสั่งซื้อ
               </Link>
-            </Dropdown.Menu>
+            </Dropdown.Menu> */}
           </div>
         </nav>
       </div>
