@@ -57,7 +57,6 @@ export default function OrderEditModal(props) {
 
   // if (loading || updateOrderLoading) return <ModelLoading showCheck={showCheck}/>
   // if (error || updateOrderError) return <ModalError show={showCheck} fnShow={handleClose} centered size='lg'/>
-
   return (
     <>
        {props?.value?.status === "จัดส่งเสร็จสิ้น" ? ( "" ) 
@@ -97,7 +96,8 @@ export default function OrderEditModal(props) {
                   </tr>
                 </thead>
                 <tbody>
-                  {props?.value?.OrderDetail?.map((product, index) => (
+                  
+                  {props?.value?.orderDetail?.map((product, index) => (
                     <tr key={index}>
                       <td>{index + 1}</td>
                       <td>{product.products?.name}</td>
