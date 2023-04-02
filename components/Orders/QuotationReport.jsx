@@ -18,7 +18,7 @@ export default function ReceiptPrint(props) {
   const handleClose = () => setShowCheck(false);
   return (
     <>
-      {props?.value?.status === "กำลังดำเนินการ" ? (
+      {props?.value?.status !== "รอการตรวจสอบ" ? (
         <Button
           bsPrefix="create"
           className={showCheck ? "icon active" : "icon "}

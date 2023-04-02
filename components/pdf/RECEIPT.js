@@ -241,23 +241,6 @@ export function ReceiptPDF({ elementId, data }) {
                     alignment: "center",
                     margin: [0, 0, 0, 0],
                   },
-                  {
-                    text: "เลขประจำตัวผู้เสียภาษีอากร",
-                    alignment: "center",
-                    width: "auto",
-                    style: {
-                      fontSize: 10,
-                    },
-                    margin: [0, 0, 0, 0],
-                  },
-                  {
-                    text: "0125555015738",
-                    alignment: "center",
-                    style: {
-                      fontSize: 10,
-                    },
-                    margin: [0, 0, 0, 0],
-                  },
                 ],
               },
               {
