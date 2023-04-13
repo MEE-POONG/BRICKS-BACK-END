@@ -145,6 +145,7 @@ model Orders {
   userId      String?       @db.ObjectId
   address     Address?      @relation(fields: [addressId], references: [id])
   addressId   String?       @db.ObjectId
+  deliveryAt  DateTime?
   createdAt   DateTime?     @default(now())
   deleted_at  DateTime?     @map("deleted_at")
   updatedAt   DateTime?     @updatedAt

@@ -14,7 +14,7 @@ import useAxios from "axios-hooks";
 import CardLoading from "@/components/CardChange/CardLoading";
 import CardError from "@/components/CardChange/CardError";
 import { format } from "date-fns";
-export default function ProductsDeleteModal(props) {
+export default function OrderShowDetailModal(props) {
   const [showCheck, setShowCheck] = useState(false);
   const handleShow = () => setShowCheck(true);
   const handleClose = () => setShowCheck(false);
@@ -30,7 +30,7 @@ export default function ProductsDeleteModal(props) {
       <Modal show={showCheck} onHide={handleClose} centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>
-            ดูรายการสั่งซื้อของ คุณ : {props?.value?.user?.name}
+            ดูรายการสั่งซื้อของ คุณ : {props?.value?.address?.firstname + " " + props?.value?.address?.lastname}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
