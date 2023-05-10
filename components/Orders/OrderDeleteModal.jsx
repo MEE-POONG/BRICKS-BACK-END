@@ -35,7 +35,7 @@ export default function OrdersDeleteModal(props) {
             </Button>
             <Modal show={showCheck} onHide={handleClose} centered size='lg'>
                 <Modal.Header closeButton>
-                    <Modal.Title className='text-center'>ลบรายการสินค้า</Modal.Title>
+                    <Modal.Title className='text-center'>ลบรายการสั่งซื้อ</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Image src={props?.value?.image}  width="150px" height="150px" className='object-fit-cover' />
