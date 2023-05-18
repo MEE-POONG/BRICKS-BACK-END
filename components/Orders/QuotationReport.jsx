@@ -76,17 +76,17 @@ export default function ReceiptPrint(props) {
 
   function newFunction(label, value) {
     return (
-      <div class="col-md-4 mb-3">
+      <div className="col-md-4 mb-3">
         <label for="exampleInputEmail1">{label}</label>
-        <input class="form-control" value={value} readonly />
+        <input className="form-control" value={value} readonly />
       </div>
     );
   }
   function newFunction2(label, value) {
     return (
-      <div class="mb-3">
+      <div className="mb-3">
         <label for="exampleInputEmail1">{label}</label>
-        <input class="form-control" value={value} readonly />
+        <input className="form-control" value={value} readonly />
       </div>
     );
   }

@@ -135,9 +135,9 @@ export default function OrderEditModal(props) {
     </>
   );
   function newFunction(label, value) {
-    return <div class="col-4 mb-3">
+    return <div className="col-4 mb-3">
       <label for="exampleInputEmail1">{label}</label>
-      <input class="form-control" value={value} readonly />
+      <input className="form-control" value={value} readonly />
     </div>;
   }
 }

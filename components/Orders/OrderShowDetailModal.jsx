@@ -35,7 +35,7 @@ export default function OrderShowDetailModal(props) {
         </Modal.Header>
         <Modal.Body>
           <h2 className="p-2 text-start">รายละเอียดข้อมูล </h2>
-          <div class="col-12">
+          <div className="col-12">
             <div className="row">
               {newFunction("ชื่อผู้สั่งสินค้า", props?.value?.address?.firstname + " " + props?.value?.address?.lastname)}
               {newFunction("E-mail", props?.value?.user?.email)}
@@ -46,13 +46,13 @@ export default function OrderShowDetailModal(props) {
             <Col md="6">
               {newFunction2("วันที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "dd/MM/yyyy"))}
               {newFunction2("เวลาที่สั่งซื้อ", format(new Date(props?.value?.createdAt), "HH:mm:ss"))}
-              <div class="mb-3">
+              <div className="mb-3">
                 <label for="exampleInputEmail1">เพิ่มเติม</label>
                 <textarea className="form-control" rows="5" readOnly defaultValue={props?.value?.notes ?? '-'} />
               </div>
 
               <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
-              <div class="mb-3">
+              <div className="mb-3">
                 <textarea className="form-control" rows="9" readOnly defaultValue={`เลขที่ ${props?.value?.address?.address} ตำบล${props?.value?.address?.subDistrict} อำเภอ${props?.value?.address?.district} จังหวัด${props?.value?.address?.province} ${props?.value?.address?.postalCode}`} />
               </div>
             </Col>
@@ -97,15 +97,15 @@ export default function OrderShowDetailModal(props) {
   );
 
   function newFunction(label, value) {
-    return <div class="col-md-4 mb-3">
+    return <div className="col-md-4 mb-3">
       <label for="exampleInputEmail1">{label}</label>
-      <input class="form-control" value={value} readonly />
+      <input className="form-control" value={value} readonly />
     </div>;
   }
   function newFunction2(label, value) {
-    return <div class="mb-3">
+    return <div className="mb-3">
       <label for="exampleInputEmail1">{label}</label>
-      <input class="form-control" value={value} readonly />
+      <input className="form-control" value={value} readonly />
     </div>;
   }
 }

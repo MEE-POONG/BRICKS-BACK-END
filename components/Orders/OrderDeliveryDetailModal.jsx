@@ -47,7 +47,7 @@ export default function OrderDeliveryDetailModal(props) {
         </Modal.Header>
         <Modal.Body>
           <h2 className="p-2 text-start">รายละเอียดข้อมูลการจัดส่ง </h2>
-          <div class="d-flex">
+          <div className="d-flex">
 
             <label className="text-nowrap align-self-center" for="exampleInputEmail1">วันที่จัดส่งสินค้า: &nbsp;</label>
             <input
@@ -57,7 +57,7 @@ export default function OrderDeliveryDetailModal(props) {
               id="date"
               name="date"
             />
-            <button class="btn btn-success text-nowrap" onClick={async () => {
+            <button className="btn btn-success text-nowrap" onClick={async () => {
               Swal.fire({
                 title: "กำลังบันทึกข้อมูล",
                 allowOutsideClick: false,

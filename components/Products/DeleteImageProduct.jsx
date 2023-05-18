@@ -69,9 +69,9 @@ export default function DeleteImageProduct(props) {
   );
   function DeleteFunction(label, value) {
     return (
-      <div class="">
+      <div className="">
         <label>{label}</label>
-        <input class="form-control" value={value} readonly />
+        <input className="form-control" value={value} readonly />
       </div>
     );
   }

@@ -18,17 +18,17 @@ export default function AdderssUserPage() {
       <BackGroundMain />
 
       <div id="sign-user" name="sign-user" className="sign-user">
-        <div class="wrapper">
-          <div class="logo">
+        <div className="wrapper">
+          <div className="logo">
             <img
               src="/images/logo1.png"
               alt=""
             />
           </div>
-          <div class="text-center mt-4 name">Shang Pong</div>
-          <form class="p-3 mt-3">
-            <div class="form-field d-flex align-items-center">
-              <span class="far fa-user"></span>
+          <div className="text-center mt-4 name">Shang Pong</div>
+          <form className="p-3 mt-3">
+            <div className="form-field d-flex align-items-center">
+              <span className="far fa-user"></span>
               <input
                 type="text"
                 name="userName"
@@ -36,8 +36,8 @@ export default function AdderssUserPage() {
                 placeholder="Username"
               />
             </div>
-            <div class="form-field d-flex align-items-center">
-              <span class="fas fa-key"></span>
+            <div className="form-field d-flex align-items-center">
+              <span className="fas fa-key"></span>
               <input
                 type="password"
                 name="password"
@@ -45,9 +45,9 @@ export default function AdderssUserPage() {
                 placeholder="Password"
               />
             </div>
-            <button class="btn mt-3">Login</button>
+            <button className="btn mt-3">Login</button>
           </form>
-          <div class="text-center fs-6">
+          <div className="text-center fs-6">
             <a href="#">Forget password?</a>
           </div>
         </div>

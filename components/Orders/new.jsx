@@ -42,7 +42,7 @@ export default function ProductsDeleteModal(props) {
         </Modal.Header>
         <Modal.Body>
           <h2 className="p-2 text-start">รายละเอียดข้อมูล</h2>
-          <div class="col-12">
+          <div className="col-12">
             <div className="row">
               {newFunction(
                 "ชื่อผู้สั่งสินค้า",
@@ -62,7 +62,7 @@ export default function ProductsDeleteModal(props) {
                 "เวลาที่สั่งซื้อ",
                 format(new Date(props?.value?.createdAt), "HH:mm:ss")
               )}
-              <div class="mb-3">
+              <div className="mb-3">
                 <label for="exampleInputEmail1">เพิ่มเติม</label>
                 <textarea
                   className="form-control"
@@ -73,7 +73,7 @@ export default function ProductsDeleteModal(props) {
               </div>
 
               <h4 className="p-2 text-start">ที่อยู่ที่ต้องจัดส่ง</h4>
-              <div class="mb-3">
+              <div className="mb-3">
                 <textarea
                   className="form-control"
                   rows="9"
@@ -124,17 +124,17 @@ export default function ProductsDeleteModal(props) {
 
   function newFunction(label, value) {
     return (
-      <div class="col-md-4 mb-3">
+      <div className="col-md-4 mb-3">
         <label for="exampleInputEmail1">{label}</label>
-        <input class="form-control" value={value} readonly />
+        <input className="form-control" value={value} readonly />
       </div>
     );
   }
   function newFunction2(label, value) {
     return (
-      <div class="mb-3">
+      <div className="mb-3">
         <label for="exampleInputEmail1">{label}</label>
-        <input class="form-control" value={value} readonly />
+        <input className="form-control" value={value} readonly />
       </div>
     );
   }
