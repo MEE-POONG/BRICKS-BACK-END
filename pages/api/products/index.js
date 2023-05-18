@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const { method } = req;
   switch (method) {
     case "GET":
-      try {
+      try { 
         let page = +req.query.page || 1;
         let pageSize = +req.query.pageSize || 10;
         let name = req.query.name;

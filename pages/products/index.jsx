@@ -164,6 +164,7 @@ function ProductPage(name, subTypeId) {
   }, [name, subTypeId]);
 
   useEffect(() => {
+    console.log("167 : ",productsData);
     if (productsData) {
       setParams({
         ...params,
@@ -227,7 +228,7 @@ function MyTable(props) {
   const [numberSet, setNumberSet] = useState(props?.setNum);
   useEffect(() => {
     setCurrentItems(currentItems);
-    console.log(props);
+    // console.log("230 : props", props);
   }, [props]);
 
   return (
