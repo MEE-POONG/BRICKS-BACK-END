@@ -34,7 +34,7 @@ model Products {
   name         String?
   detail       String?
   subTypeId    String?        @db.ObjectId
-  bestseller   Boolean?       @default(false)
+  bestseller   Int?           @default(0)
   createdAt    DateTime?      @default(now())
   updatedAt    DateTime?      @updatedAt
   deleted_at   DateTime?      @map("deleted_at")
@@ -135,7 +135,6 @@ model PichomeTop {
   deleted_at DateTime? @map("deleted_at")
 }
 
-
 model Orders {
   id          String        @id @default(auto()) @map("_id") @db.ObjectId
   orderCode   String?
@@ -165,7 +164,6 @@ model OrderDetail {
   orders    Orders?   @relation(fields: [orderId], references: [id])
   products  Products? @relation(fields: [productId], references: [id])
 }
-
 
 model HowtoplaceOder {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
