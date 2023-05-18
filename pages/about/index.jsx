@@ -36,10 +36,10 @@ export default function AboutPage() {
 
 function MyTable(props) {
     const [currentItems, setCurrentItems] = useState(props?.aboutData);
-    console.log(currentItems);
+    // console.log(currentItems);
     useEffect(() => {
         setCurrentItems(currentItems);
-        console.log(props);
+        // console.log(props);
     }, [props]);
 
     return (

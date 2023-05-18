@@ -36,7 +36,6 @@
     --bs-btn-disabled-border-color: #dc3545;
 }
 
-
 table {
     th,
     td {
@@ -85,7 +84,7 @@ table {
 .alert.docs-creator {
     &:hover,
     &.active {
-        border-color: rgb(142, 56, 25);;
+        border-color: rgb(142, 56, 25);
         color: #d5ad6d;
         background: rgb(142, 56, 25);
         h5 {
@@ -123,46 +122,16 @@ button.icon,
         color: #f7f7f7;
         background: #96202c;
     }
+    &.star {
+        color: #f7f7f7;
+        background: #d3a200;
+    }
     &:hover,
     &.active {
-        // border-color: #100f0f;
         background: #b06d50;
-        // background: #375325;
-        // background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
-        // svg {
-        //     background: -webkit-linear-gradient(transparent, transparent),
-        //         -webkit-linear-gradient(top, #557a3d 0%, #3a5628  26%, #375325
-                            
-        //                     35%, #557a3d 45%, #3a5628 61%, #375325 100%);
-        //     background: -o-linear-gradient(transparent, transparent);
-        //     -webkit-background-clip: text;
-        //     -webkit-text-fill-color: transparent;
-        
     }
 }
 button {
-    // &.succeed {
-    //     font-weight: bold;
-    //     color: dark;
-    //     padding: 10px 10px;
-    //     outline: none;
-    //     background: var(--dark);
-    //     margin-top: 0.75rem;
-    //     border: 3px solid #000000;
-    //     margin: 0.75rem;
-    //     border-radius: 5px !important;
-    //     &:hover,
-    //     &.active {
-    //         color: #d5ad6d;
-    //         border-color: #d5ad6d;
-    //         background: #ffffff;
-    //         background: linear-gradient(90deg, #16474d 0%, #12323d 50%, #133041 100%);
-    //     }
-    // }
-    // &.cancel,
-    // &.cancel-primary {
-    //     background: var(--success);
-    // }
     &.succeed,
     &.succeed-primary {
         background: var(--success);
@@ -223,26 +192,25 @@ button {
 .zoom {
     overflow: hidden;
     margin: 0 auto;
-  }
-  .zoom img{
+}
+.zoom img {
     width: 100%;
     transition: 0.5s all ease-in-out;
-  }
-  .zoom:hover {
+}
+.zoom:hover {
     transform: scale(1.5);
-  }
+}
 .box {
     padding: 2px;
     background-color: #e8e8e8;
 }
 
-.card{
-    .card-title{
+.card {
+    .card-title {
         font-size: 40px;
     }
 }
 
-.underline:hover{
+.underline:hover {
     text-decoration: underline;
 }
-

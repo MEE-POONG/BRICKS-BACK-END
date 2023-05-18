@@ -7,7 +7,7 @@ export default function TableTotalSales(props) {
   const [numberSet, setNumberSet] = useState(props?.setNum);
   useEffect(() => {
     setCurrentItems(currentItems);
-    console.log(props);
+    // console.log(props);
   }, [props]);
 
   return (

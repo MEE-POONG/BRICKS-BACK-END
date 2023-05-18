@@ -3,7 +3,7 @@ const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
     const { method } = req
-    console.log('oreder id');
+    // console.log('oreder id');
     switch (method) {
         case 'GET':
             try {
@@ -37,7 +37,7 @@ export default async function handler(req, res) {
             break
         case 'PATCH':
             try {
-                console.log('PATH');
+                // console.log('PATH');
                 await prisma.orders.update({
                     where: {
                         id: req.query.id
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
 
                 res.status(201).json({ success: true })
             } catch (error) {
-                console.log(error);
+                // console.log(error);
                 res.status(400).json({ success: false })
             }
             break

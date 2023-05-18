@@ -31,9 +31,9 @@ export default function AddOnRateModalEdit(props) {
     setAddonDataNew(addOnData);
   }, [addOnData]);
 
-  console.log("addOnData", addOnData);
+  // console.log("addOnData", addOnData);
   const [addOnDataNew, setAddonDataNew] = useState(addOnData);
-  console.log("addOnDataNew", addOnDataNew);
+  // console.log("addOnDataNew", addOnDataNew);
   const [checkValue, setCheckValue] = useState(true);
 
   const [showCheck, setShowCheck] = useState(false);
@@ -44,7 +44,7 @@ export default function AddOnRateModalEdit(props) {
   const handleShow = () => setShowCheck(true);
 
   const [formValues, setFormValues] = useState([]);
-  console.log("formValues", formValues);
+  // console.log("formValues", formValues);
   const handleSubmit = async () => {
     setCheckValue(false);
     try {
@@ -69,7 +69,7 @@ export default function AddOnRateModalEdit(props) {
         setFormValues([]);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -108,7 +108,7 @@ export default function AddOnRateModalEdit(props) {
         method: "DELETE",
       }).then(() => getAddOnRate());
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const removeFormFields = (i) => {

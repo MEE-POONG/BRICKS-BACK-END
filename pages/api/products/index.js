@@ -18,20 +18,21 @@ export default async function handler(req, res) {
         let pageSize = +req.query.pageSize || 10;
         let name = req.query.name;
         let subTypeId = req.query.subTypeId;
+        let bestseller = req.query.bestseller;
         let TypeId = req.query.TypeId;
         const data = await prisma.$transaction([
           prisma.products.count({
             where: { name: { contains: name }, subTypeId: subTypeId },
           }),
           prisma.products.findMany({
-            where: { name: { contains: name }, subTypeId: subTypeId },
+            where: { name: { contains: name }, subTypeId: subTypeId, bestseller: bestseller },
             include: { subType: { include: { type: true } } },
             skip: (page - 1) * pageSize,
             take: pageSize,
           }),
         ]);
         const totalPage = Math.ceil(data[0] / pageSize);
-        res.status(200).json({ data: data[1], page, pageSize, totalPage });
+        res.status(200).json({ data: data[1], page, pageSize, totalPage }, console.log(data));
       } catch (error) {
         res.status(400).json({ success: false });
       }

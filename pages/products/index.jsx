@@ -15,6 +15,7 @@ import PageLoading from "@/components/PageChange/pageLoading";
 import PageError from "@/components/PageChange/pageError";
 import ProductsAddModal from "@/components/Products/ProductsAddModal";
 import ProductsDeleteModal from "@/components/Products/ProductsDeleteModal";
+import ProductsBestsellerModal from "@/components/Products/ProductsBestsellerModal";
 import ProductsEditModal from "@/components/Products/ProductsEditModal";
 import AddOnRateModal from "@/components/Products/AddOnRateModal";
 import AddImageProductModal from "@/components/Products/AddImageProduct";
@@ -246,7 +247,7 @@ function MyTable(props) {
       <tbody>
         {currentItems?.map((item, index) => (
           <tr key={item.id}>
-            <td>{item.productCode}</td>
+            <td>{index + 1}</td>
             <td>
               <Image
                 src={item.image}
@@ -271,6 +272,11 @@ function MyTable(props) {
               <AddOnRateModalEdit value={item} getData={props?.getData} />
             </td>
             <td>
+              <ProductsBestsellerModal
+                value={item}
+                getData={props?.getData}
+                getSubTypeData={props.getSubTypeData}
+              />
               <ProductsEditModal
                 value={item}
                 getData={props?.getData}

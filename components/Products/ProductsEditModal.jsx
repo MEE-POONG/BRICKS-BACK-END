@@ -54,7 +54,7 @@ export default function ProductsEditModal(props) {
     const newImageUrl = [];
     image.forEach((image) => newImageUrl.push(URL.createObjectURL(image)));
     setImageURL(newImageUrl);
-    
+
   }, [props, image]);
 
   const onImageProductChange = (e) => {
@@ -68,19 +68,19 @@ export default function ProductsEditModal(props) {
         url: "/api/products/" + props?.value?.id,
         method: "PUT",
         data: {
-            name: name,
-            price: price,
-            subTypeId:subTypeId,
-            detail:detail,
+          name: name,
+          price: price,
+          subTypeId: subTypeId,
+          detail: detail,
         },
       }).then(() => {
-        Promise.all([   
-        setName(''),
-        setPrice(''),
-        setSubTypeId(''),
-        setDetail(''),
-        props.getData()
-    ]).then(() => {
+        Promise.all([
+          setName(''),
+          setPrice(''),
+          setSubTypeId(''),
+          setDetail(''),
+          props.getData()
+        ]).then(() => {
           if (updateProductsLoading?.success) {
             handleClose();
           }
@@ -96,20 +96,21 @@ export default function ProductsEditModal(props) {
         url: "/api/products/" + props?.value?.id,
         method: "PUT",
         data: {
-            name: name,
-            price: price,
-            subTypeId:subTypeId,
-            detail:detail,
+          name: name,
+          price: price,
+          subTypeId: subTypeId,
+          detail: detail,
+          detail: detail,
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {
-        Promise.all([   
-            setName(''),
-            setPrice(''),
-            setImage(''),
-            setSubTypeId(''),
-            setDetail(''),
-            props.getData()
+        Promise.all([
+          setName(''),
+          setPrice(''),
+          setImage(''),
+          setSubTypeId(''),
+          setDetail(''),
+          props.getData()
         ]).then(() => {
           if (updateProductsLoading?.success) {
             handleClose();
@@ -177,79 +178,79 @@ export default function ProductsEditModal(props) {
             </Col>
 
             <Col md='6'>
-                            <Row>
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="name">
-                                        <Form.Label>ชื่อสินค้า</Form.Label>
-                                        <Form.Control type="text" placeholder="เพิ่มชื่อสินค้า"
-                                         onChange={(e) => { setName(e.target.value) }}
-                                         value={name} autoComplete="off"
-                                         isValid={checkValue === false && name !== '' ? true : false}
-                                         isInvalid={checkValue === false && name === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ราคาสินค้า</Form.Label>
-                                        <Form.Control type="number" placeholder="เพิ่ม ราคาของสินค้า"
-                                         onChange={(e) => { setPrice(e.target.value) }}
-                                         value={price} autoComplete="off"
-                                         isValid={checkValue === false && price !== '' ? true : false}
-                                         isInvalid={checkValue === false && price === '' ? true : false}
-                                        />
-                                    </Form.Group>
-                                </Col>
+              <Row>
+                <Col md='12'>
+                  <Form.Group className="mb-3" controlId="name">
+                    <Form.Label>ชื่อสินค้า</Form.Label>
+                    <Form.Control type="text" placeholder="เพิ่มชื่อสินค้า"
+                      onChange={(e) => { setName(e.target.value) }}
+                      value={name} autoComplete="off"
+                      isValid={checkValue === false && name !== '' ? true : false}
+                      isInvalid={checkValue === false && name === '' ? true : false}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md='12'>
+                  <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>ราคาสินค้า</Form.Label>
+                    <Form.Control type="number" placeholder="เพิ่ม ราคาของสินค้า"
+                      onChange={(e) => { setPrice(e.target.value) }}
+                      value={price} autoComplete="off"
+                      isValid={checkValue === false && price !== '' ? true : false}
+                      isInvalid={checkValue === false && price === '' ? true : false}
+                    />
+                  </Form.Group>
+                </Col>
 
-                                <Col md='12'>
-                                    <Form.Group className="mb-3" controlId="price">
-                                        <Form.Label>ประเภทสินค้า</Form.Label>
-                                        <Form.Select  
-                                         onChange={(e) => { setSubTypeId(e.target.value) }}
-                                         value={subTypeId} autoComplete="off"
-                                         isValid={checkValue === false && subTypeId !== '' ? true : false}
-                                         isInvalid={checkValue === false && subTypeId === '' ? true : false}>
-                                            <option value="">ประเภทสินค้า</option>
-                                            {props?.getSubTypeData?.map((subTypeData, index) => (
-                                                <option key={index} value={subTypeData.id}>{subTypeData.name}</option>
-                                            ))}
+                <Col md='12'>
+                  <Form.Group className="mb-3" controlId="price">
+                    <Form.Label>ประเภทสินค้า</Form.Label>
+                    <Form.Select
+                      onChange={(e) => { setSubTypeId(e.target.value) }}
+                      value={subTypeId} autoComplete="off"
+                      isValid={checkValue === false && subTypeId !== '' ? true : false}
+                      isInvalid={checkValue === false && subTypeId === '' ? true : false}>
+                      <option value="">ประเภทสินค้า</option>
+                      {props?.getSubTypeData?.map((subTypeData, index) => (
+                        <option key={index} value={subTypeData.id}>{subTypeData.name}</option>
+                      ))}
 
-                                        </Form.Select>
-                                    </Form.Group>
-                                </Col>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
 
-                            </Row>
+              </Row>
 
-                        </Col>
-                    </Row>
-                    <h4>เพิ่มข้อมูลสินค้า</h4>
-                            <Form.Group className="mb-3" controlId="detail">
-                                <Form.Label>รายละเอียดสินค้า</Form.Label>
-                                <CKEditor
-                                    initData={detail}
-                                    onChange={event=> setDetail( event.editor.getData())}
-                                    config={{
-                                    uiColor: "#ddc173 ",
-                                    language: "th",
-                                    // extraPlugins: "uploadimage",
-                                    // filebrowserUploadMethod: "form",
-                                    // filebrowserUploadUrl: ("/uploader/upload"),
-                                    // filebrowserBrowseUrl: '/addgallery',
-                                    // toolbar: [
-                                    // ],
-                                    extraPlugins: "easyimage,autogrow,emoji",
-                                    // removePlugins: 'image',
-                                    }}
-                                    />           
-                            </Form.Group>
-                    
+            </Col>
+          </Row>
+          <h4>เพิ่มข้อมูลสินค้า</h4>
+          <Form.Group className="mb-3" controlId="detail">
+            <Form.Label>รายละเอียดสินค้า</Form.Label>
+            <CKEditor
+              initData={detail}
+              onChange={event => setDetail(event.editor.getData())}
+              config={{
+                uiColor: "#ddc173 ",
+                language: "th",
+                // extraPlugins: "uploadimage",
+                // filebrowserUploadMethod: "form",
+                // filebrowserUploadUrl: ("/uploader/upload"),
+                // filebrowserBrowseUrl: '/addgallery',
+                // toolbar: [
+                // ],
+                extraPlugins: "easyimage,autogrow,emoji",
+                // removePlugins: 'image',
+              }}
+            />
+          </Form.Group>
+
         </Modal.Body>
         <Modal.Footer>
-          <Button bg="danger" className="my-0 btn-danger" onClick={handleClose}>
+          <Button variant="danger" className="my-0" onClick={handleClose}>
             ยกเลิก
           </Button>
           <Button bg="succeed" className="my-0" onClick={handlePutData}>
-            ยืนยันการเพิ่ม
+            ยืนยันการแก้ไข
           </Button>
         </Modal.Footer>
       </Modal>

@@ -87,12 +87,12 @@ export default function ProductsDeleteModal(props) {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button bg="cancel" className="my-0" onClick={handleClose}>
+          <Button variant="danger" className="my-0" onClick={handleClose}>
             ยกเลิก
           </Button>
           <Button
-            bg="danger"
-            className="my-0 btn-danger"
+            variant="dark"
+            className="my-0"
             onClick={handleDeleteData}
           >
             ยืนยันการลบ
@@ -101,12 +101,4 @@ export default function ProductsDeleteModal(props) {
       </Modal>
     </>
   );
-  function DeleteFunction(label, value) {
-    return (
-      <div class="">
-        <label>{label}</label>
-        <input class="form-control" value={value} readonly />
-      </div>
-    );
-  }
 }
