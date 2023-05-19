@@ -1,29 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Modal, Button, Form, Row, Col, Image } from "react-bootstrap";
-import { FaEdit, FaStar } from "react-icons/fa";
+import React, { useState } from "react";
+import { Modal, Button, Form, Row, Col, Image, Card } from "react-bootstrap";
+import { FaStar } from "react-icons/fa";
 import useAxios from "axios-hooks";
-import AutoComplete from "@/components/AutoComplete";
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from "@/components/CardChange/CardError";
-import ModelLoading from "@/components/ModelChange/ModelLoading";
-import ModelError from "@/components/ModelChange/ModelError";
 
 import FormData from "form-data";
-import { CKEditor } from "ckeditor4-react";
 
 export default function ProductsBestsellerModal(props) {
+  const [
+    { data: bestsellerData, loading: bestsellerLoading, error: bestsellerError },
+    getBestseller,
+  ] = useAxios({
+    url: `/api/products/bestseller`,
+    method: "GET",
+  });
+
   const [
     { loading: updateProductsLoading, error: updateProductsError },
     executeProductsPut,
   ] = useAxios({}, { manual: true });
 
+
   const [checkValue, setCheckValue] = useState(true);
-
-
-
-
-
-  const [bestseller, setBestseller] = useState('');
 
   const [showCheck, setShowCheck] = useState(false);
   const handleClose = () => {
@@ -31,10 +30,6 @@ export default function ProductsBestsellerModal(props) {
   };
   const handleShow = () => setShowCheck(true);
 
-
-  useEffect(() => {
-    // console.log("props : ",props?.value);
-  }, [props]);
 
 
   const handlePutData = async () => {
@@ -72,9 +67,9 @@ export default function ProductsBestsellerModal(props) {
     });
   };
 
-  if (updateProductsLoading)
+  if (updateProductsLoading || bestsellerLoading)
     return <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardLoading /></Modal >
-  if (updateProductsError)
+  if (updateProductsError || bestsellerError)
     return (
       <Modal show={showCheck} onHide={handleClose} centered size='lg'><CardError /></Modal>
     );
@@ -95,6 +90,7 @@ export default function ProductsBestsellerModal(props) {
         </Modal.Header>
         <Modal.Body>
           <Row>
+
             <Col sm={4}>
               <Image
                 src={props?.value?.image}
@@ -102,21 +98,19 @@ export default function ProductsBestsellerModal(props) {
                 height="250px"
                 className="object-fit-cover"
               />
-            </Col>
-            <Col sm={6}>
-              <Modal.Title>
+              <Modal.Title className="h6">
                 ชื่อสินค้า :{" "}
                 <span className="text-danger"> {props?.value?.name}</span>
               </Modal.Title>
-              <Modal.Title>
+              <Modal.Title className="h6">
                 ประเภทสินค้า :{" "}
                 <span className="text-danger">{props?.value?.type}</span>
               </Modal.Title>
-              <Modal.Title>
+              <Modal.Title className="h6">
                 ราคา :{" "}
                 <span className="text-danger"> {props?.value?.price}</span>
               </Modal.Title>
-              <Modal.Title>
+              <Modal.Title className="h6">
                 รายละเอียด :{" "}
                 <span className="text-danger">
                   <div
@@ -124,6 +118,34 @@ export default function ProductsBestsellerModal(props) {
                   />
                 </span>
               </Modal.Title>
+            </Col>
+            <Col sm={8}>
+              <Card className="mb-3">
+                <Card.Body className="d-space-between">
+                  <span> ชื่อสินค้า :{" "} {props?.value?.name}</span>
+                  <span> ขายสะสม :{" "} {props?.value?.bestseller}</span>
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  s
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  s
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  s
+                </Card.Body>
+              </Card>
+              <Card>
+                <Card.Body>
+                  s
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
         </Modal.Body>

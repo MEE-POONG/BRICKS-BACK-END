@@ -18,9 +18,14 @@
             height: 1.5em;
             overflow: hidden;
         }
-        .card-body{
+        .card-body {
             max-height: 732px;
             overflow-y: scroll;
         }
     }
+}
+.d-space-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
