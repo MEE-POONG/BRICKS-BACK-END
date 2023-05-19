@@ -14,17 +14,20 @@ export default async function handler(req, res) {
   switch (method) {
     case "GET":
       try {
-        let bestseller = parseInt(req.query.bestseller);
-
-        if (isNaN(bestseller)) {
-          bestseller = 1;
-        }
-
         const data = await prisma.products.findMany({
           where: {
-            bestseller: {
-              gt: bestseller - 1
-            }
+            AND: [
+              {
+                bestseller: {
+                  gt: 0
+                }
+              },
+              {
+                bestseller: {
+                  not: null
+                }
+              },
+            ],
           },
           select: {
             id: true,
@@ -39,7 +42,7 @@ export default async function handler(req, res) {
       } catch (error) {
         res.status(400).json({ success: false });
       }
-      break;
+
     case "POST":
       try {
         const productCode = pad();

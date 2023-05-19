@@ -12,7 +12,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     }
                 });
-                
+
                 res.status(200).json(data)
             } catch (error) {
                 res.status(400).json({ success: false })
@@ -24,15 +24,16 @@ export default async function handler(req, res) {
                     where: {
                         id: req.query.id
                     },
-                    data:{ 
+                    data: {
                         image: req.body.image,
                         name: req.body.name,
                         detail: req.body.detail,
                         subTypeId: req.body.subTypeId,
+                        bestseller: parseInt(req.body.bestseller),
                         price: parseInt(req.body.price),
                     }
                 })
-                
+
                 res.status(201).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })
@@ -45,7 +46,7 @@ export default async function handler(req, res) {
                         id: req.query.id
                     }
                 });
-                
+
                 res.status(204).json({ success: true })
             } catch (error) {
                 res.status(400).json({ success: false })

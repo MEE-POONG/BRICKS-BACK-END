@@ -100,7 +100,6 @@ export default function ProductsEditModal(props) {
           price: price,
           subTypeId: subTypeId,
           detail: detail,
-          detail: detail,
           image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
         },
       }).then(() => {

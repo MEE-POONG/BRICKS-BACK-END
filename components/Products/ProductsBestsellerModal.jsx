@@ -1,44 +1,61 @@
-import React, { useState } from "react";
-import { Modal, Button, Form, Row, Col, Image, Card } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Modal, Button, Form, Row, Col, Image, Card, InputGroup } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import useAxios from "axios-hooks";
 import CardLoading from '@/components/CardChange/CardLoading'
 import CardError from "@/components/CardChange/CardError";
+import ModelLoading from "@/components/ModelChange/ModelLoading";
+import ModelError from "@/components/ModelChange/ModelError";
 
 import FormData from "form-data";
+import { CKEditor } from "ckeditor4-react";
 
 export default function ProductsBestsellerModal(props) {
+  const [showCheck, setShowCheck] = useState(false);
+  const [newBestsellerValue, setNewBestsellerValue] = useState(0);
   const [
     { data: bestsellerData, loading: bestsellerLoading, error: bestsellerError },
-    getBestseller,
-  ] = useAxios({
-    url: `/api/products/bestseller`,
-    method: "GET",
-  });
+    executeGetBestseller,
+  ] = useAxios(
+    {
+      url: `/api/products/bestseller`,
+      method: "GET",
+    },
+    { manual: true } // set manual to true to delay the HTTP request
+  );
+
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [detail, setDetail] = useState('');
+  const [subTypeId, setSubTypeId] = useState('');
 
   const [
     { loading: updateProductsLoading, error: updateProductsError },
     executeProductsPut,
   ] = useAxios({}, { manual: true });
 
+  useEffect(() => {
+    if (showCheck) {
+      executeGetBestseller();
+    }
+  }, [showCheck]);
+  useEffect(() => {
+    if (props) {
+      setName(props?.value?.name);
+      setPrice(props?.value?.price);
+      setDetail(props?.value?.detail);
+      setSubTypeId(props?.value?.subTypeId);
+    }
 
-  const [checkValue, setCheckValue] = useState(true);
 
-  const [showCheck, setShowCheck] = useState(false);
+  }, [props]);
+
   const handleClose = () => {
-    setShowCheck(false), setCheckValue(true);
+    setShowCheck(false);
   };
   const handleShow = () => setShowCheck(true);
 
-
-
-  const handlePutData = async () => {
-    setCheckValue(false);
-
-    let data = new FormData();
-    data.append("file", image[0]);
-    const imageData = await uploadImage({ data: data });
-    const id = imageData.data.result.id;
+  const updateBestseller = async (productId) => {
 
     await executeProductsPut({
       url: "/api/products/" + props?.value?.id,
@@ -48,16 +65,15 @@ export default function ProductsBestsellerModal(props) {
         price: price,
         subTypeId: subTypeId,
         detail: detail,
-        detail: detail,
-        image: `https://imagedelivery.net/QZ6TuL-3r02W7wQjQrv5DA/${id}/public`,
+        bestseller: props?.value?.bestseller + newBestsellerValue,
       },
     }).then(() => {
       Promise.all([
         setName(''),
         setPrice(''),
-        setImage(''),
         setSubTypeId(''),
         setDetail(''),
+        setNewBestsellerValue(''),
         props.getData()
       ]).then(() => {
         if (updateProductsLoading?.success) {
@@ -88,9 +104,39 @@ export default function ProductsBestsellerModal(props) {
         <Modal.Header closeButton>
           <Modal.Title className="text-center">ตั้งเป็นสินค้าขายดี</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="h-80">
           <Row>
 
+            <Col sm={8} className="y-scroll h-100">
+              {bestsellerData &&
+                [...bestsellerData?.data]
+                  .sort((a, b) => b.bestseller - a.bestseller)
+                  .map((product, index) => {
+                    // Exclude if bestseller is 0
+                    const isBestseller = props?.value?.id === product?.id;
+
+                    if (product?.bestseller === 0 && !isBestseller) {
+                      return null;
+                    }
+                    return (
+                      <Card
+                        key={index}
+                        className={isBestseller ? "bestseller mb-1" : "mb-1"}
+                      >
+                        <Card.Body className="d-space-between">
+                          <span>
+                            {" "}
+                            สินค้า : <span>{product?.name}</span>
+                          </span>
+                          <span>
+                            {" "}
+                            ขายสะสม : <span>{product?.bestseller}</span>
+                          </span>
+                        </Card.Body>
+                      </Card>
+                    );
+                  })}
+            </Col>
             <Col sm={4}>
               <Image
                 src={props?.value?.image}
@@ -118,34 +164,14 @@ export default function ProductsBestsellerModal(props) {
                   />
                 </span>
               </Modal.Title>
-            </Col>
-            <Col sm={8}>
-              <Card className="mb-3">
-                <Card.Body className="d-space-between">
-                  <span> ชื่อสินค้า :{" "} {props?.value?.name}</span>
-                  <span> ขายสะสม :{" "} {props?.value?.bestseller}</span>
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  s
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  s
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  s
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  s
-                </Card.Body>
-              </Card>
+              <Modal.Title>
+                <InputGroup className="mb-3">
+                  <Form.Control type="number" placeholder="เพิ่มยอดขายสะสม" min={0} onChange={(e) => { setNewBestsellerValue(parseInt(e.target.value)) }} />
+                  <Button variant="outline-secondary" id="button-addon1" onClick={() => updateBestseller(props?.value?.id)}>
+                    ยืนยัน
+                  </Button>
+                </InputGroup>
+              </Modal.Title>
             </Col>
           </Row>
         </Modal.Body>
@@ -153,11 +179,11 @@ export default function ProductsBestsellerModal(props) {
           <Button variant="danger" className="my-0" onClick={handleClose}>
             ยกเลิก
           </Button>
-          <Button bg="succeed" className="my-0" onClick={handlePutData}>
+          {/* <Button bg="succeed" className="my-0" >
             ยืนยันสินค้าขายดี
-          </Button>
+          </Button> */}
         </Modal.Footer>
-      </Modal>
+      </Modal >
     </>
   );
 }
