@@ -183,7 +183,7 @@ export default function OrderAddModal(props) {
 
               <div className="d-flex align-items-center justify-content-between ">
                 <Form.Label className="d-block"> รายการสั่งซื้อ : </Form.Label>
-                <AddOrderListModal/>
+                <AddOrderListModal />
               </div>
               <Table striped bordered hover>
                 <thead>
@@ -195,70 +195,75 @@ export default function OrderAddModal(props) {
                   </tr>
                 </thead>
                 <tbody>
-                    <tr >
-                      <td>1</td>
-                      <td>ช่องลม</td>
-                      <td>500</td>
-                      <td>4,000 บาท</td>
-                    </tr>
-            
+                  <tr>
+                    <td>1</td>
+                    <td>ช่องลม</td>
+                    <td>500</td>
+                    <td>4,000 บาท</td>
+                  </tr>
                 </tbody>
               </Table>
 
-              <Form.Label className="d-block"> วันที่จัดส่ง :</Form.Label>
-              <div className="d-flex col-lg-4 mb-3">
-                <input
-                  defaultValue={
-                    props?.value?.deliveryAt
-                      ? format(new Date(props?.value?.deliveryAt), "yyyy-MM-dd")
-                      : ""
-                  }
-                  className="form-control"
-                  type="date"
-                  id="date"
-                  name="date"
-                />
-                {/* <button
-                  className="btn btn-success text-nowrap"
-                  onClick={async () => {
-                    Swal.fire({
-                      title: "กำลังบันทึกข้อมูล",
-                      allowOutsideClick: false,
-                      didOpen: () => {
-                        Swal.showLoading();
-                      },
-                    });
-                    const date = document.getElementById("date").value;
-                    if (!date) {
-                      return Swal.fire({
-                        icon: "error",
-                        title: "กรุณากรอกข้อมูลให้ครบ",
-                        showConfirmButton: false,
-                        timer: 3000,
-                      });
-                    }
-                    await axios({
-                      url: "/api/orders/" + props?.value?.id,
-                      method: "PATCH",
-                      data: {
-                        date: moment(date),
-                      },
-                    });
-                    Swal.fire({
-                      icon: "success",
-                      title: "บันทึกข้อมูลสำเร็จ",
-                      showConfirmButton: false,
-                      timer: 3000,
-                    });
-                    props.getData();
-                    handleClose();
-                  }}
-                >
-                  บันทึกข้อมูล
-                </button> */}
-              </div>
-              <Modal.Title className="mb-3 ">
-                ราคารวมทั้งหมด : <span className="text-danger "> บาท</span>
+              <Row>
+                <Col xl={{ span: 6 }}>
+                  <Form.Group className="mb-3" controlId="formFile">
+                    <Form.Label className="d-block">
+                      ประเภทรถที่ใช้ขนส่ง :
+                    </Form.Label>
+                    <Form.Select>
+                      <option value="">เลือกสินค้า</option>
+                      <option value="">สินค้า1</option>
+                      <option value="">สินค้า2</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+
+                <Col xl={{ span: 6 }}>
+                  <Form.Label className="d-block"> วันที่จัดส่ง :</Form.Label>
+                  <div className="d-flex mb-3">
+                    <input
+                      defaultValue={
+                        props?.value?.deliveryAt
+                          ? format(
+                              new Date(props?.value?.deliveryAt),
+                              "yyyy-MM-dd"
+                            )
+                          : ""
+                      }
+                      className="form-control"
+                      type="date"
+                      id="date"
+                      name="date"
+                    />
+                  </div>
+                </Col>
+              </Row>
+
+              <Col xl={6}>
+                <Form.Group className="mb-3" controlId="formFile">
+                  <Form.Label className="d-block">ค่ามัดจำ</Form.Label>
+                  {imageURL.map((imageSrcSlip, index) => (
+                    <Image
+                      key={index}
+                      className="mb-2"
+                      style={{ height: 200 }}
+                      src={imageSrcSlip}
+                      alt="product_img"
+                      fluid
+                      rounded
+                    />
+                  ))}
+                  <Form.Control
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={onImageProductChange}
+                  />
+                </Form.Group>
+              </Col>
+
+              <Modal.Title className="mb-3 text-center">
+                ราคารวมทั้งสิ้น : <span className="text-danger "> บาท</span>
               </Modal.Title>
             </Col>
           </Row>
