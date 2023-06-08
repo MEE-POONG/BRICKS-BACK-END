@@ -7,16 +7,13 @@ import {
   Col,
   Image,
   FormGroup,
+  Table,
 } from "react-bootstrap";
 import { FaPlus, FaUserCircle } from "react-icons/fa";
 import useAxios from "axios-hooks";
-import AutoComplete from "@/components/AutoComplete";
-import CardLoading from "@/components/CardChange/CardLoading";
-import CardError from "@/components/CardChange/CardError";
 import FormData from "form-data";
 
-import axios from "axios";
-import { CKEditor } from "ckeditor4-react";
+import AddOrderListModal from "./AddOrderListModal";
 
 export default function OrderAddModal(props) {
   const [{ data: productsData }, getProducts] = useAxios({
@@ -34,6 +31,10 @@ export default function OrderAddModal(props) {
   const [checkValue, setCheckValue] = useState(true);
 
   const [showCheck, setShowCheck] = useState(false);
+
+  const addFormFields = () => {
+    setFormValues([...formValues, { distance: "", addOn: "" }]);
+  };
 
   const handleClose = () => {
     setShowCheck(false), setCheckValue(true);
@@ -94,7 +95,16 @@ export default function OrderAddModal(props) {
     }
   };
 
-  
+  const handleDelAddOnRate = (id) => {
+    try {
+      delAddOnRate({
+        url: "/api/addOnRate/" + id,
+        method: "DELETE",
+      }).then(() => getAddOnRate());
+    } catch (error) {
+      // console.log(error);
+    }
+  };
 
   return (
     <>
@@ -109,7 +119,7 @@ export default function OrderAddModal(props) {
         show={showCheck}
         onHide={handleClose}
         centered
-        size="lg"
+        size="xl"
         className="form-Products"
       >
         <Modal.Header closeButton>
@@ -117,7 +127,9 @@ export default function OrderAddModal(props) {
         </Modal.Header>
         <Modal.Body>
           <Row>
-            <Col md="7">
+            <Col md="5">
+              <Form.Label className="d-block">ข้อมูลลูกค้า</Form.Label>
+
               <Form.Group className="mb-3" controlId="formFile">
                 {/* <Form.Label className="text-center">
                   กรอกรายละเอียดสั่งซื้อ
@@ -150,7 +162,6 @@ export default function OrderAddModal(props) {
                 />
               </Form.Group>
 
-
               <Form.Label className="d-block mt-3">ที่อยู่จัดส่ง</Form.Label>
               <div className="mb-3">
                 <textarea className="form-control" rows="5" />
@@ -164,43 +175,91 @@ export default function OrderAddModal(props) {
               </div>
             </Col>
 
-            <Col md="5">
-              <Form.Group className="mb-3" controlId="price">
-                <Form.Label>ประเภทสินค้า</Form.Label>
-                <Form.Select
-                  onChange={(e) => {
-                    setType(e.target.value);
-                  }}
-                  value={type}
-                  autoComplete="off"
-                  isValid={checkValue === false && type !== "" ? true : false}
-                  isInvalid={checkValue === false && type === "" ? true : false}
-                >
-                  <option value="">ประเภทสินค้า</option>
-                  {productTypeData?.data?.map((productType, index) => (
-                    <option key={index} value={productType.id}>
-                      {productType.name}
-                    </option>
-                  ))}
-                </Form.Select>
-              </Form.Group>
+            <Col md="7">
+              <Form.Label className="d-block">
+                {" "}
+                ข้อมูลสินค้า/การสั่งซื้อ
+              </Form.Label>
 
-              <Form.Group className="mb-3" controlId="price">
-                <Form.Label>ราคาสินค้า</Form.Label>
-                <Form.Control
-                  type="number"
-                  placeholder="เพิ่ม ราคาของสินค้า"
-                  onChange={(e) => {
-                    setPrice(e.target.value);
-                  }}
-                  value={price}
-                  autoComplete="off"
-                  isValid={checkValue === false && price !== "" ? true : false}
-                  isInvalid={
-                    checkValue === false && price === "" ? true : false
+              <div className="d-flex align-items-center justify-content-between ">
+                <Form.Label className="d-block"> รายการสั่งซื้อ : </Form.Label>
+                <AddOrderListModal/>
+              </div>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวนสินค้า</th>
+                    <th>ราคารวม</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                      <td>1</td>
+                      <td>ช่องลม</td>
+                      <td>500</td>
+                      <td>4,000 บาท</td>
+                    </tr>
+            
+                </tbody>
+              </Table>
+
+              <Form.Label className="d-block"> วันที่จัดส่ง :</Form.Label>
+              <div className="d-flex col-lg-4 mb-3">
+                <input
+                  defaultValue={
+                    props?.value?.deliveryAt
+                      ? format(new Date(props?.value?.deliveryAt), "yyyy-MM-dd")
+                      : ""
                   }
+                  className="form-control"
+                  type="date"
+                  id="date"
+                  name="date"
                 />
-              </Form.Group>
+                {/* <button
+                  className="btn btn-success text-nowrap"
+                  onClick={async () => {
+                    Swal.fire({
+                      title: "กำลังบันทึกข้อมูล",
+                      allowOutsideClick: false,
+                      didOpen: () => {
+                        Swal.showLoading();
+                      },
+                    });
+                    const date = document.getElementById("date").value;
+                    if (!date) {
+                      return Swal.fire({
+                        icon: "error",
+                        title: "กรุณากรอกข้อมูลให้ครบ",
+                        showConfirmButton: false,
+                        timer: 3000,
+                      });
+                    }
+                    await axios({
+                      url: "/api/orders/" + props?.value?.id,
+                      method: "PATCH",
+                      data: {
+                        date: moment(date),
+                      },
+                    });
+                    Swal.fire({
+                      icon: "success",
+                      title: "บันทึกข้อมูลสำเร็จ",
+                      showConfirmButton: false,
+                      timer: 3000,
+                    });
+                    props.getData();
+                    handleClose();
+                  }}
+                >
+                  บันทึกข้อมูล
+                </button> */}
+              </div>
+              <Modal.Title className="mb-3 ">
+                ราคารวมทั้งหมด : <span className="text-danger "> บาท</span>
+              </Modal.Title>
             </Col>
           </Row>
         </Modal.Body>
@@ -209,7 +268,7 @@ export default function OrderAddModal(props) {
             ยกเลิก
           </Button>
           <Button bg="succeed" className="my-0" onClick={handleSubmit}>
-            ยืนยันการทำรายการ
+            บันทึกการทำรายการ
           </Button>
         </Modal.Footer>
       </Modal>
